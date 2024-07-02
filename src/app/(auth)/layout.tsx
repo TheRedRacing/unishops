@@ -15,12 +15,12 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { db } from "@/server/db";
 
-
-
-
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
     const session = await getServerAuthSession();
-    if (!session) { redirect("/login"); }
+    if (!session) {
+        console.log("You need to be logged in to access this page.");
+        redirect("/login");
+    }
 
     const shops = await db.shop.findMany();
     shops.sort((a, b) => Date.parse(b.createdAt.toISOString()) - Date.parse(a.createdAt.toISOString()));
@@ -123,7 +123,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
             </nav>
             <div className="w-full">
                 <div className="flex h-[60px] items-center justify-end gap-2 border-b border-zinc-200 px-6 dark:border-zinc-800">
-                    <AuthMenu />                    
+                    <AuthMenu />
                     <Update />
                     <Button variant={"ghost"} size={"icon"} asChild>
                         <Link href="#">

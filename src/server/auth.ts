@@ -1,9 +1,9 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { getServerSession, type DefaultSession, type NextAuthOptions } from "next-auth";
 import { type Adapter } from "next-auth/adapters";
-import GithubProvider from "next-auth/providers/github";
-import GoogleProvider from "next-auth/providers/google";
-import LinkedinProvider from "next-auth/providers/linkedin";
+import GitHub from "next-auth/providers/github";
+import Google from "next-auth/providers/google";
+import Linkedin from "next-auth/providers/linkedin";
 
 import { env } from "@/env";
 import { db } from "@/server/db";
@@ -43,18 +43,21 @@ export const authOptions: NextAuthOptions = {
                 id: user.id,
             },
         }),
+        redirect: async ({ url, baseUrl }) => {
+            return url.startsWith(baseUrl) ? url : baseUrl;
+        },
     },
     adapter: PrismaAdapter(db) as Adapter,
     providers: [
-        GithubProvider({
+        GitHub({
             clientId: env.AUTH_GITHUB_ID,
             clientSecret: env.AUTH_GITHUB_SECRET,
         }),
-        GoogleProvider({
+        Google({
             clientId: env.AUTH_GOOGLE_ID,
             clientSecret: env.AUTH_GOOGLE_SECRET,
         }),
-        LinkedinProvider({
+        Linkedin({
             clientId: env.AUTH_LINKEDIN_ID,
             clientSecret: env.AUTH_LINKEDIN_SECRET,
         }),
