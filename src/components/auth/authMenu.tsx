@@ -1,14 +1,15 @@
-import { auth, signOut } from "@/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { UserIcon } from "@heroicons/react/20/solid";
 import { UserIcon as UserIconOutline } from "@heroicons/react/24/outline";
-import { HomeIcon, ArrowRightStartOnRectangleIcon } from "@heroicons/react/24/outline";
+import { HomeIcon } from "@heroicons/react/24/outline";
+import { SignOutButton } from "./buttons/signOutButton";
+import { getServerAuthSession } from "@/server/auth";
 
 export async function AuthMenu() {
-    const session = await auth();
+    const session = await getServerAuthSession();
 
     if (session) {
         return (
@@ -41,17 +42,7 @@ export async function AuthMenu() {
                         </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
-                        <form
-                            action={async () => {
-                                "use server";
-                                await signOut();
-                            }}
-                        >
-                            <button type="submit" className="flex items-center gap-2">
-                                <ArrowRightStartOnRectangleIcon className="h-4 w-4" />
-                                Logout
-                            </button>
-                        </form>
+                        <SignOutButton />
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>

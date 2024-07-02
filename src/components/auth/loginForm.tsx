@@ -1,4 +1,4 @@
-import { signIn } from "@/auth";
+import { signIn } from "next-auth/react"
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -8,7 +8,7 @@ export function LoginForm() {
         <form
             action={async (formData) => {
                 "use server";
-                await signIn("resend", formData);
+                await signIn("resend", { email: formData.get("email") });
             }}
         >
             <div className="flex flex-col gap-2">
