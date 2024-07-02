@@ -17,8 +17,12 @@ export const env = createEnv({
             // VERCEL_URL doesn't include `https` so it cant be validated as a URL
             process.env.VERCEL ? z.string() : z.string().url(),
         ),
-        DISCORD_CLIENT_ID: z.string(),
-        DISCORD_CLIENT_SECRET: z.string(),
+        AUTH_GITHUB_ID: z.string(),
+        AUTH_GITHUB_SECRET: z.string(),
+        AUTH_GOOGLE_ID: z.string(),
+        AUTH_GOOGLE_SECRET: z.string(),
+        AUTH_LINKEDIN_ID: z.string(),
+        AUTH_LINKEDIN_SECRET: z.string(),
     },
 
     /**
@@ -39,8 +43,12 @@ export const env = createEnv({
         NODE_ENV: process.env.NODE_ENV,
         NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
         NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-        DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
-        DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
+        AUTH_GITHUB_ID: process.env.AUTH_GITHUB_ID,
+        AUTH_GITHUB_SECRET: process.env.AUTH_GITHUB_SECRET,
+        AUTH_GOOGLE_ID: process.env.AUTH_GOOGLE_ID,
+        AUTH_GOOGLE_SECRET: process.env.AUTH_GOOGLE_SECRET,
+        AUTH_LINKEDIN_ID: process.env.AUTH_LINKEDIN_ID,
+        AUTH_LINKEDIN_SECRET: process.env.AUTH_LINKEDIN_SECRET,
     },
     /**
      * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
