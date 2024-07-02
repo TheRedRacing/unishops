@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export function GoogleButton() {
     return (
-        <Button onClick={() => signIn("google", { redirectTo: "/shops" })} type="submit" variant={"outline"} className="flex w-full items-center gap-2" disabled>
+        <Button onClick={() => signIn("google", { callbackUrl: "/shops" })} type="submit" variant={"outline"} className="flex w-full items-center gap-2" disabled>
             <Google />
             <span>Sign up with Google</span>
         </Button>
