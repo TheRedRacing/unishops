@@ -19,15 +19,22 @@ type EmailNotification = {
 const emailNotifications: EmailNotification[] = [
     {
         id: "security",
-        name: "Security alerts",
+        name: "🔒 Security alerts",
         description: "Receive notifications about suspicious activity on your account.",
         checked: true,
         disabled: true,
     },
     {
         id: "new_orders",
-        name: "New orders",
+        name: "🛍️ New orders",
         description: "Receive notifications when a new order is validated.",
+        checked: true,
+        disabled: false,
+    },
+    {
+        id: "new_updates",
+        name: "🎉 New updates",
+        description: "Receive notifications when new features are released.",
         checked: true,
         disabled: false,
     },
@@ -54,7 +61,7 @@ export default async function Profile() {
     return (
         <section className="space-y-8 py-8">
             <div className="mx-auto flex max-w-5xl items-center justify-between px-6">
-                <h1 className="text-[28px] font-bold leading-[34px] tracking-[-0.416px] text-black dark:text-white">Profile</h1>
+                <h1 className="text-3xl font-bold leading-8 text-black dark:text-white">Profile</h1>
             </div>
             <Tabs defaultValue="profile" className="mx-auto max-w-5xl px-6">
                 <TabsList>
@@ -110,7 +117,7 @@ export default async function Profile() {
                                     <SelectValue placeholder="English"></SelectValue>
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="english">English</SelectItem>
+                                    <SelectItem value="english" defaultChecked>English</SelectItem>
                                     <SelectItem value="french">French</SelectItem>
                                     <SelectItem value="german">German</SelectItem>
                                     <SelectItem value="italian">Italian</SelectItem>
@@ -130,7 +137,7 @@ export default async function Profile() {
                                     <SelectValue placeholder="Swiss Franc CHF" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="chf">Swiss Franc CHF</SelectItem>
+                                    <SelectItem value="chf" defaultChecked>Swiss Franc CHF</SelectItem>
                                     <SelectItem value="eur">Euro €</SelectItem>
                                     <SelectItem value="usd">US Dollar $</SelectItem>
                                     <SelectItem value="cad">Canadian Dollar $</SelectItem>

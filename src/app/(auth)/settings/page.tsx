@@ -25,7 +25,7 @@ export default async function Settings() {
     return (
         <section className="space-y-8 py-8">
             <div className="mx-auto flex max-w-5xl items-center justify-between px-6">
-                <h1 className="text-[28px] font-bold leading-[34px] tracking-[-0.416px] text-black dark:text-white">Settings</h1>
+                <h1 className="text-3xl font-bold leading-8 text-black dark:text-white">Settings</h1>
             </div>
             <Tabs defaultValue="usage" className="mx-auto max-w-5xl px-6">
                 <TabsList>
@@ -57,7 +57,7 @@ export default async function Settings() {
                             </div>
                         </CardContent>
                         <CardFooter variant={"bordered"}>
-                            <Button size={"sm"}>Upgrade</Button>
+                            <Button>Upgrade</Button>
                         </CardFooter>
                     </Card>
 
@@ -78,7 +78,7 @@ export default async function Settings() {
                             </div>
                         </CardContent>
                         <CardFooter variant={"bordered"}>
-                            <Button size={"sm"}>Upgrade</Button>
+                            <Button>Upgrade</Button>
                         </CardFooter>
                     </Card>
                 </TabsContent>
@@ -91,7 +91,7 @@ export default async function Settings() {
                             <Badge className="text-sm">You do not currently have any payment methods.</Badge>
                         </CardContent>
                         <CardFooter variant={"bordered"}>
-                            <Button variant={"outline"} size={"sm"}>
+                            <Button variant={"outline"}>
                                 Add payment method
                             </Button>
                         </CardFooter>

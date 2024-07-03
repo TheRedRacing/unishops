@@ -30,7 +30,7 @@ export default function onboarding() {
                     </CardFooter>
                 </Card>
 
-                <Card className="opacity-50 select-none">
+                <Card className="pointer-events-none select-none opacity-50">
                     <CardHeader variant={"bordered"} className="font-semibold">
                         02. Connect your Stripe account
                     </CardHeader>
@@ -38,20 +38,20 @@ export default function onboarding() {
                         <div className="flex flex-col gap-4">
                             <div className="flex flex-col gap-2">
                                 <Label>Stripe Id</Label>
-                                <Input placeholder="Enter your Stripe Id" disabled />
+                                <Input placeholder="Enter your Stripe Id" />
                             </div>
                             <div className="flex flex-col gap-2">
                                 <Label>Stripe Secret</Label>
-                                <Input placeholder="Enter your Stripe Secret" disabled />
+                                <Input placeholder="Enter your Stripe Secret" />
                             </div>
                         </div>
                     </CardContent>
                     <CardFooter variant={"bordered"}>
-                        <Button size={"sm"} disabled>Next</Button>
+                        <Button size={"sm"}>Next</Button>
                     </CardFooter>
                 </Card>
 
-                <Card className="opacity-50 select-none">
+                <Card className="pointer-events-none select-none opacity-50">
                     <CardHeader variant={"bordered"}>
                         <div className="flex items-center justify-between">
                             <div className="font-semibold">03. Add your first product</div>
@@ -64,11 +64,11 @@ export default function onboarding() {
                         </Badge>
                     </CardContent>
                     <CardFooter variant={"bordered"}>
-                        <Button size={"sm"} disabled>Next</Button>
+                        <Button size={"sm"}>Next</Button>
                     </CardFooter>
                 </Card>
 
-                <Card className="opacity-50 select-none">
+                <Card className="pointer-events-none select-none opacity-50">
                     <CardHeader variant={"bordered"} className="font-semibold">
                         04. Choose your theme
                     </CardHeader>
@@ -76,44 +76,44 @@ export default function onboarding() {
                         <div className="grid grid-cols-3 gap-2">
                             <div className="inline-flex items-center justify-between rounded-md px-2 py-2 ring-1 ring-inset bg-gray-100 text-zinc-600 ring-zinc-500/10 dark:bg-zinc-400/10 dark:text-zinc-400 dark:ring-zinc-400/20">
                                 Default Theme
-                                <Button size={"icon"} variant={"ghost"} disabled>
+                                <Button size={"icon"} variant={"ghost"}>
                                     <CheckCircleIcon className="h-6 w-6" />
                                 </Button>
                             </div>
                             <div className="inline-flex items-center justify-between rounded-md px-2 py-2 ring-1 ring-inset bg-gray-100 text-zinc-600 ring-zinc-500/10 dark:bg-zinc-400/10 dark:text-zinc-400 dark:ring-zinc-400/20">
                                 Dark Theme
-                                <Button size={"icon"} variant={"ghost"} disabled>
+                                <Button size={"icon"} variant={"ghost"}>
                                     <CheckCircleIcon className="h-6 w-6" />
                                 </Button>
                             </div>
                             <div className="inline-flex items-center justify-between rounded-md px-2 py-2 ring-1 ring-inset bg-gray-100 text-zinc-600 ring-zinc-500/10 dark:bg-zinc-400/10 dark:text-zinc-400 dark:ring-zinc-400/20">
                                 Light Theme
-                                <Button size={"icon"} variant={"ghost"} disabled>
+                                <Button size={"icon"} variant={"ghost"}>
                                     <CheckCircleIcon className="h-6 w-6" />
                                 </Button>
                             </div>
                             <div className="inline-flex items-center justify-between rounded-md px-2 py-2 ring-1 ring-inset bg-gray-100 text-zinc-600 ring-zinc-500/10 dark:bg-zinc-400/10 dark:text-zinc-400 dark:ring-zinc-400/20">
                                 Minimalist Theme
-                                <Button size={"icon"} variant={"ghost"} disabled>
+                                <Button size={"icon"} variant={"ghost"}>
                                     <CheckCircleIcon className="h-6 w-6" />
                                 </Button>
                             </div>
                             <div className="inline-flex items-center justify-between rounded-md px-2 py-2 ring-1 ring-inset bg-gray-100 text-zinc-600 ring-zinc-500/10 dark:bg-zinc-400/10 dark:text-zinc-400 dark:ring-zinc-400/20">
                                 Modern Theme
-                                <Button size={"icon"} variant={"ghost"} disabled>
+                                <Button size={"icon"} variant={"ghost"}>
                                     <CheckCircleIcon className="h-6 w-6" />
                                 </Button>
                             </div>
                             <div className="inline-flex items-center justify-between rounded-md px-2 py-2 ring-1 ring-inset bg-gray-100 text-zinc-600 ring-zinc-500/10 dark:bg-zinc-400/10 dark:text-zinc-400 dark:ring-zinc-400/20">
                                 Vintage Theme
-                                <Button size={"icon"} variant={"ghost"} disabled>
+                                <Button size={"icon"} variant={"ghost"}>
                                     <CheckCircleIcon className="h-6 w-6" />
                                 </Button>
                             </div>
                         </div>
                     </CardContent>
                     <CardFooter variant={"bordered"}>
-                        <Button size={"sm"} disabled>
+                        <Button size={"sm"}>
                             <div className="flex items-center gap-1">
                                 <ArrowUpCircleIcon className="h-5 w-5" />
                                 Publish

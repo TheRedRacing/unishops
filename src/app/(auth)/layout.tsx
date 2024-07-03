@@ -7,13 +7,14 @@ import Update from "@/components/header/update";
 import { Github, Logo } from "@/components/icons";
 import { NavItem } from "@/components/navItem";
 import { AuthMenu } from "@/components/auth/authMenu";
-import { AdjustmentsHorizontalIcon, ArrowRightIcon, ChartBarIcon, ListBulletIcon, ShoppingBagIcon, TruckIcon } from "@heroicons/react/24/outline";
+import { AdjustmentsHorizontalIcon, ArrowRightIcon, ChartBarIcon, GlobeAltIcon, ListBulletIcon, ShoppingBagIcon, TruckIcon } from "@heroicons/react/24/outline";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { db } from "@/server/db";
+import { title } from "process";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
     const session = await getServerAuthSession();
@@ -36,7 +37,11 @@ export default async function DashboardLayout({ children }: { children: React.Re
             title: "Orders",
             href: "/orders",
             icon: TruckIcon,
-            count: 0,
+        },
+        {
+            title: "Domains",
+            href: "/domains",
+            icon: GlobeAltIcon,
         },
         {
             title: "Metrics",

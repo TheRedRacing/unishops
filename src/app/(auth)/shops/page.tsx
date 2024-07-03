@@ -4,9 +4,10 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid";
-import { DocumentDuplicateIcon, PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { DocumentDuplicateIcon, PencilSquareIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { timeDifference } from "@/lib/timeDifference";
 import { db } from "@/server/db";
+import { Button } from "@/components/ui/button";
 
 // server side
 export default async function Shops() {  
@@ -31,8 +32,7 @@ export default async function Shops() {
     return (
         <section className="space-y-8 py-8">
             <div className="mx-auto flex max-w-5xl items-center justify-between px-6">
-                <h1 className="text-[28px] font-bold leading-[34px] tracking-[-0.416px] text-black dark:text-white">Shop</h1>
-                {/* Button new shop */}
+                <h1 className="text-3xl font-bold leading-8 text-black dark:text-white">Shop</h1>                
             </div>
             <div className="mx-auto max-w-5xl px-6">
                 {shops.length === 0 ? (
@@ -41,7 +41,10 @@ export default async function Shops() {
                             <h2 className="text-xl font-bold tracking-[-0.16px] text-black dark:text-white">You don&apos;t have any shop yet</h2>
                             <span className="text-sm font-normal text-zinc-600 dark:text-zinc-300">Create a shop to start selling your products and services online.</span>
                         </div>
-                        {/* Button new shop */}
+                        <Button className="gap-2">
+                            <PlusIcon className="h-5 w-5" />
+                            Create shop
+                        </Button>
                     </div>
                 ) : (
                     <>

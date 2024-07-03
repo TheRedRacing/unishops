@@ -2,6 +2,7 @@ import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
+import { SparklesIcon } from "@heroicons/react/20/solid";
 
 const badgeVariants = cva("inline-flex items-center rounded-md px-2 py-1 font-medium ring-1 ring-inset", {
     variants: {
@@ -31,4 +32,14 @@ function Badge({ className, variant, ...props }: BadgeProps) {
     return <div className={cn(badgeVariants({ variant }), className)} {...props} />;
 }
 
-export { Badge, badgeVariants };
+function ProBadge({ className, ...props }: BadgeProps) {
+    return (
+        <div className={cn(badgeVariants({ variant: "default", size: "sm" }), className, "group")} {...props}>
+            Pro
+            <SparklesIcon className="h-4 w-4 ml-1 group-hover:text-yellow-300 transition-colors duration-200" />
+        </div>
+    )
+
+}
+
+export { Badge, ProBadge, badgeVariants };
