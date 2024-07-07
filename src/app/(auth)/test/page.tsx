@@ -1,7 +1,5 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
-import { CheckBadgeIcon } from "@heroicons/react/24/outline";
-import { Button } from "@/components/ui/button";
 import { getServerAuthSession } from "@/server/auth";
 
 // server side

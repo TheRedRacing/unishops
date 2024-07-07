@@ -6,7 +6,6 @@
 import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from "@/components/ui/menubar";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { cn } from "@/lib/utils";
-import { Button } from "../ui/button";
 
 export default function LocalSwitcher() {
     //"Fr", "En", "De", "It", "Pt"

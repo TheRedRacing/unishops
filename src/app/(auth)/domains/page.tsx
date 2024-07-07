@@ -1,7 +1,6 @@
 import { ProBadge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { getServerAuthSession } from "@/server/auth";
 import { PlusIcon } from "@heroicons/react/24/outline";
 
 // server side

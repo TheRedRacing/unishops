@@ -10,7 +10,7 @@ import { AuthMenu } from "@/components/auth/authMenu";
 import { AdjustmentsHorizontalIcon, ArrowRightIcon, ChartBarIcon, GlobeAltIcon, ListBulletIcon, ShoppingBagIcon, TruckIcon } from "@heroicons/react/24/outline";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge, ProBadge } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { db } from "@/server/db";
