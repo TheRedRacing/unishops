@@ -14,7 +14,7 @@ export function LoginForm() {
             <div className="flex flex-col gap-2">
                 <Label htmlFor="email">Your email address</Label>
                 <Input id="email" name="email" type="email" placeholder="steve.jobs@apple.com" />
-                <Button type="submit" variant={"default"} className="w-full">
+                <Button type="submit" variant={"default"} size={"lg"} className="w-full">
                     Continue
                 </Button>
             </div>
