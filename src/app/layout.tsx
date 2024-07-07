@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en" className={cn(roboto.className)}>
+        <html lang="en" className={cn(roboto.className)} suppressHydrationWarning>
             <body className="bg-white text-black dark:bg-zinc-950 dark:text-white min-h-screen flex flex-col relative isolate overflow-hidden">
                 <TRPCReactProvider>
                     <ThemeProvider attribute="class">
