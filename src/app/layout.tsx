@@ -5,6 +5,7 @@ import { Roboto } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/sonner";
+import { Analytics } from "@vercel/analytics/react"
 
 const roboto = Roboto({
     weight: ["100", "300", "400", "500", "700", "900"],
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     </ThemeProvider>
                 </TRPCReactProvider>
                 <Toaster />
+                <Analytics />
             </body>
         </html>
     );
