@@ -7,6 +7,7 @@ export const env = createEnv({
      * isn't built with invalid env vars.
      */
     server: {
+        RESEND_API_KEY: z.string(),
         DATABASE_URL: z.string().url(),
         NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
         NEXTAUTH_SECRET: process.env.NODE_ENV === "production" ? z.string() : z.string().optional(),
@@ -39,6 +40,7 @@ export const env = createEnv({
      * middlewares) or client-side so we need to destruct manually.
      */
     runtimeEnv: {
+        RESEND_API_KEY: process.env.RESEND_API_KEY,
         DATABASE_URL: process.env.DATABASE_URL,
         NODE_ENV: process.env.NODE_ENV,
         NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,

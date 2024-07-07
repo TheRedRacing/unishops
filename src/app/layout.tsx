@@ -14,7 +14,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-    title: "UniShops",
+    title: "UniShops - Waitlist",
     description: "UniShops is a one page shop for all your needs.",
     icons: [{ rel: "icon", url: "/favicon.ico" }],
     authors: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en" className={cn(roboto.className)}>
-            <body className="bg-white text-black dark:bg-zinc-950 dark:text-white">
+            <body className="bg-white text-black dark:bg-zinc-950 dark:text-white min-h-screen flex flex-col relative isolate overflow-hidden">
                 <TRPCReactProvider>
                     <ThemeProvider attribute="class">
                         {children}
