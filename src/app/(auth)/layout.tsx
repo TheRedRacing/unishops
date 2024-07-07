@@ -10,11 +10,10 @@ import { AuthMenu } from "@/components/auth/authMenu";
 import { AdjustmentsHorizontalIcon, ArrowRightIcon, ChartBarIcon, GlobeAltIcon, ListBulletIcon, ShoppingBagIcon, TruckIcon } from "@heroicons/react/24/outline";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Badge, ProBadge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { db } from "@/server/db";
-import { title } from "process";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
     const session = await getServerAuthSession();
@@ -75,10 +74,10 @@ export default async function DashboardLayout({ children }: { children: React.Re
                                         <item.icon className="h-5 w-5" />
                                         {item.title}
                                         {typeof item.count !== "undefined" && item.count !== null && item.count !== 0 && (
-                                            <Badge variant={"default"} className="ml-auto">
+                                            <Badge variant={"default"} size={"xs"} className="ml-auto">
                                                 {item.count}
                                             </Badge>
-                                        )}
+                                        )}                                            
                                     </NavItem>
                                 </li>
                             ))}

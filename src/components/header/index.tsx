@@ -165,3 +165,25 @@ export default function Header() {
         </>
     );
 }
+
+export function HeaderWaitlist() {
+    return (
+        <>
+            <header className="border-b bg-white dark:border-zinc-800 dark:bg-zinc-950">
+                <nav className="container mx-auto flex items-center justify-between px-6 py-2 lg:px-8" aria-label="Global">
+                    <div className="items-center gap-4 flex flex-1">
+                        <Logo />
+                    </div>
+                    <div className="flex flex-1 justify-end gap-2">
+                        <Button variant={"ghost"} size={"icon"} asChild>
+                            <Link href="https://github.com/TheRedRacing/unishop" target="_blank">
+                                <Github />
+                            </Link>
+                        </Button>
+                        <ThemeToogle />
+                    </div>
+                </nav>
+            </header>
+        </>
+    );
+}

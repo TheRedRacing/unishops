@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 import { SparklesIcon } from "@heroicons/react/20/solid";
 
-const badgeVariants = cva("inline-flex items-center rounded-md px-2 py-1 font-medium ring-1 ring-inset", {
+const badgeVariants = cva("inline-flex items-center rounded-md font-medium ring-1 ring-inset", {
     variants: {
         variant: {
             default: "bg-gray-100 text-zinc-600 ring-zinc-500/10 dark:bg-zinc-400/10 dark:text-zinc-400 dark:ring-zinc-400/20",
@@ -14,29 +14,29 @@ const badgeVariants = cva("inline-flex items-center rounded-md px-2 py-1 font-me
             ghost: "bg-transparent text-zinc-600 ring-transparent dark:text-zinc-400 dark:ring-transparent",
         },
         size: {
-            xs: "text-xs",
-            sm: "text-sm",
-            md: "text-md",
-            lg: "text-lg",
+            xs: "text-xs px-1.5 py-0.5",
+            sm: "text-sm px-2 py-1",
+            md: "text-md px-2 py-1",
+            lg: "text-lg px-2 py-1",
         },
     },
     defaultVariants: {
         variant: "default",
-        size: "xs",
+        size: "sm",
     },
 });
 
-export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof badgeVariants> {}
+export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof badgeVariants> { }
 
-function Badge({ className, variant, ...props }: BadgeProps) {
-    return <div className={cn(badgeVariants({ variant }), className)} {...props} />;
+function Badge({ className, variant, size, ...props }: BadgeProps) {
+    return <div className={cn(badgeVariants({ variant, size }), className)} {...props} />;
 }
 
 function ProBadge({ className, ...props }: BadgeProps) {
     return (
         <div className={cn(badgeVariants({ variant: "default", size: "sm" }), className, "group")} {...props}>
             Pro
-            <SparklesIcon className="h-4 w-4 ml-1 group-hover:text-yellow-300 transition-colors duration-200" />
+            <SparklesIcon className="h-4 w-4 ml-1.5" />
         </div>
     )
 

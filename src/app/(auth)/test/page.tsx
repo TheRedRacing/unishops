@@ -13,7 +13,7 @@ export default async function Test() {
             <div className="mx-auto max-w-5xl px-6">
                 <h1 className="text-3xl font-bold leading-8 text-black dark:text-white">Test</h1>
                 <div className="mt-4 flex flex-col gap-4">
-                    <Card>
+                    {/* <Card>
                         <CardHeader variant={"bordered"} className="font-semibold">
                             <div className="flex items-center justify-between">
                                 Button
@@ -119,7 +119,7 @@ export default async function Test() {
                                 </div>
                             </div>
                         </CardContent>
-                    </Card>
+                    </Card> */}
                     <Card>
                         <CardHeader variant={"bordered"} className="font-semibold">
                             <div className="flex items-center justify-between">

@@ -1,10 +1,11 @@
 import { ProBadge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { getServerAuthSession } from "@/server/auth";
 import { PlusIcon } from "@heroicons/react/24/outline";
 
 // server side
-export default function Domains() {
+export default async function Domains() {
     return (
         <section className="space-y-8 py-8">
             <div className="mx-auto flex max-w-5xl items-center gap-4 px-6">
