@@ -69,12 +69,12 @@ export const DropdownTable: React.FC<DropdownProps> = ({ shopId, shopName }) => 
                                             Delete shop
                                         </DialogTitle>
                                         <DialogDescription className="mt-6 flex flex-col">
-                                            <p>
+                                            <span>
                                                 Are you sure you want to delete this <span className="text-white">{`"${shopName}"`}</span> shop?
-                                            </p>
-                                            <p className="mt-1 text-red-500 font-semibold">
+                                            </span>
+                                            <span className="mt-1 text-red-500 font-semibold">
                                                 This action cannot be undone.
-                                            </p>
+                                            </span>
                                         </DialogDescription>
                                         <FormField
                                             control={form.control}
