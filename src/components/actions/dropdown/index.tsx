@@ -19,6 +19,8 @@ interface DropdownProps {
     shopName: string;
 }
 
+const DELETE_WORD = "DELETE";
+
 export const DropdownTable: React.FC<DropdownProps> = ({ shopId, shopName }) => {
     const router = useRouter();
     const [DropDownOpen, setDropDownOpen] = React.useState(false);
@@ -83,18 +85,19 @@ export const DropdownTable: React.FC<DropdownProps> = ({ shopId, shopName }) => 
                                         </DialogDescription>
                                     </DialogHeader>
                                     <FormField
+                                        rules={{ validate: value => value === DELETE_WORD || `You must enter "${DELETE_WORD}"` }}
                                         control={form.control}
                                         name="confirmtest"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel className="text-zinc-400">Type <span className="text-white">DELETE</span> to confirm.</FormLabel>
+                                                <FormLabel className="text-zinc-400">Type <span className="text-white">{DELETE_WORD}</span> to confirm.</FormLabel>
                                                 <Input {...field} />
                                                 <FormMessage />
                                             </FormItem>
                                         )}
                                     />
                                     <div className="flex items-center justify-start gap-2">
-                                        <Button variant={"destructive"} type="submit">Delete shop</Button>
+                                        <Button variant="destructive" type="submit" disabled={!form.formState.isValid}>Delete shop</Button>
                                         <DialogClose asChild>
                                             <Button variant="ghost">Cancel</Button>
                                         </DialogClose>
