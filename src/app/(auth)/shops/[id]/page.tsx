@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { timeDifference } from "@/lib/timeDifference";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import AddStripe from "@/components/actions/addStripe";
+import { DropdownDetail } from "@/components/actions/dropdown";
 
 export default async function ShopDetail({ params }: { params: { id: string } }) {
     const shop = await db.shop.findUnique({ where: { id: params.id } });
@@ -41,28 +42,7 @@ export default async function ShopDetail({ params }: { params: { id: string } })
                 <div className="flex items-center gap-2">
                     <Button variant={"outline"}>Go to shop</Button>
                     <Button variant={"outline"}>Edit shop</Button>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button size={"icon"} variant={"outline"}>
-                                <EllipsisHorizontalIcon className="h-5 w-5" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            <DropdownMenuItem>
-                                <ArrowTopRightOnSquareIcon className="mr-2 h-5 w-5" />
-                                Stripe details
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <DocumentTextIcon className="mr-2 h-5 w-5" />
-                                Stripe docs
-                            </DropdownMenuItem>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem variant="destructive">
-                                <TrashIcon className="mr-2 h-5 w-5" />
-                                Remove shop
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                    <DropdownDetail shopId={shop.id} shopName={shop.name} />
                 </div>
             </div>
             <div className="mx-auto flex max-w-5xl flex-col gap-8 px-6">

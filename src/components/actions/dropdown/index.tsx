@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form"
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { EllipsisHorizontalIcon, DocumentDuplicateIcon, PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { EllipsisHorizontalIcon, DocumentDuplicateIcon, PencilSquareIcon, TrashIcon, ArrowTopRightOnSquareIcon, DocumentTextIcon } from "@heroicons/react/24/outline";
 import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button";
@@ -108,3 +108,30 @@ export const DropdownTable: React.FC<DropdownProps> = ({ shopId, shopName }) => 
         </DropdownMenu>
     );
 };
+
+export const DropdownDetail: React.FC<DropdownProps> = ({ shopId, shopName }) => {
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button variant={"outline"}>
+                    <EllipsisHorizontalIcon className="h-5 w-5" />
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+                <DropdownMenuItem>
+                    <ArrowTopRightOnSquareIcon className="mr-2 h-5 w-5" />
+                    Stripe details
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                    <DocumentTextIcon className="mr-2 h-5 w-5" />
+                    Stripe docs
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem variant="destructive">
+                    <TrashIcon className="mr-2 h-5 w-5" />
+                    Remove shop
+                </DropdownMenuItem>
+            </DropdownMenuContent>
+        </DropdownMenu>
+    )
+}
