@@ -14,7 +14,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
-    name: z.string().min(1,"Name is required"),
+    name: z.string().min(1, "Name is required"),
 })
 
 export default function NewShop() {
