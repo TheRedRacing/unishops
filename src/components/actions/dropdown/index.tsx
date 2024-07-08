@@ -143,7 +143,7 @@ export const DropdownDetail: React.FC<DropdownProps> = ({ shopId, shopName }) =>
                 <DropdownMenuItem>
                     <DocumentTextIcon className="mr-2 h-5 w-5" />
                     Stripe docs
-                </DropdownMenuItem>
+                </DropdownMenuItem>                
                 <DropdownMenuSeparator />
                 <DropdownMenuItem variant="destructive">
                     <Dialog open={DialogOpen} onOpenChange={setDialogOpen}>

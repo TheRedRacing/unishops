@@ -7,6 +7,8 @@ import { timeDifference } from "@/lib/timeDifference";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import AddStripe from "@/components/actions/addStripe";
 import { DropdownDetail } from "@/components/actions/dropdown";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { AccordionCard, AccordionCardContent, AccordionCardItem, AccordionCardTrigger } from "@/components/ui/accordion-card";
 
 export default async function ShopDetail({ params }: { params: { id: string } }) {
     const shop = await db.shop.findUnique({ where: { id: params.id } });
@@ -40,6 +42,40 @@ export default async function ShopDetail({ params }: { params: { id: string } })
                 <div className="flex items-center gap-2">
                     <Button variant={"outline"}>Go to shop</Button>
                     <Button variant={"outline"}>Edit shop</Button>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant={"outline"}>
+                                Status
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuItem className="flex items-center gap-2">
+                                <svg viewBox="0 0 6 6" aria-hidden="true" className="h-1.5 w-1.5 fill-green-500">
+                                    <circle r={3} cx={3} cy={3} />
+                                </svg>
+                                <span>Publish</span>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className="flex items-center gap-2">
+                                <svg viewBox="0 0 6 6" aria-hidden="true" className="h-1.5 w-1.5 fill-yellow-500">
+                                    <circle r={3} cx={3} cy={3} />
+                                </svg>
+                                <span>Maintenance</span>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className="flex items-center gap-2">
+                                <svg viewBox="0 0 6 6" aria-hidden="true" className="h-1.5 w-1.5 fill-zinc-500">
+                                    <circle r={3} cx={3} cy={3} />
+                                </svg>
+                                <span>Draft</span>
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem className="flex items-center gap-2" variant="destructive">
+                                <svg viewBox="0 0 6 6" aria-hidden="true" className="h-1.5 w-1.5 fill-red-500">
+                                    <circle r={3} cx={3} cy={3} />
+                                </svg>
+                                <span>Archive</span>
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                     <DropdownDetail shopId={shop.id} shopName={shop.name} />
                 </div>
             </div>
@@ -67,20 +103,15 @@ export default async function ShopDetail({ params }: { params: { id: string } })
                     </div>
                 </div>
             </div>
-            <div className="mx-auto flex max-w-5xl flex-col gap-8 px-6">               
-                {shop.stripePublic && shop.stripeSecret ? (
-                    <Card>
-                        <CardHeader variant={"bordered"} className="font-semibold">
-                            Products
-                        </CardHeader>
-                        <CardContent variant={"bordered"}>
-                            <Badge variant={"warning"} size={"sm"}>You have no products in your shop</Badge>
-                        </CardContent>
-                    </Card>
-                ) : (
-                    <AddStripe />
-                )}
-                
+            <div className="mx-auto flex max-w-5xl flex-col gap-8 px-6">
+                <AccordionCard type="single" collapsible>
+                    <AccordionCardItem value="item-1">
+                        <AccordionCardTrigger>Is it accessible?</AccordionCardTrigger>
+                        <AccordionCardContent>
+                            <AddStripe />
+                        </AccordionCardContent>
+                    </AccordionCardItem>
+                </AccordionCard>
             </div>
         </section>
     );

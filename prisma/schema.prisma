@@ -66,13 +66,24 @@ model Shop {
     userId       String
     stripePublic String?
     stripeSecret String?
+    faqs         ShopFAQ[]
     createdAt    DateTime @default(now())
     updatedAt    DateTime @updatedAt
 }
 
 enum EnumShopStatus {
-    DRAFT
-    PUBLISHED
-    MAINTENANCE
-    ARCHIVED
+    Draft
+    Published
+    Maintenance
+    Archived
+}
+
+model ShopFAQ {
+    id        String  @id @default(cuid())
+    question  String
+    answer    String
+    shopId    String
+    shop      Shop    @relation(fields: [shopId], references: [id], onDelete: Cascade)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
