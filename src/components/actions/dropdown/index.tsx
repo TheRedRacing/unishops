@@ -66,10 +66,10 @@ export const DropdownTable: React.FC<DropdownProps> = ({ shopId, shopName }) => 
                             <TrashIcon className="mr-2 h-4 w-4" />
                             Delete
                         </DialogTrigger>
-                        <DialogContent>
-                            <DialogHeader>
-                                <Form {...form}>
-                                    <form onSubmit={form.handleSubmit(onSubmit)}>
+                        <Form {...form}>
+                            <form onSubmit={form.handleSubmit(onSubmit)}>
+                                <DialogContent>
+                                    <DialogHeader>
                                         <DialogTitle>
                                             Delete shop
                                         </DialogTitle>
@@ -81,27 +81,27 @@ export const DropdownTable: React.FC<DropdownProps> = ({ shopId, shopName }) => 
                                                 This action cannot be undone.
                                             </span>
                                         </DialogDescription>
-                                        <FormField
-                                            control={form.control}
-                                            name="confirmtest"
-                                            render={({ field }) => (
-                                                <FormItem className="mt-4">
-                                                    <FormLabel className="text-zinc-400">Type <span className="text-white">DELETE</span> to confirm.</FormLabel>
-                                                    <Input {...field} />
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
-                                        <div className="flex items-center justify-start gap-2 mt-4">
-                                            <Button variant={"destructive"} type="submit">Delete shop</Button>
-                                            <DialogClose asChild>
-                                                <Button variant="ghost">Cancel</Button>
-                                            </DialogClose>
-                                        </div>
-                                    </form>
-                                </Form>
-                            </DialogHeader>
-                        </DialogContent>
+                                    </DialogHeader>
+                                    <FormField
+                                        control={form.control}
+                                        name="confirmtest"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel className="text-zinc-400">Type <span className="text-white">DELETE</span> to confirm.</FormLabel>
+                                                <Input {...field} />
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <div className="flex items-center justify-start gap-2">
+                                        <Button variant={"destructive"} type="submit">Delete shop</Button>
+                                        <DialogClose asChild>
+                                            <Button variant="ghost">Cancel</Button>
+                                        </DialogClose>
+                                    </div>
+                                </DialogContent>
+                            </form>
+                        </Form>
                     </Dialog>
                 </DropdownMenuItem>
             </DropdownMenuContent>
