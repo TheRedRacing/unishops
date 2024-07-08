@@ -14,7 +14,7 @@ export const resendRouter = createTRPCRouter({
                 email: input.email,
                 audienceId: "a109a93e-e6bf-45b2-beaa-d166a496796a",
             });
-            return { message: "Added to audience" };
+            return { message: "You have been added to the waitlist" };
         } catch (error) {
             if (error instanceof TRPCError) {
                 throw error;

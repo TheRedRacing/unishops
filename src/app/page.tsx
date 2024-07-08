@@ -12,7 +12,10 @@ export default async function Home() {
                         Get notified when we’re launching.
                     </h2>
                     <p className="mx-auto mt-2 max-w-xl text-center text-lg leading-8 text-zinc-600 dark:text-gray-300">
-                        The new generation of e-commerce is coming soon. Sign up to be the first to know when we launch.
+                        The new generation of e-commerce is coming soon.
+                    </p>
+                    <p className="mx-auto mt-2 max-w-xl text-center text-lg leading-8 text-zinc-600 dark:text-gray-300">
+                        Join our waitlist to get notified when we launch.
                     </p>
                     <WaitListForm />
                 </div>
