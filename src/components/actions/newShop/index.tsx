@@ -11,13 +11,14 @@ import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/
 import { Input } from "@/components/ui/input"
 import { api } from "@/trpc/react";
 import { toast } from "sonner";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
     name: z.string().min(1,"Name is required"),
 })
 
 export default function NewShop() {
+    const router = useRouter();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -29,7 +30,7 @@ export default function NewShop() {
         onSuccess: (data) => {
             toast.success(`Shop ${data.name} created successfully`);
             form.reset();
-            redirect(`/shops/${data.id}`);
+            router.push(`/shops/${data.id}`);
         },
         onError: (error) => {
             toast.error(error.message);
