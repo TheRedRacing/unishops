@@ -26,7 +26,7 @@ export const DropdownTable: React.FC<DropdownProps> = ({ shopId, shopName }) => 
     const { mutate: deleteShop } = api.shops.delete.useMutation({
         onSuccess: (data) => {
             toast.success(`Shop ${data.name} deleted successfully`);
-            form.reset();                        
+            form.reset();
             setDialogOpen(false);
         },
         onError: (error) => {
@@ -37,7 +37,7 @@ export const DropdownTable: React.FC<DropdownProps> = ({ shopId, shopName }) => 
     function onSubmit() {
         deleteShop({
             id: shopId,
-        });        
+        });
     }
 
     return (
