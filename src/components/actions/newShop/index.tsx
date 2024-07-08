@@ -70,11 +70,11 @@ export default function NewShop() {
                                     </FormItem>
                                 )}
                             />
-                            <div className="flex items-center justify-end gap-2 mt-3">
-                                <DialogClose asChild>
-                                    <Button variant="secondary">Cancel</Button>
-                                </DialogClose>
+                            <div className="flex items-center justify-start gap-2 mt-3">
                                 <Button type="submit">Create shop</Button>
+                                <DialogClose asChild>
+                                    <Button variant="ghost">Cancel</Button>
+                                </DialogClose>
                             </div>
                         </form>
                     </Form>
