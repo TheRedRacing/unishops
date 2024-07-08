@@ -19,15 +19,13 @@ const DELETE_WORD = "DELETE";
 interface DropdownMenuDeleteFormProps {
     shopId: string;
     shopName: string;
-    dropdownOpen: boolean;
     setDropDownOpen: (open: boolean) => void;
-    dialogOpen: boolean;
     setDialogOpen: (open: boolean) => void;
 }
-const DropdownMenuDeleteForm: React.FC<DropdownMenuDeleteFormProps> = ({ shopId, shopName, dropdownOpen, setDropDownOpen, dialogOpen, setDialogOpen }) => {
+const DropdownMenuDeleteForm: React.FC<DropdownMenuDeleteFormProps> = ({ shopId, shopName, setDropDownOpen, setDialogOpen }) => {
     const router = useRouter();
 
-    const form = useForm({ defaultValues: { confirmtest: "" } });
+    const form = useForm({ defaultValues: { confirmation: "", name: "" } });
 
     const { mutate: deleteShop } = api.shops.delete.useMutation({
         onSuccess: (data) => {
@@ -49,18 +47,18 @@ const DropdownMenuDeleteForm: React.FC<DropdownMenuDeleteFormProps> = ({ shopId,
     }
 
     return (
-        <DialogContent>
-            <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)}>
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+                <DialogContent>
                     <DialogHeader>
                         <DialogTitle>
                             Delete shop
                         </DialogTitle>
-                        <DialogDescription className="mt-6 flex flex-col">
+                        <DialogDescription className="flex flex-col">
                             <span>
                                 Are you sure you want to delete this <span className="text-white">{`"${shopName}"`}</span> shop?
                             </span>
-                            <span className="mt-1 text-red-500 font-semibold">
+                            <span className="text-red-500 font-semibold">
                                 This action cannot be undone.
                             </span>
                         </DialogDescription>
@@ -68,7 +66,7 @@ const DropdownMenuDeleteForm: React.FC<DropdownMenuDeleteFormProps> = ({ shopId,
                     <FormField
                         rules={{ validate: value => value === DELETE_WORD || `You must enter "${DELETE_WORD}"` }}
                         control={form.control}
-                        name="confirmtest"
+                        name="confirmation"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel className="text-zinc-400">Type <span className="text-white">{DELETE_WORD}</span> to confirm.</FormLabel>
@@ -77,15 +75,15 @@ const DropdownMenuDeleteForm: React.FC<DropdownMenuDeleteFormProps> = ({ shopId,
                             </FormItem>
                         )}
                     />
-                    <div className="flex items-center justify-start gap-2 mt-4">
+                    <div className="flex items-center justify-start gap-2">
                         <Button variant="destructive" type="submit" disabled={!form.formState.isValid}>Delete shop</Button>
                         <DialogClose asChild>
                             <Button variant="ghost">Cancel</Button>
                         </DialogClose>
                     </div>
-                </form>
-            </Form>
-        </DialogContent>
+                </DialogContent>
+            </form>
+        </Form>
     )
 };
 
@@ -118,7 +116,7 @@ export const DropdownTable: React.FC<DropdownProps> = ({ shopId, shopName }) => 
                             <TrashIcon className="mr-2 h-4 w-4" />
                             Delete
                         </DialogTrigger>
-                        <DropdownMenuDeleteForm shopId={shopId} shopName={shopName} dropdownOpen={DropDownOpen} setDropDownOpen={setDropDownOpen} dialogOpen={DialogOpen} setDialogOpen={setDialogOpen} />
+                        <DropdownMenuDeleteForm shopId={shopId} shopName={shopName} setDropDownOpen={setDropDownOpen} setDialogOpen={setDialogOpen} />
                     </Dialog>
                 </DropdownMenuItem>
             </DropdownMenuContent>
@@ -131,7 +129,7 @@ export const DropdownDetail: React.FC<DropdownProps> = ({ shopId, shopName }) =>
     const [DialogOpen, setDialogOpen] = useState(false);
 
     return (
-        <DropdownMenu>
+        <DropdownMenu open={DropDownOpen} onOpenChange={(open) => { setDropDownOpen(open) }}>
             <DropdownMenuTrigger asChild>
                 <Button variant={"outline"}>
                     <EllipsisHorizontalIcon className="h-5 w-5" />
@@ -153,7 +151,7 @@ export const DropdownDetail: React.FC<DropdownProps> = ({ shopId, shopName }) =>
                             <TrashIcon className="mr-2 h-4 w-4" />
                             Delete shop
                         </DialogTrigger>
-                        <DropdownMenuDeleteForm shopId={shopId} shopName={shopName} dropdownOpen={DropDownOpen} setDropDownOpen={setDropDownOpen} dialogOpen={DialogOpen} setDialogOpen={setDialogOpen} />
+                        <DropdownMenuDeleteForm shopId={shopId} shopName={shopName} setDropDownOpen={setDropDownOpen} setDialogOpen={setDialogOpen} />
                     </Dialog>
                 </DropdownMenuItem>
             </DropdownMenuContent>

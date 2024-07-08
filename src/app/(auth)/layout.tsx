@@ -4,10 +4,10 @@ import { getServerAuthSession } from "@/server/auth";
 
 import ThemeToogle from "@/components/header/themeToogle";
 import Update from "@/components/header/update";
-import { Github, Logo } from "@/components/icons";
+import { Logo } from "@/components/icons";
 import { NavItem } from "@/components/navItem";
 import { AuthMenu } from "@/components/auth/authMenu";
-import { AdjustmentsHorizontalIcon, ArrowRightIcon, ChartBarIcon, GlobeAltIcon, ListBulletIcon, ShoppingBagIcon, TruckIcon } from "@heroicons/react/24/outline";
+import { AdjustmentsHorizontalIcon, ArrowRightIcon, ArrowUpRightIcon, ChartBarIcon, DocumentTextIcon, GlobeAltIcon, ListBulletIcon, ShoppingBagIcon, TruckIcon } from "@heroicons/react/24/solid";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -77,7 +77,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
                                             <Badge variant={"default"} size={"xs"} className="ml-auto">
                                                 {item.count}
                                             </Badge>
-                                        )}                                            
+                                        )}
                                     </NavItem>
                                 </li>
                             ))}
@@ -129,12 +129,12 @@ export default async function DashboardLayout({ children }: { children: React.Re
                 <div className="flex h-[60px] items-center justify-end gap-2 border-b border-zinc-200 px-6 dark:border-zinc-800">
                     <AuthMenu />
                     <Update />
+                    <ThemeToogle />
                     <Button variant={"ghost"} size={"icon"} asChild>
-                        <Link href="#">
-                            <Github />
+                        <Link href="/docs/introduction" className="flex gap-2 items-center">
+                            <DocumentTextIcon className="h-6 w-6" />                            
                         </Link>
                     </Button>
-                    <ThemeToogle />
                 </div>
                 <ScrollArea className="h-[calc(100vh-60px)] w-full">{children}</ScrollArea>
             </div>

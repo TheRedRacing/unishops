@@ -1,8 +1,6 @@
 import { redirect } from "next/navigation";
 import { db } from "@/server/db";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { ArrowTopRightOnSquareIcon, DocumentTextIcon, EllipsisHorizontalIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { timeDifference } from "@/lib/timeDifference";
