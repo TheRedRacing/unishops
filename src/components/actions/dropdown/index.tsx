@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 
 import { api } from "@/trpc/react";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface DropdownProps {
     shopId: string;
@@ -19,6 +20,8 @@ interface DropdownProps {
 }
 
 export const DropdownTable: React.FC<DropdownProps> = ({ shopId, shopName }) => {
+    const router = useRouter();
+    const [DropDownOpen, setDropDownOpen] = React.useState(false);
     const [DialogOpen, setDialogOpen] = React.useState(false);
 
     const form = useForm({ defaultValues: { confirmtest: "" } });
@@ -27,7 +30,9 @@ export const DropdownTable: React.FC<DropdownProps> = ({ shopId, shopName }) => 
         onSuccess: (data) => {
             toast.success(`Shop ${data.name} deleted successfully`);
             form.reset();
+            setDropDownOpen(false);
             setDialogOpen(false);
+            router.refresh();
         },
         onError: (error) => {
             toast.error(error.message);
@@ -41,7 +46,7 @@ export const DropdownTable: React.FC<DropdownProps> = ({ shopId, shopName }) => 
     }
 
     return (
-        <DropdownMenu>
+        <DropdownMenu open={DropDownOpen} onOpenChange={(open) => { setDropDownOpen(open) }}>
             <DropdownMenuTrigger>
                 <EllipsisHorizontalIcon className="h-5 w-5" />
             </DropdownMenuTrigger>
