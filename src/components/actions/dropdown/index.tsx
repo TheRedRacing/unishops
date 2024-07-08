@@ -21,7 +21,7 @@ interface DropdownProps {
 export const DropdownTable: React.FC<DropdownProps> = ({ shopId, shopName }) => {
     const [DialogOpen, setDialogOpen] = React.useState(false);
 
-    const form = useForm();
+    const form = useForm({ defaultValues: { confirmtest: "" } });
 
     const { mutate: deleteShop } = api.shops.delete.useMutation({
         onSuccess: (data) => {
