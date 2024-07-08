@@ -14,7 +14,7 @@ import { toast } from "sonner";
 import { redirect } from "next/navigation";
 
 const formSchema = z.object({
-    name: z.string().nonempty("Name is required"),
+    name: z.string().min(1,"Name is required"),
 })
 
 export default function NewShop() {
@@ -26,12 +26,12 @@ export default function NewShop() {
     })
 
     const { mutate: createShop } = api.shops.create.useMutation({
-        onSuccess: (data) => {            
+        onSuccess: (data) => {
             toast.success(`Shop ${data.name} created successfully`);
             form.reset();
-            redirect(`/shops/${data.id}`);            
+            redirect(`/shops/${data.id}`);
         },
-        onError: (error) => {            
+        onError: (error) => {
             toast.error(error.message);
         },
     })
@@ -63,7 +63,7 @@ export default function NewShop() {
                                 render={({ field }) => (
                                     <FormItem className="mt-2">
                                         <FormLabel>Name</FormLabel>
-                                        <Input {...field} placeholder="Shop name" />                                        
+                                        <Input {...field} placeholder="Shop name" />
                                         <FormMessage />
                                     </FormItem>
                                 )}
@@ -74,7 +74,7 @@ export default function NewShop() {
                                 </DialogClose>
                                 <Button type="submit">Create shop</Button>
                             </div>
-                        </form>                        
+                        </form>
                     </Form>
                 </DialogHeader>
             </DialogContent>
