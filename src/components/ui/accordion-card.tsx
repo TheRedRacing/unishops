@@ -5,9 +5,9 @@ import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { ChevronDown } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { cva, VariantProps } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 
-const AccordionCard = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Root>, React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>>(({ className, ...props }, ref) => <AccordionPrimitive.Root ref={ref} className={cn("rounded-lg border bg-zinc-100 dark:bg-zinc-900 shadow-sm border-zinc-300 dark:border-zinc-700 divide-y dark:divide-zinc-700", className)} {...props} />);
+const AccordionCard = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Root>, React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>>(({ className, ...props }, ref) => <AccordionPrimitive.Root ref={ref} className={cn("rounded-lg border bg-zinc-100 dark:bg-zinc-900/50 shadow-sm border-zinc-300 dark:border-zinc-700 divide-y dark:divide-zinc-700", className)} {...props} />);
 AccordionCard.displayName = "Accordion";
 
 const AccordionCardItem = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Item>, React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>>(({ className, ...props }, ref) => <AccordionPrimitive.Item ref={ref} className={cn("px-4", className)} {...props} />);
@@ -16,10 +16,10 @@ AccordionCardItem.displayName = "AccordionItem";
 const AccordionCardTriggerVariants = cva("h-6 w-6 rounded-full ring-1 ring-inset", {
   variants: {
     status: {
-      default: "bg-zinc-200 ring-zinc-400 dark:bg-zinc-900 dark:ring-zinc-700",
-      destructive: "bg-red-200 ring-red-400 dark:bg-red-900 dark:ring-red-700",
-      warning: "bg-yellow-200 ring-yellow-400 dark:bg-yellow-900 dark:ring-yellow-700",
-      success: "bg-green-200 ring-green-400 dark:bg-green-900 dark:ring-green-700",
+      default: "bg-transparent ring-zinc-400 dark:ring-zinc-700",
+      destructive: "bg-red-300 ring-red-600 dark:bg-red-600 dark:ring-red-900",
+      warning: "bg-yellow-300 ring-yellow-600 dark:bg-yellow-600 dark:ring-yellow-900",
+      success: "bg-green-300 ring-green-600 dark:bg-green-600 dark:ring-green-900",
     },
   },
   defaultVariants: {

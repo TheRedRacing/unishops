@@ -4,12 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { timeDifference } from "@/lib/timeDifference";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import AddStripe from "@/components/actions/addStripe";
 import { DropdownDetail } from "@/components/actions/dropdown";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { AccordionCard, AccordionCardContent, AccordionCardItem, AccordionCardTrigger } from "@/components/ui/accordion-card";
-import Link from "next/link";
+import { ShopSetup } from "@/components/shopSetup";
 
 export default async function ShopDetail({ params }: { params: { id: string } }) {
     const shop = await db.shop.findUnique({ where: { id: params.id } });
@@ -103,41 +100,7 @@ export default async function ShopDetail({ params }: { params: { id: string } })
                 </div>
             </div>
             <div className="mx-auto flex max-w-5xl flex-col gap-8 px-6">
-                <AccordionCard type="single" collapsible>
-                    <AccordionCardItem value="item-1">
-                        <AccordionCardTrigger>
-                            <span>Add API key to connect with Stripe</span>
-                        </AccordionCardTrigger>
-                        <AccordionCardContent>
-                            <AddStripe />
-                        </AccordionCardContent>
-                    </AccordionCardItem>
-                    <AccordionCardItem value="item-2" className="pointer-events-none select-none opacity-50">
-                        <AccordionCardTrigger>
-                            <span>Setup your product</span>
-                        </AccordionCardTrigger>
-                        <AccordionCardContent>
-                            <AddStripe />
-                        </AccordionCardContent>
-                    </AccordionCardItem>
-                    <AccordionCardItem value="item-3" className="pointer-events-none select-none opacity-50">
-                        <AccordionCardTrigger>
-                            <span>Setup your FAQ</span>
-                        </AccordionCardTrigger>
-                        <AccordionCardContent>
-                            <AddStripe />
-                        </AccordionCardContent>
-                    </AccordionCardItem>
-                    <AccordionCardItem value="item-4" className="pointer-events-none select-none opacity-50">
-                        <AccordionCardTrigger>
-                            <span>Choose your shop theme</span>
-                        </AccordionCardTrigger>
-                        <AccordionCardContent>
-                            <AddStripe />
-                        </AccordionCardContent>
-                    </AccordionCardItem>
-                </AccordionCard>
-                
+                <ShopSetup shop={shop} />
             </div>
         </section>
     );
