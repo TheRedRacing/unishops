@@ -1,7 +1,7 @@
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, ListItem } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "@/components/ui/sheet";
 
-import { Bars3BottomRightIcon } from "@heroicons/react/24/solid";
+import { Bars3BottomRightIcon, DocumentTextIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { Github, Logo } from "@/components/icons";
 import { Button } from "@/components/ui/button";
@@ -153,12 +153,12 @@ export default function Header() {
                     <div className="flex flex-1 justify-end gap-2">
                         <Auth />
                         <Update />
+                        <ThemeToogle />
                         <Button variant={"ghost"} size={"icon"} asChild>
-                            <Link href="#">
-                                <Github />
+                            <Link href="/docs/introduction" className="flex gap-2 items-center">
+                                <DocumentTextIcon className="h-6 w-6" />
                             </Link>
                         </Button>
-                        <ThemeToogle />
                     </div>
                 </nav>
             </header>
