@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { timeDifference } from "@/lib/timeDifference";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import AddStripe from "@/components/actions/addStripe";
 
 export default async function ShopDetail({ params }: { params: { id: string } }) {
     const shop = await db.shop.findUnique({ where: { id: params.id } });
@@ -88,15 +89,20 @@ export default async function ShopDetail({ params }: { params: { id: string } })
                     </div>
                 </div>
             </div>
-            <div className="mx-auto flex max-w-5xl flex-col gap-8 px-6">
-                <Card>
-                    <CardHeader variant={"bordered"} className="font-semibold">
-                        Products
-                    </CardHeader>
-                    <CardContent variant={"bordered"}>
-                        <Badge variant={"warning"} size={"md"}>You have no products in your shop</Badge>
-                    </CardContent>
-                </Card>
+            <div className="mx-auto flex max-w-5xl flex-col gap-8 px-6">               
+                {shop.stripePublic && shop.stripeSecret ? (
+                    <Card>
+                        <CardHeader variant={"bordered"} className="font-semibold">
+                            Products
+                        </CardHeader>
+                        <CardContent variant={"bordered"}>
+                            <Badge variant={"warning"} size={"sm"}>You have no products in your shop</Badge>
+                        </CardContent>
+                    </Card>
+                ) : (
+                    <AddStripe />
+                )}
+                
             </div>
         </section>
     );
