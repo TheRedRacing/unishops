@@ -1,13 +1,13 @@
-'use client'
+"use client";
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
-import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { api } from "@/trpc/react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -16,7 +16,7 @@ import Link from "next/link";
 const formSchema = z.object({
     stripePublic: z.string().min(1, "Stripe public key is required"),
     stripeSecret: z.string().min(1, "Stripe secret key is required"),
-})
+});
 
 export default function AddStripe() {
     const router = useRouter();
@@ -26,23 +26,20 @@ export default function AddStripe() {
             stripePublic: "",
             stripeSecret: "",
         },
-    })
+    });
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
+        console.log(values);
     }
 
     return (
         <Card>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
-                    <CardHeader variant={"bordered"} className="font-semibold">
-                        <div className="flex items-center justify-between">
-                            <span>Add API key to connect with Stripe</span>                            
-                            <Button size={"sm"} variant={"link"}>
-                                <Link href={""} className="">How to connect your Stripe account ?</Link>
-                            </Button>
-                        </div>
+                    <CardHeader variant={"bordered"}>
+                        <Link href={""} className="text-zinc-600 hover:text-blue-600 hover:underline dark:text-zinc-400 dark:hover:text-blue-400">
+                            How to connect your Stripe account ?
+                        </Link>
                     </CardHeader>
                     <CardContent variant={"bordered"} className="space-y-4">
                         <FormField
@@ -76,5 +73,5 @@ export default function AddStripe() {
                 </form>
             </Form>
         </Card>
-    )
+    );
 }

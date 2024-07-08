@@ -31,9 +31,7 @@ export default async function Shops() {
         <section className="space-y-8 py-8">
             <div className="mx-auto flex max-w-5xl items-center justify-between px-6">
                 <h1 className="text-3xl font-bold leading-8 text-black dark:text-white">Shop</h1>
-                {shops.length > 0 && (
-                    <NewShop />
-                )}
+                {shops.length > 0 && <NewShop />}
             </div>
             <div className="mx-auto max-w-5xl px-6">
                 {shops.length === 0 ? (

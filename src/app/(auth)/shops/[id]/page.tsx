@@ -9,6 +9,7 @@ import AddStripe from "@/components/actions/addStripe";
 import { DropdownDetail } from "@/components/actions/dropdown";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { AccordionCard, AccordionCardContent, AccordionCardItem, AccordionCardTrigger } from "@/components/ui/accordion-card";
+import Link from "next/link";
 
 export default async function ShopDetail({ params }: { params: { id: string } }) {
     const shop = await db.shop.findUnique({ where: { id: params.id } });
@@ -44,9 +45,7 @@ export default async function ShopDetail({ params }: { params: { id: string } })
                     <Button variant={"outline"}>Edit shop</Button>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button variant={"outline"}>
-                                Status
-                            </Button>
+                            <Button variant={"outline"}>Status</Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                             <DropdownMenuItem className="flex items-center gap-2">
@@ -95,23 +94,50 @@ export default async function ShopDetail({ params }: { params: { id: string } })
                     </div>
                     <div className="flex flex-col items-start gap-2">
                         <Label>Stripe ID</Label>
-                        <Badge className="truncate max-w-full">{shop.stripePublic ? shop.stripePublic.slice(0, 15) + "..." : "Not connected"}</Badge>
+                        <Badge className="max-w-full truncate">{shop.stripePublic ? shop.stripePublic.slice(0, 15) + "..." : "Not connected"}</Badge>
                     </div>
                     <div className="flex flex-col items-start gap-2">
                         <Label>Stripe Secret</Label>
-                        <Badge className="truncate max-w-full">{shop.stripeSecret ? shop.stripeSecret.slice(0, 15) + "..." : "Not connected"}</Badge>
+                        <Badge className="max-w-full truncate">{shop.stripeSecret ? shop.stripeSecret.slice(0, 15) + "..." : "Not connected"}</Badge>
                     </div>
                 </div>
             </div>
             <div className="mx-auto flex max-w-5xl flex-col gap-8 px-6">
                 <AccordionCard type="single" collapsible>
                     <AccordionCardItem value="item-1">
-                        <AccordionCardTrigger>Is it accessible?</AccordionCardTrigger>
+                        <AccordionCardTrigger>
+                            <span>Add API key to connect with Stripe</span>
+                        </AccordionCardTrigger>
+                        <AccordionCardContent>
+                            <AddStripe />
+                        </AccordionCardContent>
+                    </AccordionCardItem>
+                    <AccordionCardItem value="item-2" className="pointer-events-none select-none opacity-50">
+                        <AccordionCardTrigger>
+                            <span>Setup your product</span>
+                        </AccordionCardTrigger>
+                        <AccordionCardContent>
+                            <AddStripe />
+                        </AccordionCardContent>
+                    </AccordionCardItem>
+                    <AccordionCardItem value="item-3" className="pointer-events-none select-none opacity-50">
+                        <AccordionCardTrigger>
+                            <span>Setup your FAQ</span>
+                        </AccordionCardTrigger>
+                        <AccordionCardContent>
+                            <AddStripe />
+                        </AccordionCardContent>
+                    </AccordionCardItem>
+                    <AccordionCardItem value="item-4" className="pointer-events-none select-none opacity-50">
+                        <AccordionCardTrigger>
+                            <span>Choose your shop theme</span>
+                        </AccordionCardTrigger>
                         <AccordionCardContent>
                             <AddStripe />
                         </AccordionCardContent>
                     </AccordionCardItem>
                 </AccordionCard>
+                
             </div>
         </section>
     );

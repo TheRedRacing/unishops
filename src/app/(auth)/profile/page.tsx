@@ -54,7 +54,7 @@ export default async function Profile() {
         }
 
         return user;
-    }
+    };
 
     const user = await getUserWithRelations();
 
@@ -117,7 +117,9 @@ export default async function Profile() {
                                     <SelectValue placeholder="English"></SelectValue>
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="english" defaultChecked>English</SelectItem>
+                                    <SelectItem value="english" defaultChecked>
+                                        English
+                                    </SelectItem>
                                     <SelectItem value="french">French</SelectItem>
                                     <SelectItem value="german">German</SelectItem>
                                     <SelectItem value="italian">Italian</SelectItem>
@@ -137,7 +139,9 @@ export default async function Profile() {
                                     <SelectValue placeholder="Swiss Franc CHF" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="chf" defaultChecked>Swiss Franc CHF</SelectItem>
+                                    <SelectItem value="chf" defaultChecked>
+                                        Swiss Franc CHF
+                                    </SelectItem>
                                     <SelectItem value="eur">Euro €</SelectItem>
                                     <SelectItem value="usd">US Dollar $</SelectItem>
                                     <SelectItem value="cad">Canadian Dollar $</SelectItem>

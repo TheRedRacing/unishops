@@ -1,21 +1,21 @@
-"use client"
+"use client";
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "@heroicons/react/24/outline";
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { api } from "@/trpc/react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
     name: z.string().min(1, "Name is required"),
-})
+});
 
 export default function NewShop() {
     const router = useRouter();
@@ -24,7 +24,7 @@ export default function NewShop() {
         defaultValues: {
             name: "",
         },
-    })
+    });
 
     const { mutate: createShop } = api.shops.create.useMutation({
         onSuccess: (data) => {
@@ -36,7 +36,7 @@ export default function NewShop() {
         onError: (error) => {
             toast.error(error.message);
         },
-    })
+    });
     function onSubmit(values: z.infer<typeof formSchema>) {
         createShop({
             name: values.name,
@@ -56,9 +56,7 @@ export default function NewShop() {
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)}>
                             <DialogTitle>Create a new shop</DialogTitle>
-                            <DialogDescription className="mt-1">
-                                Create a shop to start selling your products and services online.
-                            </DialogDescription>
+                            <DialogDescription className="mt-1">Create a shop to start selling your products and services online.</DialogDescription>
                             <FormField
                                 control={form.control}
                                 name="name"
@@ -70,7 +68,7 @@ export default function NewShop() {
                                     </FormItem>
                                 )}
                             />
-                            <div className="flex items-center justify-start gap-2 mt-3">
+                            <div className="mt-3 flex items-center justify-start gap-2">
                                 <Button type="submit">Create shop</Button>
                                 <DialogClose asChild>
                                     <Button variant="ghost">Cancel</Button>

@@ -13,7 +13,11 @@ const SelectGroup = SelectPrimitive.Group;
 const SelectValue = SelectPrimitive.Value;
 
 const SelectTrigger = React.forwardRef<React.ElementRef<typeof SelectPrimitive.Trigger>, React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>>(({ className, children, ...props }, ref) => (
-    <SelectPrimitive.Trigger ref={ref} className={cn("flex items-center justify-between w-full rounded-md border border-zinc-200 bg-white px-2.5 py-1.5 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-zinc-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950 disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-800 dark:bg-zinc-900 dark:ring-offset-zinc-950 dark:placeholder:text-zinc-400 dark:focus-visible:ring-zinc-700 [&>span]:line-clamp-1", className)} {...props}>
+    <SelectPrimitive.Trigger
+        ref={ref}
+        className={cn("flex w-full items-center justify-between rounded-md border border-zinc-200 bg-white px-2.5 py-1.5 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-zinc-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950 disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-800 dark:bg-zinc-900 dark:ring-offset-zinc-950 dark:placeholder:text-zinc-400 dark:focus-visible:ring-zinc-700 [&>span]:line-clamp-1", className)}
+        {...props}
+    >
         {children}
         <SelectPrimitive.Icon asChild>
             <ChevronDown className="h-4 w-4 opacity-50" />
@@ -60,7 +64,7 @@ const SelectLabel = React.forwardRef<React.ElementRef<typeof SelectPrimitive.Lab
 SelectLabel.displayName = SelectPrimitive.Label.displayName;
 
 const SelectItem = React.forwardRef<React.ElementRef<typeof SelectPrimitive.Item>, React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>>(({ className, children, ...props }, ref) => (
-    <SelectPrimitive.Item ref={ref} className={cn("relative flex items-center justify-between w-full cursor-default select-none rounded-sm px-2.5 py-1.5 text-sm outline-none focus:bg-zinc-100 focus:text-zinc-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:focus:bg-zinc-800 dark:focus:text-zinc-50", className)} {...props}>
+    <SelectPrimitive.Item ref={ref} className={cn("relative flex w-full cursor-default select-none items-center justify-between rounded-sm px-2.5 py-1.5 text-sm outline-none focus:bg-zinc-100 focus:text-zinc-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:focus:bg-zinc-800 dark:focus:text-zinc-50", className)} {...props}>
         <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
 
         <SelectPrimitive.ItemIndicator>

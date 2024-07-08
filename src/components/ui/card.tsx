@@ -15,7 +15,7 @@ const cardVariants = cva("rounded-lg border shadow-sm", {
     },
 });
 
-interface CardProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof cardVariants> { }
+interface CardProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof cardVariants> {}
 const Card = React.forwardRef<HTMLDivElement, CardProps>(({ variant, className, ...props }, ref) => <div ref={ref} className={cn(cardVariants({ variant }), className)} {...props} />);
 Card.displayName = "Card";
 
@@ -31,7 +31,7 @@ const cardHeaderVariants = cva("flex flex-col space-y-1.5", {
     },
 });
 
-interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof cardHeaderVariants> { }
+interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof cardHeaderVariants> {}
 const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(({ variant, className, ...props }, ref) => <div ref={ref} className={cn(cardHeaderVariants({ variant }), className)} {...props} />);
 CardHeader.displayName = "CardHeader";
 
@@ -52,7 +52,7 @@ const CardContentVariants = cva("", {
         variant: "default",
     },
 });
-interface CardContentProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof CardContentVariants> { }
+interface CardContentProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof CardContentVariants> {}
 const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(({ variant, className, ...props }, ref) => <div ref={ref} className={cn(CardContentVariants({ variant }), className)} {...props} />);
 CardContent.displayName = "CardContent";
 
@@ -67,7 +67,7 @@ const CardFooterVariants = cva("", {
         variant: "default",
     },
 });
-interface CardFooterProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof CardFooterVariants> { }
+interface CardFooterProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof CardFooterVariants> {}
 const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(({ variant, className, ...props }, ref) => <div ref={ref} className={cn(CardFooterVariants({ variant }), className)} {...props} />);
 CardFooter.displayName = "CardFooter";
 

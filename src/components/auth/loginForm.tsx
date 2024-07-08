@@ -1,4 +1,4 @@
-import { signIn } from "next-auth/react"
+import { signIn } from "next-auth/react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";

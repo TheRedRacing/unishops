@@ -18,7 +18,7 @@ export default async function Settings() {
         }
 
         return user;
-    }
+    };
 
     const user = await getUserWithRelations();
 
@@ -91,9 +91,7 @@ export default async function Settings() {
                             <Badge className="text-sm">You do not currently have any payment methods.</Badge>
                         </CardContent>
                         <CardFooter variant={"bordered"}>
-                            <Button variant={"outline"}>
-                                Add payment method
-                            </Button>
+                            <Button variant={"outline"}>Add payment method</Button>
                         </CardFooter>
                     </Card>
                 </TabsContent>

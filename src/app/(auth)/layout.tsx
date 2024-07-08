@@ -131,8 +131,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
                     <Update />
                     <ThemeToogle />
                     <Button variant={"ghost"} size={"icon"} asChild>
-                        <Link href="/docs/introduction" className="flex gap-2 items-center">
-                            <DocumentTextIcon className="h-6 w-6" />                            
+                        <Link href="/docs/introduction" className="flex items-center gap-2">
+                            <DocumentTextIcon className="h-6 w-6" />
                         </Link>
                     </Button>
                 </div>

@@ -2,7 +2,6 @@ import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "@/server/api/trpc";
 import { TRPCError } from "@trpc/server";
-import { EnumShopStatus } from "@prisma/client";
 
 export const shopsRouter = createTRPCRouter({
     create: protectedProcedure.input(z.object({ name: z.string() })).mutation(async ({ ctx, input }) => {
@@ -12,7 +11,7 @@ export const shopsRouter = createTRPCRouter({
                 data: {
                     name: input.name,
                     slug: input.name.toLowerCase().replace(/ /g, "-"),
-                    status: "DRAFT",
+                    status: "Draft",
                     user: {
                         connect: {
                             id: userID,

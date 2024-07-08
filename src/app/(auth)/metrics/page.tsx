@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card";
 
 // server side
 export default function Metrics() {
@@ -8,10 +8,8 @@ export default function Metrics() {
                 <h1 className="text-3xl font-bold leading-8 text-black dark:text-white">Metrics</h1>
             </div>
             <div className="mx-auto max-w-5xl px-6">
-                <Card>                    
-                    <CardContent variant={"bordered"} className="min-h-80 relative">
-                        
-                    </CardContent>
+                <Card>
+                    <CardContent variant={"bordered"} className="relative min-h-80"></CardContent>
                 </Card>
             </div>
         </section>

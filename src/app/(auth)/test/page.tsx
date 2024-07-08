@@ -120,16 +120,14 @@ export default async function Test() {
                     </Card> */}
                     <Card>
                         <CardHeader variant={"bordered"} className="font-semibold">
-                            <div className="flex items-center justify-between">
-                                Session
-                            </div>
+                            <div className="flex items-center justify-between">Session</div>
                         </CardHeader>
                         <CardContent variant={"bordered"}>
                             <pre className="whitespace-pre-wrap break-all rounded-lg bg-zinc-900 px-4 py-6">{JSON.stringify(session, null, 2)}</pre>
                         </CardContent>
-                    </Card>                    
+                    </Card>
                 </div>
             </div>
-        </section >
-    )
+        </section>
+    );
 }

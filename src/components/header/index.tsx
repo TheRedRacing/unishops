@@ -99,7 +99,7 @@ export default function Header() {
                                             <li className="row-span-4">
                                                 <NavigationMenuLink asChild>
                                                     <a className="flex h-full w-full select-none flex-col justify-start rounded-md bg-gradient-to-b from-blue-500 to-blue-300 p-6 no-underline outline-none focus:shadow-md" href="/">
-                                                        <Logo />                                                        
+                                                        <Logo />
                                                         <p className="text-sm leading-tight text-black">Your online store management tool.</p>
                                                     </a>
                                                 </NavigationMenuLink>
@@ -155,7 +155,7 @@ export default function Header() {
                         <Update />
                         <ThemeToogle />
                         <Button variant={"ghost"} size={"icon"} asChild>
-                            <Link href="/docs/introduction" className="flex gap-2 items-center">
+                            <Link href="/docs/introduction" className="flex items-center gap-2">
                                 <DocumentTextIcon className="h-6 w-6" />
                             </Link>
                         </Button>
@@ -171,7 +171,7 @@ export function HeaderWaitlist() {
         <>
             <header className="border-b bg-white dark:border-zinc-800 dark:bg-zinc-950">
                 <nav className="container mx-auto flex items-center justify-between px-6 py-2 lg:px-8" aria-label="Global">
-                    <div className="items-center gap-4 flex flex-1">
+                    <div className="flex flex-1 items-center gap-4">
                         <Logo />
                     </div>
                     <div className="flex flex-1 justify-end gap-2">

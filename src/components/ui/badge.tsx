@@ -26,7 +26,7 @@ const badgeVariants = cva("inline-flex items-center rounded-md font-medium ring-
     },
 });
 
-export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof badgeVariants> { }
+export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof badgeVariants> {}
 
 function Badge({ className, variant, size, ...props }: BadgeProps) {
     return <div className={cn(badgeVariants({ variant, size }), className)} {...props} />;
@@ -36,10 +36,9 @@ function ProBadge({ className, ...props }: BadgeProps) {
     return (
         <div className={cn(badgeVariants({ variant: "default", size: "sm" }), className, "group")} {...props}>
             Pro
-            <SparklesIcon className="h-4 w-4 ml-1.5" />
+            <SparklesIcon className="ml-1.5 h-4 w-4" />
         </div>
-    )
-
+    );
 }
 
 export { Badge, ProBadge, badgeVariants };
