@@ -176,7 +176,7 @@ export function HeaderWaitlist() {
                     </div>
                     <div className="flex flex-1 justify-end gap-2">
                         <Button variant={"ghost"} size={"icon"} asChild>
-                            <Link href="https://github.com/TheRedRacing/unishop" target="_blank">
+                            <Link href="https://github.com/TheRedRacing/unishops" target="_blank">
                                 <Github />
                             </Link>
                         </Button>
