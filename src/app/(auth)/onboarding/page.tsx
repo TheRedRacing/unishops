@@ -32,7 +32,10 @@ export default function onboarding() {
 
                 <Card className="pointer-events-none select-none opacity-50">
                     <CardHeader variant={"bordered"} className="font-semibold">
-                        02. Connect your Stripe account
+                        <div className="flex items-center justify-between">
+                            <div>02. Connect your Stripe account</div>
+                            <Link href={""} className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-none transition-colors text-zinc-900 underline-offset-4 hover:underline hover:text-blue-500 dark:text-zinc-50 dark:hover:text-blue-500">How to connect your Stripe account ?</Link>
+                        </div>
                     </CardHeader>
                     <CardContent variant={"bordered"}>
                         <div className="flex flex-col gap-4">
@@ -52,11 +55,8 @@ export default function onboarding() {
                 </Card>
 
                 <Card className="pointer-events-none select-none opacity-50">
-                    <CardHeader variant={"bordered"}>
-                        <div className="flex items-center justify-between">
-                            <div className="font-semibold">03. Add your first product</div>
-                            <Link href={""} className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-none transition-colors text-zinc-900 underline-offset-4 hover:underline hover:text-blue-500 dark:text-zinc-50 dark:hover:text-blue-500">How to connect your Stripe account ?</Link>
-                        </div>
+                    <CardHeader variant={"bordered"} className="font-semibold">
+                        03. Add your first product
                     </CardHeader>
                     <CardContent variant={"bordered"}>
                         <Badge variant={"default"}>
