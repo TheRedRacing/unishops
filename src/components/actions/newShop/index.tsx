@@ -31,6 +31,7 @@ export default function NewShop() {
             toast.success(`Shop ${data.name} created successfully`);
             form.reset();
             router.push(`/shops/${data.id}`);
+            router.refresh();
         },
         onError: (error) => {
             toast.error(error.message);
