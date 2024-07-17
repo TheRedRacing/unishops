@@ -1,11 +1,11 @@
 import Footer from "@/components/footer";
-import { HeaderWaitlist } from "@/components/header";
+import Header from "@/components/header";
 import WaitListForm from "@/components/waitListForm";
 
 export default async function Home() {
     return (
         <>
-            <HeaderWaitlist />
+            <Header />
             <main className="flex flex-1 justify-center py-40">
                 <div className="">
                     <h2 className="mx-auto max-w-2xl text-center text-3xl font-bold tracking-tight dark:text-white sm:text-4xl">Get notified when we’re launching.</h2>

@@ -3,7 +3,7 @@ import Link from "next/link";
 export function Logo() {
     return (
         <Link href="/" className="text-left">
-            <span className="text-lg font-black -tracking-wide">UniShops</span>
+            <span className="text-xl font-black -tracking-wide leading-5">UniShops</span>
         </Link>
     );
 }

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export function GithubButton() {
     return (
-        <Button onClick={() => signIn("github", { callbackUrl: "/shops" })} type="submit" variant={"outline"} size={"lg"} className="flex w-full items-center gap-2" disabled>
+        <Button onClick={() => signIn("github", { callbackUrl: "/shops" })} type="submit" variant={"outline"} size={"lg"} className="flex w-full items-center gap-2">
             <Github />
             <span>Sign up with GitHub</span>
         </Button>
