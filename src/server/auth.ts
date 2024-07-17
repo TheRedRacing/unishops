@@ -4,7 +4,7 @@ import { type Adapter } from "next-auth/adapters";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import Linkedin from "next-auth/providers/linkedin";
-
+import EmailProvider from "next-auth/providers/email";
 import { env } from "@/env";
 import { db } from "@/server/db";
 
@@ -64,6 +64,17 @@ export const authOptions: NextAuthOptions = {
         Linkedin({
             clientId: env.AUTH_LINKEDIN_ID,
             clientSecret: env.AUTH_LINKEDIN_SECRET,
+        }),
+        EmailProvider({
+            server: {
+                host: env.AUTH_EMAIL_FROM,
+                port: env.AUTH_EMAIL_SERVER_PORT,
+                auth: {
+                    user: env.AUTH_EMAIL_SERVER_USER,
+                    pass: env.AUTH_EMAIL_SERVER_PASSWORD,
+                },
+            },
+            from: env.AUTH_EMAIL_FROM,
         }),
         /**
          * ...add more providers here.

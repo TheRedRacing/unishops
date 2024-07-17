@@ -24,6 +24,13 @@ export const env = createEnv({
         AUTH_GOOGLE_SECRET: z.string(),
         AUTH_LINKEDIN_ID: z.string(),
         AUTH_LINKEDIN_SECRET: z.string(),
+        // Miss apple id and secret
+        // Mail Provider
+        AUTH_EMAIL_SERVER_USER: z.string(),
+        AUTH_EMAIL_SERVER_PASSWORD: z.string(),
+        AUTH_EMAIL_SERVER_HOST: z.string(),
+        AUTH_EMAIL_SERVER_PORT: z.string(),
+        AUTH_EMAIL_FROM: z.string(),
     },
 
     /**
@@ -51,6 +58,13 @@ export const env = createEnv({
         AUTH_GOOGLE_SECRET: process.env.AUTH_GOOGLE_SECRET,
         AUTH_LINKEDIN_ID: process.env.AUTH_LINKEDIN_ID,
         AUTH_LINKEDIN_SECRET: process.env.AUTH_LINKEDIN_SECRET,
+        // Miss apple id and secret
+        // Mail Provider
+        AUTH_EMAIL_SERVER_USER: process.env.AUTH_EMAIL_SERVER_USER,
+        AUTH_EMAIL_SERVER_PASSWORD: process.env.AUTH_EMAIL_SERVER_PASSWORD,
+        AUTH_EMAIL_SERVER_HOST: process.env.AUTH_EMAIL_SERVER_HOST,
+        AUTH_EMAIL_SERVER_PORT: process.env.AUTH_EMAIL_SERVER_PORT,
+        AUTH_EMAIL_FROM: process.env.AUTH_EMAIL_FROM,
     },
     /**
      * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
