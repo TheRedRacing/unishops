@@ -1,9 +1,16 @@
 import Link from "next/link";
+import React from "react";
 
-export function Logo() {
+interface LogoProps {
+    pro?: boolean;
+}
+export const Logo: React.FC<LogoProps> = ({ pro = false }) => {
     return (
         <Link href="/" className="text-left">
-            <span className="text-xl font-black -tracking-wide leading-5">UniShops</span>
+            <div className="text-xl font-black -tracking-wide leading-5 flex items-baseline gap-1">
+                UniShops
+                {pro && <span className="text-xs text-zinc-500 dark:text-zinc-400">Pro</span>}
+            </div>
         </Link>
     );
 }

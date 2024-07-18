@@ -37,11 +37,11 @@ export default async function DashboardLayout({ children }: { children: React.Re
             throw new Error("User not found");
         }
 
-        const shops = user.shops;
-        shops.sort((a, b) => Date.parse(b.createdAt.toISOString()) - Date.parse(a.createdAt.toISOString()));
-        return shops;
+        return user;
     }
-    const shops = await getShops();
+    const user = await getShops();
+    const shops = user.shops;
+    shops.sort((a, b) => Date.parse(b.createdAt.toISOString()) - Date.parse(a.createdAt.toISOString()));
     
     const nav = [
         {
@@ -82,7 +82,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
             <nav>
                 <aside className="hidden h-screen w-[250px] flex-shrink-0 flex-col justify-between border-r border-zinc-200 bg-zinc-50 px-4 pb-6 dark:border-zinc-800 dark:bg-zinc-950 md:flex">
                     <div className="flex h-[60px] items-center px-2">
-                        <Logo />
+                        <Logo pro={user.proAccount ? true : false} />
                     </div>
                     <nav className="mt-6 flex-1">
                         <ul className="flex flex-col gap-2">
@@ -130,17 +130,19 @@ export default async function DashboardLayout({ children }: { children: React.Re
                             )}
                         </ul>
                     </nav>
-                    <Card variant="elevated">
-                        <CardHeader className="p-2 pt-0 md:p-4">
-                            <CardTitle>Upgrade to Pro</CardTitle>
-                            <CardDescription>Unlock all features and get unlimited access to our platform.</CardDescription>
-                        </CardHeader>
-                        <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-                            <Button size="sm" className="w-full">
-                                Upgrade
-                            </Button>
-                        </CardContent>
-                    </Card>
+                    {!user.proAccount && (
+                        <Card variant="elevated">
+                            <CardHeader className="p-2 pt-0 md:p-4">
+                                <CardTitle>Upgrade to Pro</CardTitle>
+                                <CardDescription>Unlock all features and get unlimited access to our platform.</CardDescription>
+                            </CardHeader>
+                            <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
+                                <Button size="sm" className="w-full">
+                                    Upgrade
+                                </Button>
+                            </CardContent>
+                        </Card>
+                    )}
                 </aside>
             </nav>
             <div className="w-full">
