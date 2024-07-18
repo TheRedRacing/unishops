@@ -77,7 +77,7 @@ const DropdownMenuItem = React.forwardRef<
         inset?: boolean;
         variant?: "default" | "destructive";
     }
->(({ className, variant, inset, ...props }, ref) => <DropdownMenuPrimitive.Item ref={ref} onSelect={(e) => e.preventDefault()} className={cn(DropdownMenuItemVariant({ variant, className }), inset && "pl-8")} {...props} />);
+>(({ className, variant, inset, ...props }, ref) => <DropdownMenuPrimitive.Item ref={ref}  className={cn(DropdownMenuItemVariant({ variant, className }), inset && "pl-8")} {...props} />);
 DropdownMenuItem.displayName = DropdownMenuPrimitive.Item.displayName;
 
 const DropdownMenuCheckboxItem = React.forwardRef<React.ElementRef<typeof DropdownMenuPrimitive.CheckboxItem>, React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem>>(({ className, children, checked, ...props }, ref) => (
