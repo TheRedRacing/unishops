@@ -24,7 +24,9 @@ export async function AuthMenu() {
                                     <UserIcon className="h-4 w-4 rounded-full" />
                                 </div>
                             )}
-                            <p className="truncate">Maxime Sickenberg</p>
+                            <p className="truncate max-w-40">
+                                {session.user.name ? session.user.name : session.user.email}
+                            </p>
                         </div>
                     </Button>
                 </DropdownMenuTrigger>

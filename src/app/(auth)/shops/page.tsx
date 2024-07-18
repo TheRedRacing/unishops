@@ -6,11 +6,31 @@ import { timeDifference } from "@/lib/timeDifference";
 import { db } from "@/server/db";
 import NewShop from "@/components/actions/newShop";
 import { DropdownTable } from "@/components/actions/dropdown";
+import { getServerAuthSession } from "@/server/auth";
 
 // server side
 export default async function Shops() {
-    const shops = await db.shop.findMany();
-    shops.sort((a, b) => Date.parse(b.createdAt.toISOString()) - Date.parse(a.createdAt.toISOString()));
+    const session = await getServerAuthSession();
+    const getShops = async () => {
+        const user = await db.user.findFirst({
+            where: {
+                email: session?.user.email,
+            },
+            include: {
+                shops: true,
+            },
+        });
+
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        const shops = user.shops;
+        shops.sort((a, b) => Date.parse(b.createdAt.toISOString()) - Date.parse(a.createdAt.toISOString()));
+        return shops;
+    }    
+
+    const shops = await getShops();
 
     const status = (status: string) => {
         switch (status) {

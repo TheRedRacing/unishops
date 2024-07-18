@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { db } from "@/server/db";
+import Debug from "@/components/header/debug";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
     const session = await getServerAuthSession();
@@ -22,9 +23,26 @@ export default async function DashboardLayout({ children }: { children: React.Re
         redirect("/login");
     }
 
-    const shops = await db.shop.findMany();
-    shops.sort((a, b) => Date.parse(b.createdAt.toISOString()) - Date.parse(a.createdAt.toISOString()));
+    const getShops = async () => {
+        const user = await db.user.findFirst({
+            where: {
+                email: session?.user.email,
+            },
+            include: {
+                shops: true,
+            },
+        });
 
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        const shops = user.shops;
+        shops.sort((a, b) => Date.parse(b.createdAt.toISOString()) - Date.parse(a.createdAt.toISOString()));
+        return shops;
+    }
+    const shops = await getShops();
+    
     const nav = [
         {
             title: "Shops",
@@ -127,6 +145,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
             </nav>
             <div className="w-full">
                 <div className="flex h-[60px] items-center justify-end gap-2 border-b border-zinc-200 px-6 dark:border-zinc-800">
+                    <Debug />
                     <AuthMenu />
                     <Update />
                     <ThemeToogle />

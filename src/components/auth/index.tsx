@@ -7,9 +7,14 @@ export default async function Auth() {
 
     if (session) {
         return (
-            <Button variant="ghost" asChild>
-                <Link href="/shops">Shops</Link>
-            </Button>
+            <>
+                <Button variant="navlink" asChild>
+                    <Link href="/shops">Sign In</Link>
+                </Button>
+                <Button variant="ghost" asChild>
+                    <Link href="/shops">Get Started</Link>
+                </Button>
+            </>
         );
     }
 

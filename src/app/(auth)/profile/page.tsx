@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { db } from "@/server/db";
+import { getServerAuthSession } from "@/server/auth";
 
 type EmailNotification = {
     id: string;
@@ -42,8 +43,12 @@ const emailNotifications: EmailNotification[] = [
 
 // server side
 export default async function Profile() {
+    const session = await getServerAuthSession();
     const getUserWithRelations = async () => {
         const user = await db.user.findFirst({
+            where: {
+                email: session?.user.email,
+            },
             include: {
                 accounts: true,
             },
@@ -74,21 +79,41 @@ export default async function Profile() {
                 <TabsContent value="profile">
                     <Card>
                         <CardHeader variant={"bordered"} className="font-semibold">
+                            Your Name
+                        </CardHeader>
+                        <CardContent variant={"bordered"}>
+                            <Label>Full name</Label>
+                            <Input type="email" value={user.name ?? ""} className="mt-1 bg-zinc-100 dark:bg-zinc-900" />
+                        </CardContent>
+
+                        <CardFooter variant={"bordered"}>
+                            <Button>Update name</Button>
+                        </CardFooter>
+                    </Card>
+
+                    <Card>
+                        <CardHeader variant={"bordered"} className="font-semibold">
                             Your Email
                         </CardHeader>
                         <CardContent variant={"bordered"}>
                             <Label>Email address</Label>
-                            <Input type="email" placeholder="Email" value={user.email ?? ""} className="mt-1 bg-zinc-100 dark:bg-zinc-900" />
+                            <Input type="email" value={user.email ?? ""} className="mt-1 bg-zinc-100 dark:bg-zinc-900" />
+                            <p className="text-xs mt-2 text-zinc-400">This account is associated with your {user.accounts[0]?.provider ? `${user.accounts[0]?.provider} account.` : "email"}</p>
                         </CardContent>
-                        <CardFooter variant={"bordered"}>This account is associated with your {user.accounts[0]?.provider} account.</CardFooter>
+
+                        <CardFooter variant={"bordered"}>
+                            <Button>Update email</Button>
+                        </CardFooter>
                     </Card>
 
                     <Card>
                         <CardHeader variant={"bordered"}>Multi-Factor Authentication (MFA)</CardHeader>
                         <CardContent variant={"bordered"}>
                             <div>Protect your account by adding an extra layer of security.</div>
-                            <Button className="mt-4">Enable MFA</Button>
                         </CardContent>
+                        <CardFooter variant={"bordered"}>
+                            <Button>Enable MFA</Button>
+                        </CardFooter>
                     </Card>
                 </TabsContent>
                 <TabsContent value="payment">
@@ -100,7 +125,7 @@ export default async function Profile() {
                             <Badge className="text-sm">You do not currently have any payment methods.</Badge>
                         </CardContent>
                         <CardFooter variant={"bordered"}>
-                            <Button variant={"outline"} size={"sm"}>
+                            <Button variant={"outline"}>
                                 Add payment method
                             </Button>
                         </CardFooter>
@@ -180,8 +205,8 @@ export default async function Profile() {
                             Account
                         </CardHeader>
                         <CardContent variant={"bordered"}>
-                            <div>Permanently remove your account and all of its contents from Resend.</div>
-                            <div>This action is not reversible, so please continue with caution.</div>
+                            <div>Permanently remove your account and all of its contents from UniShops.</div>
+                            <div>This action <span className="font-bold text-red-500">is not reversible</span>, so please continue with caution.</div>
                             <Button className="mt-4" variant={"destructive"}>
                                 Request Account Deletion
                             </Button>
