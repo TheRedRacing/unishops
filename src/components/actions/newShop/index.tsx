@@ -26,10 +26,9 @@ export default function NewShop() {
         },
     });
 
-    const { mutate: createShop } = api.shops.create.useMutation({
+    const { mutate: createShop, isPending: createShopIsPending } = api.shops.create.useMutation({
         onSuccess: (data) => {
-            toast.success(`Shop ${data.name} created successfully`);
-            form.reset();
+            toast.success(`Shop ${data.name} created successfully`);            
             router.push(`/shops/${data.id}`);
             router.refresh();
         },
@@ -37,8 +36,9 @@ export default function NewShop() {
             toast.error(error.message);
         },
     });
-    
+
     function onSubmit(values: z.infer<typeof formSchema>) {
+        if (createShopIsPending) return;
         createShop({
             name: values.name,
         });
@@ -54,30 +54,31 @@ export default function NewShop() {
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)}>
-                            <DialogTitle>Create a new shop</DialogTitle>
-                            <DialogDescription className="mt-1">Create a shop to start selling your products and services online.</DialogDescription>
-                            <FormField
-                                control={form.control}
-                                name="name"
-                                render={({ field }) => (
-                                    <FormItem className="mt-2">
-                                        <FormLabel>Name</FormLabel>
-                                        <Input {...field} placeholder="Shop name" />
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <div className="mt-3 flex items-center justify-start gap-2">
-                                <Button type="submit">Create shop</Button>
-                                <DialogClose asChild>
-                                    <Button variant="ghost">Cancel</Button>
-                                </DialogClose>
-                            </div>
-                        </form>
-                    </Form>
+                    <DialogTitle>Create a new shop</DialogTitle>
+                    <DialogDescription className="mt-1">Create a shop to start selling your products and services online.</DialogDescription>
                 </DialogHeader>
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)}>
+                        <FormField
+                            control={form.control}
+                            name="name"
+                            render={({ field }) => (
+                                <FormItem className="mt-2">
+                                    <FormLabel>Name</FormLabel>
+                                    <Input {...field} placeholder="Shop name" />
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <div className="mt-3 flex items-center justify-start gap-2">
+                            <Button type="submit" disabled={createShopIsPending}>Create shop</Button>
+                            <DialogClose asChild>
+                                <Button variant="ghost">Cancel</Button>
+                            </DialogClose>
+                        </div>
+                    </form>
+                </Form>
+
             </DialogContent>
         </Dialog>
     );
