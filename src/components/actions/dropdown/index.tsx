@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -14,8 +16,79 @@ import { api } from "@/trpc/react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-const DELETE_WORD = "DELETE";
+interface DropdownMenuEditFormProps {
+    shopId: string;
+    shopName: string;
+    setDropDownOpen: (open: boolean) => void;
+    setDialogOpen: (open: boolean) => void;
+}
 
+const formSchema = z.object({
+    name: z.string().min(1, "Name is required"),
+});
+
+const DropdownMenuEditForm: React.FC<DropdownMenuEditFormProps> = ({ shopId, shopName, setDropDownOpen, setDialogOpen }) => {
+    const router = useRouter();
+
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            name: shopName,
+        },
+    });
+
+    const { mutate: EditShop } = api.shops.editName.useMutation({
+        onSuccess: (data) => {
+            toast.success(`Shop ${data.name} edited successfully`);
+            setDropDownOpen(false);
+            setDialogOpen(false);
+            router.refresh();
+        },
+        onError: (error) => {
+            toast.error(error.message);
+        },
+    });
+
+    function onSubmit(values: z.infer<typeof formSchema>) {
+        console.log(values);
+        EditShop({
+            id: shopId,
+            name: values.name,
+        });
+    }
+
+    return (
+        <DialogContent>
+            <DialogHeader>
+                <DialogTitle>Edit shop name</DialogTitle>
+                <DialogDescription>Edit the name of the shop.</DialogDescription>
+            </DialogHeader>
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)}>
+                    <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                            <FormItem className="mt-2">
+                                <FormLabel>Name</FormLabel>
+                                <Input {...field} placeholder="Shop name" />
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <div className="mt-3 flex items-center justify-start gap-2">
+                        <Button type="submit">Save</Button>
+                        <DialogClose asChild>
+                            <Button variant="ghost">Cancel</Button>
+                        </DialogClose>
+                    </div>
+                </form>
+            </Form>
+        </DialogContent>
+    );
+};
+
+const DELETE_WORD = "DELETE";
 interface DropdownMenuDeleteFormProps {
     shopId: string;
     shopName: string;
@@ -93,7 +166,8 @@ interface DropdownProps {
 }
 export const DropdownTable: React.FC<DropdownProps> = ({ shopId, shopName }) => {
     const [DropDownOpen, setDropDownOpen] = useState(false);
-    const [DialogOpen, setDialogOpen] = useState(false);
+    const [DeleteDialogOpen, setDeleteDialogOpen] = useState(false);
+    const [EditDialogOpen, setEditDialogOpen] = useState(false);
 
     return (
         <DropdownMenu
@@ -107,8 +181,13 @@ export const DropdownTable: React.FC<DropdownProps> = ({ shopId, shopName }) => 
             </DropdownMenuTrigger>
             <DropdownMenuContent>
                 <DropdownMenuItem>
-                    <PencilSquareIcon className="mr-2 h-4 w-4" />
-                    Edit
+                    <Dialog open={EditDialogOpen} onOpenChange={setEditDialogOpen}>
+                        <DialogTrigger className="flex">
+                            <PencilSquareIcon className="mr-2 h-4 w-4" />
+                            Edit
+                        </DialogTrigger>
+                        <DropdownMenuEditForm shopId={shopId} shopName={shopName} setDropDownOpen={setDropDownOpen} setDialogOpen={setEditDialogOpen} />
+                    </Dialog>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                     <DocumentDuplicateIcon className="mr-2 h-4 w-4" />
@@ -116,12 +195,12 @@ export const DropdownTable: React.FC<DropdownProps> = ({ shopId, shopName }) => 
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem variant="destructive">
-                    <Dialog open={DialogOpen} onOpenChange={setDialogOpen}>
+                    <Dialog open={DeleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
                         <DialogTrigger className="flex">
                             <TrashIcon className="mr-2 h-4 w-4" />
                             Delete
                         </DialogTrigger>
-                        <DropdownMenuDeleteForm shopId={shopId} shopName={shopName} setDropDownOpen={setDropDownOpen} setDialogOpen={setDialogOpen} />
+                        <DropdownMenuDeleteForm shopId={shopId} shopName={shopName} setDropDownOpen={setDropDownOpen} setDialogOpen={setDeleteDialogOpen} />
                     </Dialog>
                 </DropdownMenuItem>
             </DropdownMenuContent>

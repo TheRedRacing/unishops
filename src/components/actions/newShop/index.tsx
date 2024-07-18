@@ -37,6 +37,7 @@ export default function NewShop() {
             toast.error(error.message);
         },
     });
+    
     function onSubmit(values: z.infer<typeof formSchema>) {
         createShop({
             name: values.name,

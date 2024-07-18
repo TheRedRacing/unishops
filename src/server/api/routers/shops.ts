@@ -4,6 +4,7 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from "@/server/
 import { TRPCError } from "@trpc/server";
 
 export const shopsRouter = createTRPCRouter({
+    // shops gestion section
     create: protectedProcedure.input(z.object({ name: z.string() })).mutation(async ({ ctx, input }) => {
         try {
             const userID = ctx.session.user.id;
@@ -27,6 +28,60 @@ export const shopsRouter = createTRPCRouter({
             throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to create shop" });
         }
     }),
+    editName: protectedProcedure.input(z.object({ id: z.string(), name: z.string() })).mutation(async ({ ctx, input }) => {
+        try {
+            const userID = ctx.session.user.id;
+            const shop = await ctx.db.shop.findFirst({
+                where: {
+                    userId: userID,
+                    id: input.id,
+                },
+            });
+            if (!shop) {
+                throw new TRPCError({ code: "NOT_FOUND", message: "Shop not found" });
+            }
+            await ctx.db.shop.update({
+                where: {
+                    id: shop.id,
+                },
+                data: {
+                    name: input.name,                    
+                },
+            });
+            return shop;
+        } catch (error) {
+            if (error instanceof TRPCError) {
+                throw error;
+            }
+            throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to delete shop" });
+        }
+    }),
+    delete: protectedProcedure.input(z.object({ id: z.string() })).mutation(async ({ ctx, input }) => {
+        try {
+            const userID = ctx.session.user.id;
+            const shop = await ctx.db.shop.findFirst({
+                where: {
+                    userId: userID,
+                    id: input.id,
+                },
+            });
+            if (!shop) {
+                throw new TRPCError({ code: "NOT_FOUND", message: "Shop not found" });
+            }
+            await ctx.db.shop.delete({
+                where: {
+                    id: shop.id,
+                },
+            });
+            return shop;
+        } catch (error) {
+            if (error instanceof TRPCError) {
+                throw error;
+            }
+            throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to delete shop" });
+        }
+    }),
+    // find shops section
     findMany: protectedProcedure.query(async ({ ctx }) => {
         try {
             const userID = ctx.session.user.id;
@@ -64,31 +119,6 @@ export const shopsRouter = createTRPCRouter({
                 throw error;
             }
             throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to fetch shop" });
-        }
-    }),
-    delete: protectedProcedure.input(z.object({ id: z.string() })).mutation(async ({ ctx, input }) => {
-        try {
-            const userID = ctx.session.user.id;
-            const shop = await ctx.db.shop.findFirst({
-                where: {
-                    userId: userID,
-                    id: input.id,
-                },
-            });
-            if (!shop) {
-                throw new TRPCError({ code: "NOT_FOUND", message: "Shop not found" });
-            }
-            await ctx.db.shop.delete({
-                where: {
-                    id: input.id,
-                },
-            });
-            return shop;
-        } catch (error) {
-            if (error instanceof TRPCError) {
-                throw error;
-            }
-            throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to delete shop" });
         }
     }),
 });
