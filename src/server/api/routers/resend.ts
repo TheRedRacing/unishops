@@ -26,7 +26,7 @@ export const resendRouter = createTRPCRouter({
     sendSignInEmail: publicProcedure.input(z.object({ email: z.string().email() })).mutation(async ({ input }) => {
         try {
             const { data, error } = await resend.emails.send({
-                from: `UniShops <${env.AUTH_EMAIL_FROM}>`,
+                from: `UniShops <${env.EMAIL_FROM}>`,
                 to: input.email,
                 subject: "Welcome to UniShops",
                 react: EmailTemplate({ firstName: "Maxime" }) as React.ReactElement,
