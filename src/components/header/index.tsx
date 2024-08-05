@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Logo } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import Auth from "@/components/auth";
+import ThemeToogle from "./themeToogle";
 
 export default function Header() {
     const showBanner = false;
@@ -13,10 +14,10 @@ export default function Header() {
     return (
         <>
             {showBanner && (
-                <div className="bg-zinc-900 dark:bg-zinc-950">
+                <div className="bg-zinc-950 dark:bg-zinc-900">
                     <div className="container mx-auto flex items-center justify-between py-2 sm:px-6 lg:h-10 lg:px-8">
                         <div className="flex-1 text-center text-sm font-medium text-white">
-                            This is a demo site for <span className="font-semibold">UniShops</span>.
+                            This is a demo site for <span className="font-bold">UniShops</span>.
                         </div>
                     </div>
                 </div>
@@ -39,7 +40,7 @@ export default function Header() {
                                     <Link href="/about">About</Link>
                                     <Link href="/login">Getting started</Link>
                                     <Link href="/themes">Themes</Link>
-                                    <Link href="/docs">Documentation</Link>
+                                    <Link href="/docs">Documentations</Link>
                                     <Link href="/pricing">Pricing</Link>
                                     <Link href="/exemples">Exemples</Link>
                                 </div>
@@ -64,8 +65,15 @@ export default function Header() {
                                 </NavigationMenuItem>
                                 <NavigationMenuItem>
                                     <Button variant={"navlink"} asChild>
+                                        <Link href="/login" className="text-sm font-semibold leading-6 text-zinc-950">
+                                            Getting started
+                                        </Link>
+                                    </Button>
+                                </NavigationMenuItem>
+                                <NavigationMenuItem>
+                                    <Button variant={"navlink"} asChild>
                                         <Link href="/docs" className="text-sm font-semibold leading-6 text-zinc-950">
-                                            Documentation
+                                            Documentations
                                         </Link>
                                     </Button>
                                 </NavigationMenuItem>
@@ -95,6 +103,7 @@ export default function Header() {
 
                         <div className="flex-1 flex justify-end gap-4">
                             <Auth />
+                            <ThemeToogle />
                         </div>
                     </div>
                 </nav>

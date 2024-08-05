@@ -3,15 +3,15 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 
-import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { SunIcon, MoonIcon, ArrowPathIcon } from "@heroicons/react/24/solid";
 
 export default function ThemeToogle() {
     const [mounted, setMounted] = useState(false);
-    const { theme, setTheme } = useTheme();
+    const {theme, setTheme} = useTheme();
+    const [dark, setDark] = useState(false);
 
-    // useEffect only runs on the client, so now we can safely show the UI
     useEffect(() => {
         setMounted(true);
     }, []);
@@ -37,7 +37,7 @@ export default function ThemeToogle() {
                     <DropdownMenuRadioItem value="dark">Dark</DropdownMenuRadioItem>
                     <DropdownMenuRadioItem value="system">System</DropdownMenuRadioItem>
                 </DropdownMenuRadioGroup>
-            </DropdownMenuContent>
+            </DropdownMenuContent>                
         </DropdownMenu>
     );
 }

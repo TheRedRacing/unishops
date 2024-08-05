@@ -1,23 +1,24 @@
 "use client";
 
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import { PlusIcon } from "@heroicons/react/24/outline";
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { api } from "@/trpc/react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { ResponsiveDialog } from "@/components/responsiveDialog";
+import { DialogClose } from "@/components/ui/dialog";
 
 const formSchema = z.object({
     name: z.string().min(1, "Name is required"),
 });
 
-export default function NewShop() {
+export default function NewShops() {
     const router = useRouter();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -28,7 +29,7 @@ export default function NewShop() {
 
     const { mutate: createShop, isPending: createShopIsPending } = api.shops.create.useMutation({
         onSuccess: (data) => {
-            toast.success(`Shop ${data.name} created successfully`);            
+            toast.success(`Shop ${data.name} created successfully`);
             router.push(`/shops/${data.id}`);
             router.refresh();
         },
@@ -44,42 +45,39 @@ export default function NewShop() {
         });
     }
 
+    const [isNewShopOpen, setIsNewShopOpen] = useState(false);
+
     return (
-        <Dialog>
-            <DialogTrigger asChild>
-                <Button className="gap-2" size={"lg"}>
-                    <PlusIcon className="h-5 w-5" />
-                    Create shop
-                </Button>
-            </DialogTrigger>
-            <DialogContent>
-                <DialogHeader>
-                    <DialogTitle>Create a new shop</DialogTitle>
-                    <DialogDescription className="mt-1">Create a shop to start selling your products and services online.</DialogDescription>
-                </DialogHeader>
+        <>
+            <Button onClick={() => setIsNewShopOpen(true)}>New shop</Button>
+            <ResponsiveDialog
+                isOpen={isNewShopOpen}
+                setIsOpen={setIsNewShopOpen}
+                title="New shop"
+                description="Create your new shop to make somes sales."
+            >
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="px-4 md:px-0">
                         <FormField
                             control={form.control}
                             name="name"
                             render={({ field }) => (
-                                <FormItem className="mt-2">
+                                <FormItem>
                                     <FormLabel>Name</FormLabel>
                                     <Input {...field} placeholder="Shop name" />
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
-                        <div className="mt-3 flex items-center justify-start gap-2">
+                        <div className="my-4 flex flex-col md:flex-row md:mb-0 md:mt-4  md:items-center md:justify-start md:gap-2">
                             <Button type="submit" disabled={createShopIsPending}>Create shop</Button>
                             <DialogClose asChild>
-                                <Button variant="ghost">Cancel</Button>
+                                <Button variant="outline">Cancel</Button>
                             </DialogClose>
                         </div>
                     </form>
                 </Form>
-
-            </DialogContent>
-        </Dialog>
+            </ResponsiveDialog>
+        </>
     );
 }

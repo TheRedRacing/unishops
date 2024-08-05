@@ -31,7 +31,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <html lang="en" className={cn(roboto.className)} suppressHydrationWarning>
             <body className="relative isolate flex min-h-screen flex-col overflow-hidden bg-white text-black dark:bg-zinc-950 dark:text-white">
                 <TRPCReactProvider>
-                    <ThemeProvider attribute="class">{children}</ThemeProvider>
+                    <ThemeProvider enableColorScheme themes={[
+                        'light', 
+                        'dark', 
+                        'system', 
+                        'red', 
+                        'orange', 
+                        'yellow', 
+                        'green', 
+                        'teal', 
+                        'blue', 
+                        'indigo', 
+                        'purple', 
+                        'pink', 
+                        'emerald'
+                    ]} attribute="class">{children}</ThemeProvider>
                 </TRPCReactProvider>
                 <Toaster />
                 <Analytics />

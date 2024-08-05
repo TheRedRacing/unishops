@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { timeDifference } from "@/lib/timeDifference";
-import { DropdownDetail } from "@/components/actions/dropdown";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { ShopSetup } from "@/components/shopSetup";
 
@@ -71,8 +70,7 @@ export default async function ShopDetail({ params }: { params: { id: string } })
                                 <span>Archive</span>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
-                    </DropdownMenu>
-                    <DropdownDetail shopId={shop.id} shopName={shop.name} />
+                    </DropdownMenu>                    
                 </div>
             </div>
             <div className="mx-auto flex max-w-5xl flex-col gap-8 px-6">
