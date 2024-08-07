@@ -22,7 +22,7 @@ export const DeleteForm: React.FC<DeleteFormProps> = ({ shopId, setIsOpen }) => 
 
     const form = useForm({ defaultValues: { confirmation: "", name: "" } });
 
-    const { mutate: deleteShop } = api.shops.delete.useMutation({
+    const { mutate: deleteShop, isPending: deleteShopIsPending } = api.shops.delete.useMutation({
         onSuccess: (data) => {
             toast.success(`Shop ${data.name} deleted successfully`);
             setIsOpen(false);
@@ -34,6 +34,7 @@ export const DeleteForm: React.FC<DeleteFormProps> = ({ shopId, setIsOpen }) => 
     });
 
     function onSubmit() {
+        if (deleteShopIsPending) return;
         deleteShop({
             id: shopId,
         });
@@ -57,7 +58,7 @@ export const DeleteForm: React.FC<DeleteFormProps> = ({ shopId, setIsOpen }) => 
                     )}
                 />
                 <div className="my-4 flex flex-col md:flex-row md:mb-0 md:mt-4  md:items-center md:justify-start md:gap-2">
-                    <Button variant="destructive" type="submit" disabled={!form.formState.isValid}>
+                    <Button variant="destructive" type="submit" disabled={!form.formState.isValid || deleteShopIsPending}>
                         Delete shop
                     </Button>
                     <DialogClose asChild>

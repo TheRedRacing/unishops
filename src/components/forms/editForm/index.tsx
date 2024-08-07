@@ -33,7 +33,7 @@ export default function EditForm({ shopId, shopName, setIsOpen }: EditFormProps)
         },
     });
 
-    const { mutate: EditShop } = api.shops.editName.useMutation({
+    const { mutate: EditShop, isPending: editShopIsPending } = api.shops.editName.useMutation({
         onSuccess: (data) => {
             toast.success(`Shop ${data.name} edited successfully`);
             setIsOpen(false);
@@ -45,6 +45,7 @@ export default function EditForm({ shopId, shopName, setIsOpen }: EditFormProps)
     });
 
     function onSubmit(values: z.infer<typeof formSchema>) {
+        if (editShopIsPending) return;
         try {
             EditShop({
                 id: shopId,
@@ -70,7 +71,7 @@ export default function EditForm({ shopId, shopName, setIsOpen }: EditFormProps)
                     )}
                 />                
                 <div className="my-4 flex flex-col md:flex-row md:mb-0 md:mt-4  md:items-center md:justify-start md:gap-2">
-                    <Button type="submit">Save</Button>
+                    <Button type="submit" disabled={editShopIsPending}>Save</Button>
                     <DialogClose asChild className="hide md:block">
                         <Button variant="outline">Cancel</Button>
                     </DialogClose>                
