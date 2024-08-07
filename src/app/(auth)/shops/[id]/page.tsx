@@ -4,8 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { timeDifference } from "@/lib/timeDifference";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { ShopSetup } from "@/components/shopSetup";
+import React from "react";
+import { ChangeStatusForm } from "@/components/forms/changeStatusForm";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { status } from "@/lib/statusBadge";
+
+
 
 export default async function ShopDetail({ params }: { params: { id: string } }) {
     const shop = await db.shop.findUnique({ where: { id: params.id } });
@@ -14,20 +19,7 @@ export default async function ShopDetail({ params }: { params: { id: string } })
         redirect("/shops");
     }
 
-    const status = (status: string) => {
-        switch (status) {
-            case "DRAFT":
-                return <Badge>{status}</Badge>;
-            case "MAINTENANCE":
-                return <Badge variant={"warning"}>{status}</Badge>;
-            case "PUBLISHED":
-                return <Badge variant={"success"}>{status}</Badge>;
-            case "ARCHIVED":
-                return <Badge variant={"destructive"}>{status}</Badge>;
-            default:
-                return <Badge>{status}</Badge>;
-        }
-    };
+    
 
     return (
         <section className="space-y-8 py-8">
@@ -39,38 +31,7 @@ export default async function ShopDetail({ params }: { params: { id: string } })
                 <div className="flex items-center gap-2">
                     <Button variant={"outline"}>Go to shop</Button>
                     <Button variant={"outline"}>Edit shop</Button>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant={"outline"}>Status</Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            <DropdownMenuItem className="flex items-center gap-2">
-                                <svg viewBox="0 0 6 6" aria-hidden="true" className="h-1.5 w-1.5 fill-green-500">
-                                    <circle r={3} cx={3} cy={3} />
-                                </svg>
-                                <span>Publish</span>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="flex items-center gap-2">
-                                <svg viewBox="0 0 6 6" aria-hidden="true" className="h-1.5 w-1.5 fill-yellow-500">
-                                    <circle r={3} cx={3} cy={3} />
-                                </svg>
-                                <span>Maintenance</span>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="flex items-center gap-2">
-                                <svg viewBox="0 0 6 6" aria-hidden="true" className="h-1.5 w-1.5 fill-zinc-500">
-                                    <circle r={3} cx={3} cy={3} />
-                                </svg>
-                                <span>Draft</span>
-                            </DropdownMenuItem>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem className="flex items-center gap-2" variant="destructive">
-                                <svg viewBox="0 0 6 6" aria-hidden="true" className="h-1.5 w-1.5 fill-red-500">
-                                    <circle r={3} cx={3} cy={3} />
-                                </svg>
-                                <span>Archive</span>
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>                    
+                    <ChangeStatusForm shopId={shop.id} shopStatus={shop.status} />
                 </div>
             </div>
             <div className="mx-auto flex max-w-5xl flex-col gap-8 px-6">
@@ -89,16 +50,16 @@ export default async function ShopDetail({ params }: { params: { id: string } })
                     </div>
                     <div className="flex flex-col items-start gap-2">
                         <Label>Stripe ID</Label>
-                        <Badge className="max-w-full truncate">{shop.stripePublic ? shop.stripePublic.slice(0, 15) + "..." : "Not connected"}</Badge>
+                        <Badge className="max-w-full truncate">{shop.stripePublic ? shop.stripePublic.slice(0, 10) + "..." : "Not connected"}</Badge>
                     </div>
                     <div className="flex flex-col items-start gap-2">
                         <Label>Stripe Secret</Label>
-                        <Badge className="max-w-full truncate">{shop.stripeSecret ? shop.stripeSecret.slice(0, 15) + "..." : "Not connected"}</Badge>
+                        <Badge className="max-w-full truncate">{shop.stripeSecret ? shop.stripeSecret.slice(0, 10) + "..." : "Not connected"}</Badge>
                     </div>
                 </div>
             </div>
             <div className="mx-auto flex max-w-5xl flex-col gap-8 px-6">
-                <ShopSetup shop={shop} />
+                {/* <ShopSetup shop={shop} /> */}
             </div>
         </section>
     );

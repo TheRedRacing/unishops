@@ -7,6 +7,7 @@ import { db } from "@/server/db";
 import { getServerAuthSession } from "@/server/auth";
 import { DropdownTablesMenu } from "@/components/dropdown/tables";
 import NewShops from "@/components/forms/newForm";
+import { status } from "@/lib/statusBadge";
 
 
 // server side
@@ -32,21 +33,6 @@ export default async function Shops() {
     }
 
     const shops = await getShops();
-
-    const status = (status: string) => {
-        switch (status) {
-            case "DRAFT":
-                return <Badge>{status}</Badge>;
-            case "MAINTENANCE":
-                return <Badge variant={"warning"}>{status}</Badge>;
-            case "PUBLISHED":
-                return <Badge variant={"success"}>{status}</Badge>;
-            case "ARCHIVED":
-                return <Badge variant={"destructive"}>{status}</Badge>;
-            default:
-                return <Badge>{status}</Badge>;
-        }
-    };
 
     return (
         <section className="space-y-8 py-8">
