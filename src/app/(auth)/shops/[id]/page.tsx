@@ -7,19 +7,14 @@ import { timeDifference } from "@/lib/timeDifference";
 import { ShopSetup } from "@/components/shopSetup";
 import React from "react";
 import { ChangeStatusForm } from "@/components/forms/changeStatusForm";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { status } from "@/lib/statusBadge";
-
-
 
 export default async function ShopDetail({ params }: { params: { id: string } }) {
     const shop = await db.shop.findUnique({ where: { id: params.id } });
 
     if (!params.id || !shop) {
         redirect("/shops");
-    }
-
-    
+    }   
 
     return (
         <section className="space-y-8 py-8">
@@ -59,7 +54,7 @@ export default async function ShopDetail({ params }: { params: { id: string } })
                 </div>
             </div>
             <div className="mx-auto flex max-w-5xl flex-col gap-8 px-6">
-                {/* <ShopSetup shop={shop} /> */}
+                <ShopSetup shop={shop} />
             </div>
         </section>
     );

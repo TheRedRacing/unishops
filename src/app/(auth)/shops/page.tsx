@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
 import { timeDifference } from "@/lib/timeDifference";
 import { db } from "@/server/db";
 import { getServerAuthSession } from "@/server/auth";

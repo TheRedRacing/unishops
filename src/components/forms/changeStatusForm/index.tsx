@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, type Dispatch, type SetStateAction, } from "react";
+import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -10,11 +10,9 @@ import { useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form"
 import { ChevronUpDownIcon } from "@heroicons/react/24/solid";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuRadioGroup, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 type Status = {
     value: string
@@ -79,7 +77,7 @@ export function ChangeStatusForm({ shopId, shopStatus }: ChangeStatusFormProps) 
                 <FormField
                     control={form.control}
                     name="statuses"
-                    render={({ field }) => (
+                    render={() => (
                         <FormItem>
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
@@ -106,6 +104,7 @@ export function ChangeStatusForm({ shopId, shopStatus }: ChangeStatusFormProps) 
                                                     form.setValue("statuses", status.label);
                                                     formRef.current?.requestSubmit();
                                                 }}
+                                                disabled={ChangeStatupIsPending}
                                             >
                                                 <svg viewBox="0 0 6 6" aria-hidden="true" className={`h-1.5 w-1.5 ${status.color}`}>
                                                     <circle r={3} cx={3} cy={3} />

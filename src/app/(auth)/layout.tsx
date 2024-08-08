@@ -7,7 +7,7 @@ import Update from "@/components/header/update";
 import { Logo } from "@/components/icons";
 import { NavItem } from "@/components/navItem";
 import { AuthMenu } from "@/components/auth/authMenu";
-import { AdjustmentsHorizontalIcon, ArrowRightIcon, ArrowUpRightIcon, ChartBarIcon, DocumentTextIcon, GlobeAltIcon, ListBulletIcon, ShoppingBagIcon, TruckIcon } from "@heroicons/react/24/solid";
+import { AdjustmentsHorizontalIcon, ArrowRightIcon, ChartBarIcon, DocumentTextIcon, GlobeAltIcon, ListBulletIcon, ShoppingBagIcon, TruckIcon } from "@heroicons/react/24/solid";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
