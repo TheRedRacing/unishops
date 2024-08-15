@@ -29,23 +29,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en" className={cn(roboto.className)} suppressHydrationWarning>
-            <body className="relative isolate flex min-h-screen flex-col overflow-hidden bg-white text-black dark:bg-zinc-950 dark:text-white">
+            <body className="relative isolate flex min-h-screen flex-col overflow-hidden bg-white text-black antialiased dark:bg-zinc-900 dark:text-white">
                 <TRPCReactProvider>
-                    <ThemeProvider enableColorScheme themes={[
-                        'light', 
-                        'dark', 
-                        'system', 
-                        'red', 
-                        'orange', 
-                        'yellow', 
-                        'green', 
-                        'teal', 
-                        'blue', 
-                        'indigo', 
-                        'purple', 
-                        'pink', 
-                        'emerald'
-                    ]} attribute="class">{children}</ThemeProvider>
+                    <ThemeProvider attribute="class">{children}</ThemeProvider>
                 </TRPCReactProvider>
                 <Toaster />
                 <Analytics />

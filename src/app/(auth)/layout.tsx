@@ -15,6 +15,9 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { db } from "@/server/db";
 import Debug from "@/components/header/debug";
+import { LayoutHeader } from "@/components/layout/header";
+import { AppFooter } from "@/components/footer/appFooter";
+import { HeroPattern } from "@/components/HeroPattern";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
     const session = await getServerAuthSession();
@@ -38,11 +41,11 @@ export default async function DashboardLayout({ children }: { children: React.Re
         }
 
         return user;
-    }
+    };
     const user = await getShops();
     const shops = user.shops;
     shops.sort((a, b) => Date.parse(b.createdAt.toISOString()) - Date.parse(a.createdAt.toISOString()));
-    
+
     const nav = [
         {
             title: "Shops",
@@ -77,14 +80,17 @@ export default async function DashboardLayout({ children }: { children: React.Re
         },
     ];
 
+    // v2
     return (
         <section className="flex h-screen w-full">
-            <nav>
-                <aside className="hidden h-screen w-[250px] flex-shrink-0 flex-col justify-between border-r border-zinc-200 bg-zinc-50 px-4 pb-6 dark:border-zinc-800 dark:bg-zinc-950 md:flex">
-                    <div className="flex h-[60px] items-center px-2">
-                        <Logo pro={user.proAccount ? true : false} />
+            {/* Header */}
+            <div className="contents lg:pointer-events-none lg:fixed lg:inset-0 lg:z-40 lg:flex">
+                <div className="contents lg:pointer-events-auto lg:flex lg:w-72 lg:flex-col lg:overflow-y-auto lg:border-r lg:border-zinc-900/10 lg:px-6 lg:pb-8 lg:pt-4 lg:dark:border-white/10 xl:w-80">
+                    <div className="hidden lg:flex">
+                        <Logo pro={user.proAccount} />
                     </div>
-                    <nav className="mt-6 flex-1">
+                    <LayoutHeader pro={user.proAccount} />
+                    <nav className="hidden justify-between lg:mt-10 lg:flex lg:flex-1 lg:flex-col">
                         <ul className="flex flex-col gap-2">
                             {nav.map((item) => (
                                 <li key={item.title}>
@@ -99,9 +105,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
                                     </NavItem>
                                 </li>
                             ))}
-                        </ul>
-                        <hr className="my-3 border-zinc-200 dark:border-zinc-800" />
-                        <ul className="flex flex-col gap-2">
+                            <hr className="my-3 border-zinc-200 dark:border-white/10" />
                             <div className="flex items-center justify-between font-medium">
                                 <div className="flex gap-1 text-xs">
                                     Shops
@@ -129,35 +133,26 @@ export default async function DashboardLayout({ children }: { children: React.Re
                                 </>
                             )}
                         </ul>
+                        {!user.proAccount && (
+                            <Card variant="elevated">
+                                <CardHeader className="p-2 pt-0 md:p-4">
+                                    <CardTitle>Upgrade to Pro</CardTitle>
+                                    <CardDescription>Unlock all features and get unlimited access to our platform.</CardDescription>
+                                </CardHeader>
+                                <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
+                                    <Button className="w-full">Upgrade</Button>
+                                </CardContent>
+                            </Card>
+                        )}
                     </nav>
-                    {!user.proAccount && (
-                        <Card variant="elevated">
-                            <CardHeader className="p-2 pt-0 md:p-4">
-                                <CardTitle>Upgrade to Pro</CardTitle>
-                                <CardDescription>Unlock all features and get unlimited access to our platform.</CardDescription>
-                            </CardHeader>
-                            <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-                                <Button size="sm" className="w-full">
-                                    Upgrade
-                                </Button>
-                            </CardContent>
-                        </Card>
-                    )}
-                </aside>
-            </nav>
-            <div className="w-full">
-                <div className="flex h-[60px] items-center justify-end gap-2 border-b border-zinc-200 px-6 dark:border-zinc-800">
-                    <Debug />
-                    <AuthMenu />
-                    <Update />
-                    <ThemeToogle />
-                    <Button variant={"ghost"} size={"icon"} asChild>
-                        <Link href="/docs/introduction" className="flex items-center gap-2">
-                            <DocumentTextIcon className="h-6 w-6" />
-                        </Link>
-                    </Button>
                 </div>
-                <ScrollArea className="h-[calc(100vh-60px)] w-full">{children}</ScrollArea>
+            </div>
+            <div className="relative flex h-full flex-1 flex-col px-4 pt-14 sm:px-6 lg:ml-72 lg:px-8 xl:ml-80">
+                <HeroPattern />
+                <ScrollArea className="flex-1">
+                    <div className="flex-auto">{children}</div>
+                </ScrollArea>
+                <AppFooter />
             </div>
         </section>
     );

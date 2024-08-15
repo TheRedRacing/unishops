@@ -11,8 +11,7 @@ interface ResponsiveDialogProps {
     description?: string;
 }
 export const ResponsiveDialog: React.FC<ResponsiveDialogProps> = ({ children, isOpen, setIsOpen, title, description }) => {
-
-    const isDesktop = useMediaQuery('(min-width: 768px)');
+    const isDesktop = useMediaQuery("(min-width: 768px)");
 
     if (isDesktop) {
         return (
@@ -20,7 +19,7 @@ export const ResponsiveDialog: React.FC<ResponsiveDialogProps> = ({ children, is
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
                         <DialogTitle>{title}</DialogTitle>
-                        {description && (<DialogDescription>{description}</DialogDescription>)}
+                        {description && <DialogDescription>{description}</DialogDescription>}
                     </DialogHeader>
                     {children}
                 </DialogContent>
@@ -33,7 +32,7 @@ export const ResponsiveDialog: React.FC<ResponsiveDialogProps> = ({ children, is
             <DrawerContent>
                 <DialogHeader className="p-4">
                     <DialogTitle>{title}</DialogTitle>
-                    {description && (<DialogDescription>{description}</DialogDescription>)}
+                    {description && <DialogDescription>{description}</DialogDescription>}
                 </DialogHeader>
                 {children}
                 <DrawerFooter>

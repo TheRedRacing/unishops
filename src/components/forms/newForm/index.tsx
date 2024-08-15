@@ -13,9 +13,10 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { ResponsiveDialog } from "@/components/responsiveDialog";
 import { DialogClose } from "@/components/ui/dialog";
+import Link from "next/link";
 
 const formSchema = z.object({
-    name: z.string().min(1, "Name is required"),
+    stripeSecret: z.string().min(1, "Stripe secret is required"),
 });
 
 export default function NewShops() {
@@ -23,7 +24,7 @@ export default function NewShops() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            name: "",
+            stripeSecret: "",
         },
     });
 
@@ -41,7 +42,7 @@ export default function NewShops() {
     function onSubmit(values: z.infer<typeof formSchema>) {
         if (createShopIsPending) return;
         createShop({
-            name: values.name,
+            stripeSecret: values.stripeSecret,
         });
     }
 
@@ -50,29 +51,31 @@ export default function NewShops() {
     return (
         <>
             <Button onClick={() => setIsNewShopOpen(true)}>New shop</Button>
-            <ResponsiveDialog
-                isOpen={isNewShopOpen}
-                setIsOpen={setIsNewShopOpen}
-                title="New shop"
-                description="Create your new shop to make somes sales."
-            >
+            <ResponsiveDialog isOpen={isNewShopOpen} setIsOpen={setIsNewShopOpen} title="New shop" description="Create your new shop to make somes sales.">
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="px-4 md:px-0">
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 px-4 md:px-0">
                         <FormField
                             control={form.control}
-                            name="name"
+                            name="stripeSecret"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Name</FormLabel>
-                                    <Input {...field} placeholder="Shop name" />
+                                    <FormLabel className="mb-2 flex items-center justify-between">
+                                        Stripe Secret
+                                        <Link href={""} className="text-xs text-blue-500 hover:underline">
+                                            How to get my Stripe Secret ?
+                                        </Link>
+                                    </FormLabel>
+                                    <Input {...field} placeholder="Stripe secret" />
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
-                        <div className="my-4 flex flex-col md:flex-row md:mb-0 md:mt-4  md:items-center md:justify-start md:gap-2">
-                            <Button type="submit" disabled={createShopIsPending}>Create shop</Button>
+                        <div className="flex flex-col md:mb-0 md:mt-4 md:flex-row md:items-center md:justify-start md:gap-2">
+                            <Button type="submit" disabled={createShopIsPending}>
+                                Create shop
+                            </Button>
                             <DialogClose asChild>
-                                <Button variant="outline">Cancel</Button>
+                                <Button variant="secondary">Cancel</Button>
                             </DialogClose>
                         </div>
                     </form>

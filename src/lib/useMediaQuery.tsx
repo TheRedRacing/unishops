@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export function useMediaQuery(query: string) {
     const [value, setValue] = React.useState(false);
@@ -9,11 +9,11 @@ export function useMediaQuery(query: string) {
         }
 
         const result = matchMedia(query);
-        result.addEventListener('change', onchange);
+        result.addEventListener("change", onchange);
         setValue(result.matches);
 
         return () => {
-            result.removeEventListener('change', onchange);
+            result.removeEventListener("change", onchange);
         };
     }, [query]);
 

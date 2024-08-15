@@ -7,7 +7,7 @@ import { getServerAuthSession } from "@/server/auth";
 import { DropdownTablesMenu } from "@/components/dropdown/tables";
 import NewShops from "@/components/forms/newForm";
 import { status } from "@/lib/statusBadge";
-
+import { PageLayout } from "@/components/layout/page";
 
 // server side
 export default async function Shops() {
@@ -29,19 +29,19 @@ export default async function Shops() {
         const shops = user.shops;
         shops.sort((a, b) => Date.parse(b.createdAt.toISOString()) - Date.parse(a.createdAt.toISOString()));
         return shops;
-    }
+    };
 
     const shops = await getShops();
 
     return (
-        <section className="space-y-8 py-8">
-            <div className="mx-auto flex max-w-5xl items-center justify-between px-6">
+        <PageLayout>
+            <div className="flex items-center justify-between">
                 <h1 className="text-3xl font-bold leading-8 text-black dark:text-white">Shop</h1>
                 {shops.length > 0 && <NewShops />}
             </div>
-            <div className="mx-auto max-w-5xl px-6">
+            <div className="mt-4">
                 {shops.length === 0 ? (
-                    <div className="flex h-80 flex-col items-center justify-center rounded-lg border border-zinc-200 p-6 dark:border-zinc-800">
+                    <div className="flex h-80 flex-col items-center justify-center rounded-lg border border-zinc-900/20 p-6 dark:border-white/20">
                         <div className="mb-8 flex max-w-md flex-col gap-2 text-center">
                             <h2 className="text-xl font-bold tracking-[-0.16px] text-black dark:text-white">You don&apos;t have any shop yet</h2>
                             <span className="text-sm font-normal text-zinc-600 dark:text-zinc-300">Create a shop to start selling your products and services online.</span>
@@ -73,7 +73,7 @@ export default async function Shops() {
                                             <TableCell className="text-center">
                                                 <DropdownTablesMenu shopId={shop.id} shopName={shop.name} />
                                             </TableCell>
-                                        </TableRow>                                        
+                                        </TableRow>
                                     </>
                                 ))}
                             </TableBody>
@@ -81,6 +81,7 @@ export default async function Shops() {
                     </>
                 )}
             </div>
-        </section>
+        </PageLayout>
+
     );
 }

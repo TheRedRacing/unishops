@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { type Dispatch, type SetStateAction, } from "react";
+import React, { type Dispatch, type SetStateAction } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -58,25 +58,27 @@ export default function EditForm({ shopId, shopName, setIsOpen }: EditFormProps)
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="px-4 md:px-0">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 px-4 md:px-0">
                 <FormField
                     control={form.control}
                     name="name"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Name</FormLabel>
+                            <FormLabel className="mb-2">Name</FormLabel>
                             <Input {...field} placeholder="Shop name" />
                             <FormMessage />
                         </FormItem>
                     )}
-                />                
-                <div className="my-4 flex flex-col md:flex-row md:mb-0 md:mt-4  md:items-center md:justify-start md:gap-2">
-                    <Button type="submit" disabled={editShopIsPending}>Save</Button>
+                />
+                <div className="flex flex-col md:mb-0 md:mt-4 md:flex-row md:items-center md:justify-start md:gap-2">
+                    <Button type="submit" disabled={editShopIsPending}>
+                        Save
+                    </Button>
                     <DialogClose asChild className="hide md:block">
-                        <Button variant="outline">Cancel</Button>
-                    </DialogClose>                
+                        <Button variant="secondary">Cancel</Button>
+                    </DialogClose>
                 </div>
             </form>
         </Form>
     );
-}; 
+}

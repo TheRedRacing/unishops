@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Logo } from "@/components/icons";
 import { LoginForm } from "@/components/auth/loginForm";
 import { AppleButton, GithubButton, GoogleButton, LinkedInButton } from "@/components/auth/buttons";
+import { CustomLink } from "@/components/ui/link";
 
 export default function Login() {
     return (
@@ -19,10 +20,10 @@ export default function Login() {
                     <Logo />
                     <h1 className="mb-1 mt-8 text-center text-xl font-bold tracking-[-0.16px] text-zinc-900 dark:text-zinc-200 sm:text-left">Log in to UniShops</h1>
                     <p className="mb-8 text-center text-base font-normal text-zinc-800 dark:text-zinc-300 sm:text-left">
-                        {"Don't have an account?"}{" "}
-                        <Link className="text-blue-600 dark:text-blue-500" href="/signup">
+                        {"Don't have an account ?"}
+                        <CustomLink href="/signup" arrow="right">
                             Sign up
-                        </Link>
+                        </CustomLink>
                     </p>
                     <LoginForm />
                     <div className="mb-6 mt-6 flex items-center justify-center">
@@ -42,13 +43,13 @@ export default function Login() {
                     </div>
                     <p className="text-xs font-normal text-zinc-900 dark:text-zinc-200">
                         By signing in, you agree to our{" "}
-                        <a className="text-blue-600 hover:underline dark:text-blue-500" href="/legal/terms-of-service">
+                        <CustomLink variant="primarysm" href="/legal/terms-of-service">
                             Terms of Service
-                        </a>{" "}
+                        </CustomLink>{" "}
                         and{" "}
-                        <a className="text-blue-600 hover:underline dark:text-blue-500" href="/legal/privacy-policy">
+                        <CustomLink variant="primarysm" href="/legal/privacy-policy">
                             Privacy Policy
-                        </a>
+                        </CustomLink>
                         .
                     </p>
                 </main>

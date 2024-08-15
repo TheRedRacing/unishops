@@ -6,24 +6,27 @@ import Link from "next/link";
 import { Logo } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import Auth from "@/components/auth";
-import ThemeToogle from "./themeToogle";
+import { ButtonNav } from "@/components/ui/button-nav";
+import ThemeToogle from "@/components/header/themeToogle";
 
 export default function Header() {
     const showBanner = false;
-
     return (
         <>
             {showBanner && (
                 <div className="bg-zinc-950 dark:bg-zinc-900">
                     <div className="container mx-auto flex items-center justify-between py-2 sm:px-6 lg:h-10 lg:px-8">
                         <div className="flex-1 text-center text-sm font-medium text-white">
-                            This is a demo site for <span className="font-bold">UniShops</span>.
+                            <span>
+                                <span className="hidden sm:inline">Get started with UniShops</span>
+                                <span className="sm:hidden">Get started</span>
+                            </span>
                         </div>
                     </div>
                 </div>
             )}
             <header className="sticky top-0 z-40 border-b border-transparent transition duration-200 ease-in-out">
-                <nav className="md:max-w-7xl mx-auto w-full max-w-5xl px-6">
+                <nav className="mx-auto w-full max-w-5xl px-6 md:max-w-7xl">
                     {/* Mobile nav */}
                     <div className="flex lg:hidden">
                         <Sheet>
@@ -38,7 +41,6 @@ export default function Header() {
                                 </SheetHeader>
                                 <div className="mt-4 flex flex-col gap-2.5 font-semibold">
                                     <Link href="/about">About</Link>
-                                    <Link href="/login">Getting started</Link>
                                     <Link href="/themes">Themes</Link>
                                     <Link href="/docs">Documentations</Link>
                                     <Link href="/pricing">Pricing</Link>
@@ -57,51 +59,34 @@ export default function Header() {
                         <NavigationMenu>
                             <NavigationMenuList>
                                 <NavigationMenuItem>
-                                    <Button variant={"navlink"} asChild>
-                                        <Link href="/about" className="text-sm font-semibold leading-6 text-zinc-950">
-                                            About
-                                        </Link>
-                                    </Button>
+                                    <ButtonNav asChild>
+                                        <Link href="/about">About</Link>
+                                    </ButtonNav>
                                 </NavigationMenuItem>
                                 <NavigationMenuItem>
-                                    <Button variant={"navlink"} asChild>
-                                        <Link href="/login" className="text-sm font-semibold leading-6 text-zinc-950">
-                                            Getting started
-                                        </Link>
-                                    </Button>
+                                    <ButtonNav asChild>
+                                        <Link href="/docs">Documentations</Link>
+                                    </ButtonNav>
                                 </NavigationMenuItem>
                                 <NavigationMenuItem>
-                                    <Button variant={"navlink"} asChild>
-                                        <Link href="/docs" className="text-sm font-semibold leading-6 text-zinc-950">
-                                            Documentations
-                                        </Link>
-                                    </Button>
+                                    <ButtonNav asChild>
+                                        <Link href="/themes">Themes</Link>
+                                    </ButtonNav>
                                 </NavigationMenuItem>
                                 <NavigationMenuItem>
-                                    <Button variant={"navlink"} asChild>
-                                        <Link href="/about" className="text-sm font-semibold leading-6 text-zinc-950">
-                                            Themes
-                                        </Link>
-                                    </Button>
-                                </NavigationMenuItem>                                
-                                <NavigationMenuItem>
-                                    <Button variant={"navlink"} asChild>
-                                        <Link href="/pricing" className="text-sm font-semibold leading-6 text-zinc-950">
-                                            Pricing
-                                        </Link>
-                                    </Button>
+                                    <ButtonNav asChild>
+                                        <Link href="/pricing">Pricing</Link>
+                                    </ButtonNav>
                                 </NavigationMenuItem>
                                 <NavigationMenuItem>
-                                    <Button variant={"navlink"} asChild>
-                                        <Link href="/exemples" className="text-sm font-semibold leading-6 text-zinc-950">
-                                            Exemples
-                                        </Link>
-                                    </Button>
+                                    <ButtonNav asChild>
+                                        <Link href="/exemples">Exemples</Link>
+                                    </ButtonNav>
                                 </NavigationMenuItem>
                             </NavigationMenuList>
                         </NavigationMenu>
 
-                        <div className="flex-1 flex justify-end gap-4">
+                        <div className="flex flex-1 justify-end gap-4">
                             <Auth />
                             <ThemeToogle />
                         </div>

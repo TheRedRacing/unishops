@@ -24,7 +24,7 @@ TableRow.displayName = "TableRow";
 const TableHead = React.forwardRef<HTMLTableCellElement, React.ThHTMLAttributes<HTMLTableCellElement>>(({ className, ...props }, ref) => <th ref={ref} className={cn("h-8 border-b border-t border-zinc-300 px-3 text-left align-middle text-xs font-semibold text-zinc-500 first:rounded-l-md first:border-l last:rounded-r-md last:border-r dark:border-zinc-700 dark:text-zinc-200 [&:has([role=checkbox])]:pr-0", className)} {...props} />);
 TableHead.displayName = "TableHead";
 
-const TableCell = React.forwardRef<HTMLTableCellElement, React.TdHTMLAttributes<HTMLTableCellElement>>(({ className, ...props }, ref) => <td ref={ref} className={cn("h-10 truncate border-b border-zinc-300 px-3 py-3 align-middle text-sm dark:border-zinc-700 [&:has([role=checkbox])]:pr-0", className)} {...props} />);
+const TableCell = React.forwardRef<HTMLTableCellElement, React.TdHTMLAttributes<HTMLTableCellElement>>(({ className, ...props }, ref) => <td ref={ref} className={cn("truncate border-b border-zinc-300 px-3 py-3 align-middle text-sm dark:border-zinc-700 [&:has([role=checkbox])]:pr-0", className)} {...props} />);
 TableCell.displayName = "TableCell";
 
 const TableCaption = React.forwardRef<HTMLTableCaptionElement, React.HTMLAttributes<HTMLTableCaptionElement>>(({ className, ...props }, ref) => <caption ref={ref} className={cn("mt-4 text-sm text-zinc-500 dark:text-zinc-400", className)} {...props} />);

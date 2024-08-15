@@ -1,13 +1,16 @@
-'use client';
+"use client";
 
 import React, { useState } from "react";
-import type { Shop } from "@prisma/client";
-import { cn } from "@/lib/utils";
-
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { api } from "@/trpc/react";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
+import type { Shop } from "@prisma/client";
+
+import { cn } from "@/lib/utils";
 import { AccordionCard, AccordionCardContent, AccordionCardItem, AccordionCardTrigger } from "@/components/ui/accordion-card";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -21,70 +24,105 @@ interface ShopSetupProps {
     shop: Shop;
 }
 
+// Cancel file
 export const ShopSetup: React.FC<ShopSetupProps> = ({ shop }) => {
-    const [currentStep, setCurrentStep] = useState(4);
+    const calcStep = (shop: Shop) => {
+        if (shop.stripeSecret !== null) return 1;
+        return 0;
+    };
+
+    const [currentStep, setCurrentStep] = useState(calcStep(shop));
 
     return (
-        <AccordionCard type="single" collapsible>
-            <AccordionCardItem value="item-1">
-                <AccordionCardTrigger status={"success"}>
-                    <span>Add API key to connect with Stripe</span>
-                </AccordionCardTrigger>
-                <AccordionCardContent>
-                    <AddStripe />
-                </AccordionCardContent>
-            </AccordionCardItem>
-            <AccordionCardItem value="item-2" className={cn(currentStep < 1 && "pointer-events-none select-none opacity-50")}>
-                <AccordionCardTrigger status={"success"}>
-                    <span>Setup your product</span>
-                </AccordionCardTrigger>
-                <AccordionCardContent>
-                    <CheckProduct />
-                </AccordionCardContent>
-            </AccordionCardItem>
-            <AccordionCardItem value="item-3" className={cn(currentStep < 2 && "pointer-events-none select-none opacity-50")}>
-                <AccordionCardTrigger status={"warning"}>
-                    <span>Setup your FAQ</span>
-                </AccordionCardTrigger>
-                <AccordionCardContent>
-                    <FAQSetup />
-                </AccordionCardContent>
-            </AccordionCardItem>
-            <AccordionCardItem value="item-4" className={cn(currentStep < 3 && "pointer-events-none select-none opacity-50")}>
-                <AccordionCardTrigger status={"destructive"}>
-                    <span>Choose your shop theme</span>
-                </AccordionCardTrigger>
-                <AccordionCardContent>
-                    <ChooseTheme />
-                </AccordionCardContent>
-            </AccordionCardItem>
-            <AccordionCardItem value="item-5" className={cn(currentStep < 4 && "pointer-events-none select-none opacity-50")}>
-                <AccordionCardTrigger>
-                    <span>Publish your shop</span>
-                </AccordionCardTrigger>
-                <AccordionCardContent>
-                    <PublishShop />
-                </AccordionCardContent>
-            </AccordionCardItem>
-        </AccordionCard>
-    )
+        <>
+            {/* {JSON.stringify(shop, null, 2)} */}
+            <AccordionCard type="single" collapsible>
+                <AccordionCardItem value="item-1">
+                    <AccordionCardTrigger status={shop.stripeSecret !== null ? "success" : "default"}>
+                        <span>Add API key to connect with Stripe</span>
+                    </AccordionCardTrigger>
+                    <AccordionCardContent>
+                        <AddStripe shop={shop} setCurrentStep={setCurrentStep} />
+                    </AccordionCardContent>
+                </AccordionCardItem>
+                <AccordionCardItem value="item-2" className={cn(currentStep < 1 && "pointer-events-none select-none opacity-25")}>
+                    <AccordionCardTrigger>
+                        <span>Setup your product</span>
+                    </AccordionCardTrigger>
+                    <AccordionCardContent>
+                        <CheckProduct />
+                    </AccordionCardContent>
+                </AccordionCardItem>
+                <AccordionCardItem value="item-3" className={cn(currentStep < 2 && "pointer-events-none select-none opacity-25")}>
+                    <AccordionCardTrigger>
+                        <span>Setup your FAQ</span>
+                    </AccordionCardTrigger>
+                    <AccordionCardContent>
+                        <FAQSetup />
+                    </AccordionCardContent>
+                </AccordionCardItem>
+                <AccordionCardItem value="item-4" className={cn(currentStep < 3 && "pointer-events-none select-none opacity-25")}>
+                    <AccordionCardTrigger>
+                        <span>Choose your shop theme</span>
+                    </AccordionCardTrigger>
+                    <AccordionCardContent>
+                        <ChooseTheme />
+                    </AccordionCardContent>
+                </AccordionCardItem>
+                <AccordionCardItem value="item-5" className={cn(currentStep < 4 && "pointer-events-none select-none opacity-25")}>
+                    <AccordionCardTrigger>
+                        <span>Publish your shop</span>
+                    </AccordionCardTrigger>
+                    <AccordionCardContent>
+                        <PublishShop />
+                    </AccordionCardContent>
+                </AccordionCardItem>
+            </AccordionCard>
+        </>
+    );
+};
+
+interface AddStripeForm {
+    shop: Shop;
+    setCurrentStep: (step: number) => void;
 }
 
 const AddStripeFormSchema = z.object({
     stripePublic: z.string().min(1, "Stripe public key is required"),
     stripeSecret: z.string().min(1, "Stripe secret key is required"),
 });
-function AddStripe() {
+function AddStripe({ shop, setCurrentStep }: AddStripeForm) {
+    const router = useRouter();
     const form = useForm<z.infer<typeof AddStripeFormSchema>>({
         resolver: zodResolver(AddStripeFormSchema),
         defaultValues: {
-            stripePublic: "",
-            stripeSecret: "",
+            stripePublic: shop.stripePublic ?? "",
+            stripeSecret: shop.stripeSecret ?? "",
+        },
+    });
+
+    const { mutate: addStripeDetails, isPending: addStripeDetailsIsPending } = api.shops.addStripeDetails.useMutation({
+        onSuccess: (data) => {
+            toast.success(`Stripe API key added successfully to ${data.name}`);
+            router.refresh();
+        },
+        onError: (error) => {
+            toast.error(error.message);
         },
     });
 
     function onSubmit(values: z.infer<typeof AddStripeFormSchema>) {
-        console.log(values);
+        if (addStripeDetailsIsPending) return;
+        try {
+            addStripeDetails({
+                id: shop.id,
+                stripePublic: values.stripePublic,
+                stripeSecret: values.stripeSecret,
+            });
+            setCurrentStep(1);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -101,7 +139,7 @@ function AddStripe() {
                             control={form.control}
                             name="stripePublic"
                             render={({ field }) => (
-                                <FormItem>
+                                <FormItem className="space-y-1">
                                     <FormLabel>Stripe public key</FormLabel>
                                     <Input {...field} placeholder="pk_test_1234567890" />
                                     <FormMessage />
@@ -110,9 +148,9 @@ function AddStripe() {
                         />
                         <FormField
                             control={form.control}
-                            name="stripePublic"
+                            name="stripeSecret"
                             render={({ field }) => (
-                                <FormItem>
+                                <FormItem className="space-y-1">
                                     <FormLabel>Stripe secret key</FormLabel>
                                     <Input {...field} placeholder="sk_test_1234567890" />
                                     <FormMessage />
@@ -122,7 +160,7 @@ function AddStripe() {
                     </CardContent>
                     <CardFooter variant={"bordered"}>
                         <div className="flex items-center justify-start gap-2">
-                            <Button type="submit">Test API</Button>
+                            <Button type="submit">Add API</Button>
                         </div>
                     </CardFooter>
                 </form>
@@ -138,13 +176,10 @@ function CheckProduct() {
                 Fetch your product from Stripe
                 <Button>Check product</Button>
             </CardHeader>
-            <CardContent variant={"bordered"} className="min-h-40 space-y-4">
-
-            </CardContent>
+            <CardContent variant={"bordered"} className="min-h-40 space-y-4"></CardContent>
         </Card>
     );
 }
-
 
 const FAQSetupFormSchema = z.object({
     question: z.string().min(1, "Question is required"),
@@ -190,11 +225,7 @@ function FAQSetup() {
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormLabel>Answer</FormLabel>
-                                            <Textarea
-                                                placeholder="We offer a 30-day money-back guarantee on all products. If you're not satisfied with your purchase, you can return it for a full refund."
-                                                className="resize-none"
-                                                {...field}
-                                            />
+                                            <Textarea placeholder="We offer a 30-day money-back guarantee on all products. If you're not satisfied with your purchase, you can return it for a full refund." className="resize-none" {...field} />
                                             <FormMessage />
                                         </FormItem>
                                     )}
@@ -264,9 +295,7 @@ function PublishShop() {
                     <CheckCircleIcon className="h-5 w-5" />
                     Publish
                 </Button>
-                <Button variant={"ghost"}>                
-                    Cancel
-                </Button>
+                <Button variant={"ghost"}>Cancel</Button>
             </CardContent>
         </Card>
     );

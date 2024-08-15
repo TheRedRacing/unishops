@@ -7,13 +7,13 @@ interface LogoProps {
 export const Logo: React.FC<LogoProps> = ({ pro = false }) => {
     return (
         <Link href="/" className="text-left">
-            <div className="text-xl font-black -tracking-wide leading-5 flex items-baseline gap-1">
+            <div className="flex items-baseline gap-1 text-xl font-black leading-5 -tracking-wide">
                 UniShops
                 {pro && <span className="text-xs text-zinc-500 dark:text-zinc-400">Pro</span>}
             </div>
         </Link>
     );
-}
+};
 
 export function Github() {
     return (

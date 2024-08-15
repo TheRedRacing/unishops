@@ -8,30 +8,30 @@ import { api } from "@/trpc/react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form"
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { ChevronUpDownIcon } from "@heroicons/react/24/solid";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 type Status = {
-    value: string
-    label: string
-    color: string
-}
+    value: string;
+    label: string;
+    color: string;
+};
 
 const statuses: Status[] = [
     { value: "DRAFT", label: "Draft", color: "fill-zinc-500" },
     { value: "MAINTENANCE", label: "Maintenance", color: "fill-yellow-500" },
     { value: "PUBLISHED", label: "Published", color: "fill-green-500" },
     { value: "ARCHIVED", label: "Archived", color: "fill-red-500" },
-]
+];
 
 const formSchema = z.object({
     statuses: z.string({
         required_error: "Please select a status",
     }),
-})
+});
 
 interface ChangeStatusFormProps {
     shopId: string;
@@ -69,7 +69,7 @@ export function ChangeStatusForm({ shopId, shopStatus }: ChangeStatusFormProps) 
         } catch (error) {
             console.log(error);
         }
-    }    
+    }
 
     return (
         <Form {...form}>
@@ -82,7 +82,7 @@ export function ChangeStatusForm({ shopId, shopStatus }: ChangeStatusFormProps) 
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <FormControl>
-                                        <Button variant={"outline"}>
+                                        <Button variant={"outlined"}>
                                             Status
                                             <ChevronUpDownIcon className="ml-2 h-4 w-4 text-zinc-600 dark:text-zinc-400" />
                                         </Button>
@@ -120,5 +120,5 @@ export function ChangeStatusForm({ shopId, shopStatus }: ChangeStatusFormProps) 
                 />
             </form>
         </Form>
-    )
+    );
 }

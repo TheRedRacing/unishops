@@ -98,7 +98,7 @@ export default async function Profile() {
                         <CardContent variant={"bordered"}>
                             <Label>Email address</Label>
                             <Input type="email" value={user.email ?? ""} className="mt-1 bg-zinc-100 dark:bg-zinc-900" />
-                            <p className="text-xs mt-2 text-zinc-400">This account is associated with your {user.accounts[0]?.provider ? `${user.accounts[0]?.provider} account.` : "email"}</p>
+                            <p className="mt-2 text-xs text-zinc-400">This account is associated with your {user.accounts[0]?.provider ? `${user.accounts[0]?.provider} account.` : "email"}</p>
                         </CardContent>
 
                         <CardFooter variant={"bordered"}>
@@ -125,9 +125,7 @@ export default async function Profile() {
                             <Badge className="text-sm">You do not currently have any payment methods.</Badge>
                         </CardContent>
                         <CardFooter variant={"bordered"}>
-                            <Button variant={"outline"}>
-                                Add payment method
-                            </Button>
+                            <Button variant={"outline"}>Add payment method</Button>
                         </CardFooter>
                     </Card>
                 </TabsContent>
@@ -206,7 +204,9 @@ export default async function Profile() {
                         </CardHeader>
                         <CardContent variant={"bordered"}>
                             <div>Permanently remove your account and all of its contents from UniShops.</div>
-                            <div>This action <span className="font-bold text-red-500">is not reversible</span>, so please continue with caution.</div>
+                            <div>
+                                This action <span className="font-bold text-red-500">is not reversible</span>, so please continue with caution.
+                            </div>
                             <Button className="mt-4" variant={"destructive"}>
                                 Request Account Deletion
                             </Button>

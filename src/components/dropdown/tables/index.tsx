@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState } from "react";
 
@@ -23,7 +23,7 @@ export const DropdownTablesMenu: React.FC<DropdownTablesMenuProps> = ({ shopId, 
                 <DropdownMenuTrigger>
                     <EllipsisHorizontalIcon className="h-5 w-5" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-[160px] z-50">
+                <DropdownMenuContent align="end" className="z-50 w-[160px]">
                     <DropdownMenuItem onSelect={() => setIsEditOpen(true)}>
                         <PencilSquareIcon className="mr-2 h-4 w-4" />
                         Edit
@@ -39,22 +39,12 @@ export const DropdownTablesMenu: React.FC<DropdownTablesMenuProps> = ({ shopId, 
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
-            <ResponsiveDialog
-                isOpen={isEditOpen}
-                setIsOpen={setIsEditOpen}
-                title="Edit shop"
-                description="Edit the name of the shop."
-            >
+            <ResponsiveDialog isOpen={isEditOpen} setIsOpen={setIsEditOpen} title="Edit shop" description="Edit the name of the shop.">
                 <EditForm shopId={shopId} shopName={shopName} setIsOpen={setIsEditOpen} />
             </ResponsiveDialog>
-            <ResponsiveDialog
-                isOpen={isDeleteOpen}
-                setIsOpen={setIsDeleteOpen}
-                title="Delete shop"
-                description={`Are you sure you want to delete the ${shopName} shop ?`}
-            >
+            <ResponsiveDialog isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} title="Delete shop" description={`Are you sure you want to delete the ${shopName} shop ?`}>
                 <DeleteForm shopId={shopId} setIsOpen={setIsDeleteOpen} />
             </ResponsiveDialog>
         </>
-    )
+    );
 };
