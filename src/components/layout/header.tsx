@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Logo } from "@/components/icons";
 import { AuthMenu } from "@/components/auth/authMenu";
 import ThemeToogle from "@/components/header/themeToogle";
+import { ArrowUpRightIcon } from "@heroicons/react/24/solid";
 
 function TopLevelNavItem({ href, children }: { href: string; children: React.ReactNode }) {
     return (
@@ -28,8 +29,10 @@ export function LayoutHeader({ pro }: layoutHeaderProps) {
             <div className="flex flex-1 items-center justify-end gap-4">
                 <nav className="hidden md:block">
                     <ul role="list" className="flex items-center gap-4">
-                        <TopLevelNavItem href="/">API</TopLevelNavItem>
-                        <TopLevelNavItem href="#">Documentation</TopLevelNavItem>
+                        <TopLevelNavItem href="#">Feedback</TopLevelNavItem>
+                        <TopLevelNavItem href="#">
+                            Documentation <ArrowUpRightIcon className="h-4 w-4" />
+                        </TopLevelNavItem>
                         <TopLevelNavItem href="#">Support</TopLevelNavItem>
                     </ul>
                 </nav>

@@ -52,7 +52,7 @@ export default async function ShopDetail({ params }: { params: { id: string } })
                     <ChangeStatusForm shopId={shop.id} shopStatus={shop.status} />
                 </div>
             </div>
-            <div className="grid grid-cols-4 gap-8 mt-8">
+            <div className="mt-8 grid grid-cols-4 gap-8">
                 <div className="flex flex-col items-start gap-2">
                     <Label>Status</Label>
                     {status(shop.status)}
@@ -68,7 +68,7 @@ export default async function ShopDetail({ params }: { params: { id: string } })
                 <div className="flex flex-col items-start gap-2">
                     <Label>Created</Label>
                     <p className="inline-flex items-center rounded-md text-sm font-medium text-gray-600 dark:text-zinc-400">{timeDifference(Date.now(), Date.parse(shop.createdAt.toISOString()))}</p>
-                </div>                
+                </div>
                 <div className="flex flex-col items-start gap-2">
                     <Label>Stripe Secret</Label>
                     <Badge className="max-w-full truncate">{shop.stripeSecret ? shop.stripeSecret.slice(0, 20) + "..." : "Not connected"}</Badge>
