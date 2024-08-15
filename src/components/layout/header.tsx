@@ -7,7 +7,7 @@ import { ArrowUpRightIcon } from "@heroicons/react/24/solid";
 function TopLevelNavItem({ href, children }: { href: string; children: React.ReactNode }) {
     return (
         <li>
-            <Link href={href} className="h-8 px-2 py-1.5 text-sm leading-5 text-zinc-600 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white">
+            <Link href={href} className="inline-flex items-center gap-1.5 h-8 px-2 py-1.5 text-sm leading-5 text-zinc-600 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white">
                 {children}
             </Link>
         </li>

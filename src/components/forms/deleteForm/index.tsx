@@ -48,7 +48,7 @@ export const DeleteForm: React.FC<DeleteFormProps> = ({ shopId, setIsOpen }) => 
                     name="confirmation"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="text-zinc-400 mb-2">
+                            <FormLabel className="mb-2 text-zinc-400">
                                 Type <span className="text-white">{DELETE_WORD}</span> to confirm.
                             </FormLabel>
                             <Input {...field} />
