@@ -8,12 +8,10 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { ChangeStatusForm } from "@/components/forms/changeStatusForm";
 import { PageLayout } from "@/components/layout/page";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { status } from "@/lib/statusBadge";
 import { timeDifference } from "@/lib/timeDifference";
-import getDecimals from "@/lib/getDecimals";
 import { type Metadata } from "next";
 
 type Props = {
@@ -31,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     return {
         title: shop.name,
-    }
+    };
 }
 
 export default async function ShopDetail({ params }: { params: { id: string } }) {

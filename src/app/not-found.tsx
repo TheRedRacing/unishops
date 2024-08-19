@@ -19,9 +19,7 @@ export default function notFound() {
                 <hr className="mb-4 mt-6 border-zinc-300 dark:border-zinc-700" />
                 <p className="text-sm text-zinc-600 dark:text-zinc-300">If you think this is a mistake,</p>
                 <p className="text-sm text-zinc-600 dark:text-zinc-300">please contact us at the following address</p>
-                <CustomLink href="mailto:info@unishops.ch">
-                    info@unishops.ch
-                </CustomLink>
+                <CustomLink href="mailto:info@unishops.ch">info@unishops.ch</CustomLink>
             </div>
         </main>
     );

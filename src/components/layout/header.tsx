@@ -6,7 +6,7 @@ import ThemeToogle from "@/components/header/themeToogle";
 function TopLevelNavItem({ href, children }: { href: string; children: React.ReactNode }) {
     return (
         <li>
-            <Link href={href} className="inline-flex items-center gap-1.5 h-8 px-2 py-1.5 text-sm leading-5 text-zinc-600 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white">
+            <Link href={href} className="inline-flex h-8 items-center gap-1.5 px-2 py-1.5 text-sm leading-5 text-zinc-600 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white">
                 {children}
             </Link>
         </li>
@@ -28,15 +28,9 @@ export function LayoutHeader({ pro }: layoutHeaderProps) {
             <div className="flex flex-1 items-center justify-end gap-4">
                 <nav className="hidden md:block">
                     <ul role="list" className="flex items-center gap-4">
-                        <TopLevelNavItem href="#">                            
-                            Feedback
-                        </TopLevelNavItem>
-                        <TopLevelNavItem href="#">                            
-                            Documentation
-                        </TopLevelNavItem>
-                        <TopLevelNavItem href="#">                            
-                            Support
-                        </TopLevelNavItem>
+                        <TopLevelNavItem href="#">Feedback</TopLevelNavItem>
+                        <TopLevelNavItem href="#">Documentation</TopLevelNavItem>
+                        <TopLevelNavItem href="#">Support</TopLevelNavItem>
                     </ul>
                 </nav>
                 <div className="hidden md:block md:h-6 md:w-px md:bg-zinc-900/10 md:dark:bg-white/15" />

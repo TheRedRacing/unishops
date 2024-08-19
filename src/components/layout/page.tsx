@@ -5,7 +5,11 @@ interface PageLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
     children: React.ReactNode;
 }
 
-const PageLayout = React.forwardRef<HTMLDivElement, PageLayoutProps>(({ children, className, ...props }, ref) => <section ref={ref} className={cn("mx-auto w-full max-w-2xl py-12 lg:max-w-5xl", className)} {...props} >{children}</section>);
+const PageLayout = React.forwardRef<HTMLDivElement, PageLayoutProps>(({ children, className, ...props }, ref) => (
+    <section ref={ref} className={cn("mx-auto w-full max-w-2xl py-12 lg:max-w-5xl", className)} {...props}>
+        {children}
+    </section>
+));
 PageLayout.displayName = "PageLayout";
 
 export { PageLayout };

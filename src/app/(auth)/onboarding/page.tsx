@@ -22,9 +22,7 @@ export default function onboarding() {
             </div>
             <div className="flex flex-col gap-8">
                 <Card>
-                    <CardHeader className="font-semibold">
-                        01. Name your first shop
-                    </CardHeader>
+                    <CardHeader className="font-semibold">01. Name your first shop</CardHeader>
                     <CardContent>
                         <div className="flex flex-col gap-2">
                             <Label>Name</Label>
@@ -63,9 +61,7 @@ export default function onboarding() {
                 </Card>
 
                 <Card className="pointer-events-none select-none opacity-50">
-                    <CardHeader className="font-semibold">
-                        03. Add your first product
-                    </CardHeader>
+                    <CardHeader className="font-semibold">03. Add your first product</CardHeader>
                     <CardContent>
                         <Badge variant={"default"}>Complete last step to add your first product</Badge>
                     </CardContent>
@@ -75,9 +71,7 @@ export default function onboarding() {
                 </Card>
 
                 <Card className="pointer-events-none select-none opacity-50">
-                    <CardHeader className="font-semibold">
-                        04. Choose your theme
-                    </CardHeader>
+                    <CardHeader className="font-semibold">04. Choose your theme</CardHeader>
                     <CardContent>
                         <div className="grid grid-cols-3 gap-2">
                             <div className="inline-flex items-center justify-between rounded-md bg-gray-100 px-2 py-2 text-zinc-600 ring-1 ring-inset ring-zinc-500/10 dark:bg-zinc-400/10 dark:text-zinc-400 dark:ring-zinc-400/20">

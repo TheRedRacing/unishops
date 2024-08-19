@@ -84,9 +84,7 @@ export default async function Profile() {
                 </TabsList>
                 <TabsContent value="profile">
                     <Card>
-                        <CardHeader className="font-semibold">
-                            Your Name
-                        </CardHeader>
+                        <CardHeader className="font-semibold">Your Name</CardHeader>
                         <CardContent>
                             <Label>Full name</Label>
                             <Input type="email" value={user.name ?? ""} className="mt-1 bg-zinc-100 dark:bg-zinc-900" />
@@ -98,9 +96,7 @@ export default async function Profile() {
                     </Card>
 
                     <Card>
-                        <CardHeader className="font-semibold">
-                            Your Email
-                        </CardHeader>
+                        <CardHeader className="font-semibold">Your Email</CardHeader>
                         <CardContent>
                             <Label>Email address</Label>
                             <Input type="email" value={user.email ?? ""} className="mt-1 bg-zinc-100 dark:bg-zinc-900" />
@@ -124,9 +120,7 @@ export default async function Profile() {
                 </TabsContent>
                 <TabsContent value="payment">
                     <Card>
-                        <CardHeader className="font-semibold">
-                            Payment methods
-                        </CardHeader>
+                        <CardHeader className="font-semibold">Payment methods</CardHeader>
                         <CardContent>
                             <Badge className="text-sm">You do not currently have any payment methods.</Badge>
                         </CardContent>
@@ -137,9 +131,7 @@ export default async function Profile() {
                 </TabsContent>
                 <TabsContent value="preferences">
                     <Card>
-                        <CardHeader className="font-semibold">
-                            Language preferences
-                        </CardHeader>
+                        <CardHeader className="font-semibold">Language preferences</CardHeader>
                         <CardContent>
                             <Select>
                                 <SelectTrigger className="mt-1 bg-zinc-100 dark:bg-zinc-900">
@@ -159,9 +151,7 @@ export default async function Profile() {
                         </CardContent>
                     </Card>
                     <Card>
-                        <CardHeader className="font-semibold">
-                            Currency preferences
-                        </CardHeader>
+                        <CardHeader className="font-semibold">Currency preferences</CardHeader>
                         <CardContent>
                             <Select>
                                 <SelectTrigger className="mt-1 bg-zinc-100 dark:bg-zinc-900">
@@ -184,9 +174,7 @@ export default async function Profile() {
                 </TabsContent>
                 <TabsContent value="email">
                     <Card>
-                        <CardHeader className="font-semibold">
-                            General
-                        </CardHeader>
+                        <CardHeader className="font-semibold">General</CardHeader>
                         <CardContent className="flex flex-col p-0">
                             {emailNotifications.map((notification, notificationIDX) => (
                                 <>
@@ -205,9 +193,7 @@ export default async function Profile() {
                 </TabsContent>
                 <TabsContent value="security">
                     <Card>
-                        <CardHeader className="font-semibold">
-                            Account
-                        </CardHeader>
+                        <CardHeader className="font-semibold">Account</CardHeader>
                         <CardContent>
                             <div>Permanently remove your account and all of its contents from UniShops.</div>
                             <div>

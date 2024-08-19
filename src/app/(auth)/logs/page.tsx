@@ -1,5 +1,5 @@
 import { PageLayout } from "@/components/layout/page";
-import { Card, CardContent, EmptyCard } from "@/components/ui/card";
+import { EmptyCard } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { type Metadata } from "next";
 
@@ -111,10 +111,10 @@ export default function Logs() {
                     ))}
                 </div>
                 <EmptyCard>
-                        <div className="mb-8 flex max-w-md flex-col gap-2 text-center">
-                            <h2 className="text-xl font-bold tracking-[-0.16px] text-black dark:text-white">You don&apos;t have any logs yet</h2>
-                            <span className="text-sm font-normal text-zinc-600 dark:text-zinc-300">Logs are generated when you perform actions on your account.</span>
-                        </div>
+                    <div className="mb-8 flex max-w-md flex-col gap-2 text-center">
+                        <h2 className="text-xl font-bold tracking-[-0.16px] text-black dark:text-white">You don&apos;t have any logs yet</h2>
+                        <span className="text-sm font-normal text-zinc-600 dark:text-zinc-300">Logs are generated when you perform actions on your account.</span>
+                    </div>
                 </EmptyCard>
             </div>
         </PageLayout>

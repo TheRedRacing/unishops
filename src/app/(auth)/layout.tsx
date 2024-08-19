@@ -130,11 +130,11 @@ export default async function DashboardLayout({ children }: { children: React.Re
                             )}
                         </ul>
                         {!user.proAccount && (
-                            <Card>                                
+                            <Card>
                                 <CardContent>
                                     <CardTitle>Upgrade to Pro</CardTitle>
                                     <CardDescription className="mt-2">Unlock all features and get unlimited access to our platform.</CardDescription>
-                                    <Button className="w-full mt-2">Upgrade</Button>  
+                                    <Button className="mt-2 w-full">Upgrade</Button>
                                 </CardContent>
                             </Card>
                         )}

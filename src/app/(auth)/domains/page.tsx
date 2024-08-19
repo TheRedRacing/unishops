@@ -19,14 +19,14 @@ export default async function Domains() {
             </div>
             <div className="pointer-events-none relative select-none opacity-50">
                 <EmptyCard>
-                        <div className="mb-8 flex max-w-md flex-col gap-2 text-center">
-                            <h2 className="text-xl font-bold tracking-[-0.16px] text-black dark:text-white">Connect your domain to your shop</h2>
-                            <span className="text-sm font-normal text-zinc-600 dark:text-zinc-300">Requires that you verify your domain by adding a DNS record.</span>
-                        </div>
-                        <Button className="gap-2">
-                            <PlusIcon className="h-5 w-5" />
-                            Add domain
-                        </Button>
+                    <div className="mb-8 flex max-w-md flex-col gap-2 text-center">
+                        <h2 className="text-xl font-bold tracking-[-0.16px] text-black dark:text-white">Connect your domain to your shop</h2>
+                        <span className="text-sm font-normal text-zinc-600 dark:text-zinc-300">Requires that you verify your domain by adding a DNS record.</span>
+                    </div>
+                    <Button className="gap-2">
+                        <PlusIcon className="h-5 w-5" />
+                        Add domain
+                    </Button>
                 </EmptyCard>
             </div>
         </PageLayout>

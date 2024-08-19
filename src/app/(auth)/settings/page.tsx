@@ -72,7 +72,7 @@ export default async function Settings() {
                             </div>
                         </CardContent>
                         <CardFooter>
-                            <Button>Upgrade</Button>                            
+                            <Button>Upgrade</Button>
                         </CardFooter>
                     </Card>
 
@@ -99,9 +99,7 @@ export default async function Settings() {
                 </TabsContent>
                 <TabsContent value="billing">
                     <Card>
-                        <CardHeader className="font-semibold">
-                            Payment methods
-                        </CardHeader>
+                        <CardHeader className="font-semibold">Payment methods</CardHeader>
                         <CardContent>
                             <Badge className="text-sm">You do not currently have any payment methods.</Badge>
                         </CardContent>
