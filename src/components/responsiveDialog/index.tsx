@@ -37,7 +37,7 @@ export const ResponsiveDialog: React.FC<ResponsiveDialogProps> = ({ children, is
                 {children}
                 <DrawerFooter>
                     <DrawerClose asChild>
-                        <Button variant="outline">Close</Button>
+                        <Button variant="secondary">Close</Button>
                     </DrawerClose>
                 </DrawerFooter>
             </DrawerContent>

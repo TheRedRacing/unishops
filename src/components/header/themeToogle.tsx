@@ -17,14 +17,14 @@ export default function ThemeToogle() {
     if (!mounted) {
         return (
             <Button variant={"ghost"} size={"icon"} className="group">
-                <ArrowPathIcon className="h-4 w-4 animate-spin" />
+                <ArrowPathIcon className="h-5 w-5 animate-spin" />
             </Button>
         );
     }
 
     return (
         <Button variant={"ghost"} size={"icon"} className="group" onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
-            {theme === "light" ? <SunIcon className="h-4 w-4" /> : <MoonIcon className="h-4 w-4" />}
+            {theme === "light" ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" />}
         </Button>
     );
 }

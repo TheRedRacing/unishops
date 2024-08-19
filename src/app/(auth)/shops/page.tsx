@@ -8,6 +8,12 @@ import { DropdownTablesMenu } from "@/components/dropdown/tables";
 import NewShops from "@/components/forms/newForm";
 import { status } from "@/lib/statusBadge";
 import { PageLayout } from "@/components/layout/page";
+import { type Metadata } from "next";
+import { EmptyCard } from "@/components/ui/card";
+
+export const metadata: Metadata = {
+    title: "Shops"
+};
 
 // server side
 export default async function Shops() {
@@ -34,20 +40,20 @@ export default async function Shops() {
     const shops = await getShops();
 
     return (
-        <PageLayout>
+        <PageLayout className="space-y-4">
             <div className="flex items-center justify-between">
                 <h1 className="text-3xl font-bold leading-8 text-black dark:text-white">Shop</h1>
                 {shops.length > 0 && <NewShops />}
             </div>
-            <div className="mt-4">
+            <div>
                 {shops.length === 0 ? (
-                    <div className="flex h-80 flex-col items-center justify-center rounded-lg border border-zinc-900/20 p-6 dark:border-white/20">
+                    <EmptyCard>
                         <div className="mb-8 flex max-w-md flex-col gap-2 text-center">
                             <h2 className="text-xl font-bold tracking-[-0.16px] text-black dark:text-white">You don&apos;t have any shop yet</h2>
                             <span className="text-sm font-normal text-zinc-600 dark:text-zinc-300">Create a shop to start selling your products and services online.</span>
                         </div>
                         <NewShops />
-                    </div>
+                    </EmptyCard>
                 ) : (
                     <>
                         <Table>

@@ -2,19 +2,15 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getServerAuthSession } from "@/server/auth";
 
-import ThemeToogle from "@/components/header/themeToogle";
-import Update from "@/components/header/update";
 import { Logo } from "@/components/icons";
 import { NavItem } from "@/components/navItem";
-import { AuthMenu } from "@/components/auth/authMenu";
-import { AdjustmentsHorizontalIcon, ArrowRightIcon, ChartBarIcon, DocumentTextIcon, GlobeAltIcon, ListBulletIcon, ShoppingBagIcon, TruckIcon } from "@heroicons/react/24/solid";
+import { AdjustmentsHorizontalIcon, ArrowRightIcon, ChartBarIcon, GlobeAltIcon, ListBulletIcon, ShoppingBagIcon, TruckIcon } from "@heroicons/react/24/solid";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { db } from "@/server/db";
-import Debug from "@/components/header/debug";
 import { LayoutHeader } from "@/components/layout/header";
 import { AppFooter } from "@/components/footer/appFooter";
 import { HeroPattern } from "@/components/HeroPattern";
@@ -134,13 +130,11 @@ export default async function DashboardLayout({ children }: { children: React.Re
                             )}
                         </ul>
                         {!user.proAccount && (
-                            <Card variant="elevated">
-                                <CardHeader className="p-2 pt-0 md:p-4">
+                            <Card>                                
+                                <CardContent>
                                     <CardTitle>Upgrade to Pro</CardTitle>
-                                    <CardDescription>Unlock all features and get unlimited access to our platform.</CardDescription>
-                                </CardHeader>
-                                <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-                                    <Button className="w-full">Upgrade</Button>
+                                    <CardDescription className="mt-2">Unlock all features and get unlimited access to our platform.</CardDescription>
+                                    <Button className="w-full mt-2">Upgrade</Button>  
                                 </CardContent>
                             </Card>
                         )}

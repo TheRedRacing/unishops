@@ -8,6 +8,12 @@ import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { db } from "@/server/db";
 import { getServerAuthSession } from "@/server/auth";
+import { type Metadata } from "next";
+import { PageLayout } from "@/components/layout/page";
+
+export const metadata: Metadata = {
+    title: "Profile",
+};
 
 type EmailNotification = {
     id: string;
@@ -64,11 +70,11 @@ export default async function Profile() {
     const user = await getUserWithRelations();
 
     return (
-        <section className="space-y-8 py-8">
-            <div className="mx-auto flex max-w-5xl items-center justify-between px-6">
+        <PageLayout>
+            <div className="flex items-center justify-between">
                 <h1 className="text-3xl font-bold leading-8 text-black dark:text-white">Profile</h1>
             </div>
-            <Tabs defaultValue="profile" className="mx-auto max-w-5xl px-6">
+            <Tabs defaultValue="profile">
                 <TabsList>
                     <TabsTrigger value="profile">Profile</TabsTrigger>
                     <TabsTrigger value="payment">Payment methods</TabsTrigger>
@@ -78,63 +84,63 @@ export default async function Profile() {
                 </TabsList>
                 <TabsContent value="profile">
                     <Card>
-                        <CardHeader variant={"bordered"} className="font-semibold">
+                        <CardHeader className="font-semibold">
                             Your Name
                         </CardHeader>
-                        <CardContent variant={"bordered"}>
+                        <CardContent>
                             <Label>Full name</Label>
                             <Input type="email" value={user.name ?? ""} className="mt-1 bg-zinc-100 dark:bg-zinc-900" />
                         </CardContent>
 
-                        <CardFooter variant={"bordered"}>
+                        <CardFooter>
                             <Button>Update name</Button>
                         </CardFooter>
                     </Card>
 
                     <Card>
-                        <CardHeader variant={"bordered"} className="font-semibold">
+                        <CardHeader className="font-semibold">
                             Your Email
                         </CardHeader>
-                        <CardContent variant={"bordered"}>
+                        <CardContent>
                             <Label>Email address</Label>
                             <Input type="email" value={user.email ?? ""} className="mt-1 bg-zinc-100 dark:bg-zinc-900" />
                             <p className="mt-2 text-xs text-zinc-400">This account is associated with your {user.accounts[0]?.provider ? `${user.accounts[0]?.provider} account.` : "email"}</p>
                         </CardContent>
 
-                        <CardFooter variant={"bordered"}>
+                        <CardFooter>
                             <Button>Update email</Button>
                         </CardFooter>
                     </Card>
 
                     <Card>
-                        <CardHeader variant={"bordered"}>Multi-Factor Authentication (MFA)</CardHeader>
-                        <CardContent variant={"bordered"}>
-                            <div>Protect your account by adding an extra layer of security.</div>
+                        <CardHeader>Multi-Factor Authentication (MFA)</CardHeader>
+                        <CardContent>
+                            <div className="text-sm text-zinc-400">Protect your account by adding an extra layer of security.</div>
                         </CardContent>
-                        <CardFooter variant={"bordered"}>
+                        <CardFooter>
                             <Button>Enable MFA</Button>
                         </CardFooter>
                     </Card>
                 </TabsContent>
                 <TabsContent value="payment">
                     <Card>
-                        <CardHeader variant={"bordered"} className="font-semibold">
+                        <CardHeader className="font-semibold">
                             Payment methods
                         </CardHeader>
-                        <CardContent variant={"bordered"}>
+                        <CardContent>
                             <Badge className="text-sm">You do not currently have any payment methods.</Badge>
                         </CardContent>
-                        <CardFooter variant={"bordered"}>
-                            <Button variant={"outline"}>Add payment method</Button>
+                        <CardFooter>
+                            <Button>Add payment method</Button>
                         </CardFooter>
                     </Card>
                 </TabsContent>
                 <TabsContent value="preferences">
                     <Card>
-                        <CardHeader variant={"bordered"} className="font-semibold">
+                        <CardHeader className="font-semibold">
                             Language preferences
                         </CardHeader>
-                        <CardContent variant={"bordered"}>
+                        <CardContent>
                             <Select>
                                 <SelectTrigger className="mt-1 bg-zinc-100 dark:bg-zinc-900">
                                     <SelectValue placeholder="English"></SelectValue>
@@ -153,10 +159,10 @@ export default async function Profile() {
                         </CardContent>
                     </Card>
                     <Card>
-                        <CardHeader variant={"bordered"} className="font-semibold">
+                        <CardHeader className="font-semibold">
                             Currency preferences
                         </CardHeader>
-                        <CardContent variant={"bordered"}>
+                        <CardContent>
                             <Select>
                                 <SelectTrigger className="mt-1 bg-zinc-100 dark:bg-zinc-900">
                                     <SelectValue placeholder="Swiss Franc CHF" />
@@ -178,10 +184,10 @@ export default async function Profile() {
                 </TabsContent>
                 <TabsContent value="email">
                     <Card>
-                        <CardHeader variant={"bordered"} className="font-semibold">
+                        <CardHeader className="font-semibold">
                             General
                         </CardHeader>
-                        <CardContent variant={"bordered"} className="flex flex-col p-0">
+                        <CardContent className="flex flex-col p-0">
                             {emailNotifications.map((notification, notificationIDX) => (
                                 <>
                                     <div key={notification.id} className="flex items-center justify-between p-4 hover:bg-zinc-50 dark:hover:bg-zinc-900">
@@ -199,10 +205,10 @@ export default async function Profile() {
                 </TabsContent>
                 <TabsContent value="security">
                     <Card>
-                        <CardHeader variant={"bordered"} className="font-semibold">
+                        <CardHeader className="font-semibold">
                             Account
                         </CardHeader>
-                        <CardContent variant={"bordered"}>
+                        <CardContent>
                             <div>Permanently remove your account and all of its contents from UniShops.</div>
                             <div>
                                 This action <span className="font-bold text-red-500">is not reversible</span>, so please continue with caution.
@@ -214,6 +220,6 @@ export default async function Profile() {
                     </Card>
                 </TabsContent>
             </Tabs>
-        </section>
+        </PageLayout>
     );
 }

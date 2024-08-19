@@ -1,17 +1,21 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { PageLayout } from "@/components/layout/page";
+import { EmptyCard } from "@/components/ui/card";
+import { type Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Metrics",
+};
 
 // server side
 export default function Metrics() {
     return (
-        <section className="space-y-8 py-8">
-            <div className="mx-auto flex max-w-5xl items-center justify-between px-6">
+        <PageLayout className="space-y-4">
+            <div className="flex items-center justify-between">
                 <h1 className="text-3xl font-bold leading-8 text-black dark:text-white">Metrics</h1>
             </div>
-            <div className="mx-auto max-w-5xl px-6">
-                <Card>
-                    <CardContent variant={"bordered"} className="relative min-h-80"></CardContent>
-                </Card>
+            <div>
+                <EmptyCard></EmptyCard>
             </div>
-        </section>
+        </PageLayout>
     );
 }

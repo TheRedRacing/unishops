@@ -8,11 +8,31 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { ChangeStatusForm } from "@/components/forms/changeStatusForm";
 import { PageLayout } from "@/components/layout/page";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 import { status } from "@/lib/statusBadge";
 import { timeDifference } from "@/lib/timeDifference";
 import getDecimals from "@/lib/getDecimals";
+import { type Metadata } from "next";
+
+type Props = {
+    params: {
+        id: string;
+    };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const shop = await db.shop.findUnique({ where: { id: params.id } });
+
+    if (!params.id || !shop) {
+        redirect("/shops");
+    }
+
+    return {
+        title: shop.name,
+    }
+}
 
 export default async function ShopDetail({ params }: { params: { id: string } }) {
     const shop = await db.shop.findUnique({ where: { id: params.id } });
@@ -75,7 +95,16 @@ export default async function ShopDetail({ params }: { params: { id: string } })
                 </div>
             </div>
             <hr className="my-8 border-zinc-900/10 dark:border-white/10" />
-            <Table>
+            <Tabs defaultValue="profile">
+                <TabsList>
+                    <TabsTrigger value="profile">Profile</TabsTrigger>
+                    <TabsTrigger value="payment">Payment methods</TabsTrigger>
+                    <TabsTrigger value="preferences">Preferences</TabsTrigger>
+                    <TabsTrigger value="email">Email notifications</TabsTrigger>
+                    <TabsTrigger value="security">Danger Zone</TabsTrigger>
+                </TabsList>
+            </Tabs>
+            {/* <Table>
                 <TableHeader>
                     <TableRow>
                         <TableHead className="w-[100px]">Status</TableHead>
@@ -124,7 +153,7 @@ export default async function ShopDetail({ params }: { params: { id: string } })
                         </TableRow>
                     ))}
                 </TableBody>
-            </Table>
+            </Table> */}
         </PageLayout>
     );
 }

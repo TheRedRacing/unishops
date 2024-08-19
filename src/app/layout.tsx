@@ -15,7 +15,10 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-    title: "UniShops - Waitlist",
+    title: {
+        template: "%s - UniShops",
+        default: "UniShops",
+    },
     description: "UniShops is a one page shop for all your needs.",
     icons: [{ rel: "icon", url: "/favicon.ico" }],
     authors: [
