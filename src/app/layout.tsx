@@ -15,7 +15,10 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-    title: "UniShops - Waitlist",
+    title: {
+        template: "%s - UniShops",
+        default: "UniShops",
+    },
     description: "UniShops is a one page shop for all your needs.",
     icons: [{ rel: "icon", url: "/favicon.ico" }],
     authors: [
@@ -29,7 +32,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en" className={cn(roboto.className)} suppressHydrationWarning>
-            <body className="relative isolate flex min-h-screen flex-col overflow-hidden bg-white text-black dark:bg-zinc-950 dark:text-white">
+            <body className="relative isolate flex min-h-screen flex-col overflow-hidden bg-white text-black antialiased dark:bg-zinc-900 dark:text-white">
                 <TRPCReactProvider>
                     <ThemeProvider attribute="class">{children}</ThemeProvider>
                 </TRPCReactProvider>

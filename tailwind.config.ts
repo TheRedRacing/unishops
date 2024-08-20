@@ -13,8 +13,28 @@ const config = {
             },
         },
         extend: {
+            colors: {
+                primary: {
+                    50: "var(--primary-50)",
+                    100: "var(--primary-100)",
+                    200: "var(--primary-200)",
+                    300: "var(--primary-300)",
+                    400: "var(--primary-400)",
+                    500: "var(--primary-500)",
+                    600: "var(--primary-600)",
+                    700: "var(--primary-700)",
+                    800: "var(--primary-800)",
+                    900: "var(--primary-900)",
+                },
+            },
             fontSize: {
                 "2xs": "0.625rem",
+            },
+            opacity: {
+                1: "0.01",
+                2.5: "0.025",
+                7.5: "0.075",
+                15: "0.15",
             },
             keyframes: {
                 "accordion-down": {

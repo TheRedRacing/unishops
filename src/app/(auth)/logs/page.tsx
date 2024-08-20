@@ -1,5 +1,11 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { PageLayout } from "@/components/layout/page";
+import { EmptyCard } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { type Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Logs",
+};
 
 const SelectOption = [
     {
@@ -83,11 +89,11 @@ const SelectOption = [
 // server side
 export default function Logs() {
     return (
-        <section className="space-y-8 py-8">
-            <div className="mx-auto flex max-w-5xl items-center justify-between px-6">
+        <PageLayout className="space-y-4">
+            <div className="flex items-center justify-between">
                 <h1 className="text-3xl font-bold leading-8 text-black dark:text-white">Logs</h1>
             </div>
-            <div className="mx-auto flex max-w-5xl flex-col gap-4 px-6">
+            <div className="flex flex-col gap-4">
                 <div className="grid grid-cols-4 gap-2">
                     {SelectOption.map((option, index) => (
                         <Select key={index}>
@@ -104,15 +110,13 @@ export default function Logs() {
                         </Select>
                     ))}
                 </div>
-                <Card>
-                    <CardContent variant={"bordered"} className="flex h-80 flex-col items-center justify-center">
-                        <div className="mb-8 flex max-w-md flex-col gap-2 text-center">
-                            <h2 className="text-xl font-bold tracking-[-0.16px] text-black dark:text-white">You don&apos;t have any logs yet</h2>
-                            <span className="text-sm font-normal text-zinc-600 dark:text-zinc-300">Logs are generated when you perform actions on your account.</span>
-                        </div>
-                    </CardContent>
-                </Card>
+                <EmptyCard>
+                    <div className="mb-8 flex max-w-md flex-col gap-2 text-center">
+                        <h2 className="text-xl font-bold tracking-[-0.16px] text-black dark:text-white">You don&apos;t have any logs yet</h2>
+                        <span className="text-sm font-normal text-zinc-600 dark:text-zinc-300">Logs are generated when you perform actions on your account.</span>
+                    </div>
+                </EmptyCard>
             </div>
-        </section>
+        </PageLayout>
     );
 }

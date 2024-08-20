@@ -44,6 +44,7 @@ model User {
     email         String?   @unique
     emailVerified DateTime?
     image         String?
+    proAccount    Boolean   @default(false)
     shops         Shop[]
     accounts      Account[]
     sessions      Session[]
@@ -59,14 +60,15 @@ model VerificationToken {
 
 model Shop {
     id           String   @id @default(cuid())
+    stripeSecret String   @unique
     name         String
     slug         String
-    status       EnumShopStatus
+    status       EnumShopStatus @default(Draft)
+    country      String?
+    currency     String?
+    timezone     String?
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId       String
-    stripePublic String?
-    stripeSecret String?
-    faqs         ShopFAQ[]
+    userId       String    
     createdAt    DateTime @default(now())
     updatedAt    DateTime @updatedAt
 }
@@ -76,14 +78,4 @@ enum EnumShopStatus {
     Published
     Maintenance
     Archived
-}
-
-model ShopFAQ {
-    id        String  @id @default(cuid())
-    question  String
-    answer    String
-    shopId    String
-    shop      Shop    @relation(fields: [shopId], references: [id], onDelete: Cascade)
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
 }

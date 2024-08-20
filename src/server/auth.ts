@@ -4,7 +4,7 @@ import { type Adapter } from "next-auth/adapters";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import Linkedin from "next-auth/providers/linkedin";
-
+import EmailProvider from "next-auth/providers/email";
 import { env } from "@/env";
 import { db } from "@/server/db";
 
@@ -18,6 +18,10 @@ declare module "next-auth" {
     interface Session extends DefaultSession {
         user: {
             id: string;
+            name: string;
+            email: string;
+            image: string;
+            proAccount: boolean;
             // ...other properties
             // role: UserRole;
         } & DefaultSession["user"];
@@ -65,10 +69,18 @@ export const authOptions: NextAuthOptions = {
             clientId: env.AUTH_LINKEDIN_ID,
             clientSecret: env.AUTH_LINKEDIN_SECRET,
         }),
-        /**
-         * ...add more providers here.
-         * @see https://next-auth.js.org/providers/github
-         */
+        EmailProvider({
+            server: {
+                host: env.EMAIL_SERVER_HOST,
+                port: env.EMAIL_SERVER_PORT,
+                auth: {
+                    user: env.EMAIL_SERVER_USER,
+                    pass: env.EMAIL_SERVER_PASSWORD,
+                },
+            },
+            from: env.EMAIL_FROM,
+        }),
+        // ...add more providers here
     ],
 };
 
