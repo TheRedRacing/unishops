@@ -8,11 +8,12 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { ChangeStatusForm } from "@/components/forms/changeStatusForm";
 import { PageLayout } from "@/components/layout/page";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { status } from "@/lib/statusBadge";
 import { timeDifference } from "@/lib/timeDifference";
 import { type Metadata } from "next";
+import { Card, CardContent, CardHeader, EmptyCard } from "@/components/ui/card";
 
 type Props = {
     params: {
@@ -57,7 +58,7 @@ export default async function ShopDetail({ params }: { params: { id: string } })
     const products = await getProducts();
 
     return (
-        <PageLayout>
+        <PageLayout className="space-y-4">
             <div className="flex items-center justify-between">
                 <div className="flex flex-col gap-1">
                     <p className="text-base text-gray-600 dark:text-zinc-400">Shop</p>
@@ -70,37 +71,58 @@ export default async function ShopDetail({ params }: { params: { id: string } })
                     <ChangeStatusForm shopId={shop.id} shopStatus={shop.status} />
                 </div>
             </div>
-            <div className="mt-8 grid grid-cols-4 gap-8">
-                <div className="flex flex-col items-start gap-2">
-                    <Label>Status</Label>
-                    {status(shop.status)}
-                </div>
-                <div className="flex flex-col items-start gap-2">
-                    <Label>ID</Label>
-                    <Badge>{`${shop.id.slice(0, 15)}...`}</Badge>
-                </div>
-                <div className="flex flex-col items-start gap-2">
-                    <Label>Timezone</Label>
-                    <Badge>{shop.timezone}</Badge>
-                </div>
-                <div className="flex flex-col items-start gap-2">
-                    <Label>Created</Label>
-                    <p className="inline-flex items-center rounded-md text-sm font-medium text-gray-600 dark:text-zinc-400">{timeDifference(Date.now(), Date.parse(shop.createdAt.toISOString()))}</p>
-                </div>
-                <div className="flex flex-col items-start gap-2">
-                    <Label>Stripe Secret</Label>
-                    <Badge className="max-w-full truncate">{shop.stripeSecret ? shop.stripeSecret.slice(0, 20) + "..." : "Not connected"}</Badge>
-                </div>
-            </div>
-            <hr className="my-8 border-zinc-900/10 dark:border-white/10" />
-            <Tabs defaultValue="profile">
+            <Tabs defaultValue="overview">
                 <TabsList>
-                    <TabsTrigger value="profile">Profile</TabsTrigger>
-                    <TabsTrigger value="payment">Payment methods</TabsTrigger>
-                    <TabsTrigger value="preferences">Preferences</TabsTrigger>
-                    <TabsTrigger value="email">Email notifications</TabsTrigger>
-                    <TabsTrigger value="security">Danger Zone</TabsTrigger>
+                    <TabsTrigger value="overview">Overview</TabsTrigger>
+                    <TabsTrigger value="balance">Balance</TabsTrigger>
+                    <TabsTrigger value="products">Products</TabsTrigger>
+                    <TabsTrigger value="orders">Orders</TabsTrigger>
+                    <TabsTrigger value="customers">Customers</TabsTrigger>
+                    <TabsTrigger value="satistics">Satistics</TabsTrigger>
+                    <TabsTrigger value="settings">Settings</TabsTrigger>
                 </TabsList>
+                <TabsContent value="overview">
+                    <div className="grid grid-cols-4 gap-8">
+                        <div className="flex flex-col items-start gap-2">
+                            <Label>Status</Label>
+                            {status(shop.status)}
+                        </div>
+                        <div className="flex flex-col items-start gap-2">
+                            <Label>ID</Label>
+                            <Badge>{`${shop.id.slice(0, 15)}...`}</Badge>
+                        </div>
+                        <div className="flex flex-col items-start gap-2">
+                            <Label>Timezone</Label>
+                            <Badge>{shop.timezone}</Badge>
+                        </div>
+                        <div className="flex flex-col items-start gap-2">
+                            <Label>Created</Label>
+                            <p className="inline-flex items-center rounded-md text-sm font-medium text-gray-600 dark:text-zinc-400">{timeDifference(Date.now(), Date.parse(shop.createdAt.toISOString()))}</p>
+                        </div>                        
+                    </div>
+                    <div className="flex flex-col items-start gap-2">
+                        <Label>Stripe Secret</Label>
+                        <Badge className="max-w-full truncate">{shop.stripeSecret ? shop.stripeSecret.slice(0, 20) + "..." : "Not connected"}</Badge>
+                    </div>
+                </TabsContent>
+                <TabsContent value="balance">
+                    <EmptyCard />
+                </TabsContent>
+                <TabsContent value="products">
+                    <EmptyCard />
+                </TabsContent>
+                <TabsContent value="orders">
+                    <EmptyCard />
+                </TabsContent>
+                <TabsContent value="customers">
+                    <EmptyCard />
+                </TabsContent>
+                <TabsContent value="satistics">
+                    <EmptyCard />
+                </TabsContent>
+                <TabsContent value="settings">
+                    <EmptyCard />
+                </TabsContent>
             </Tabs>
             {/* <Table>
                 <TableHeader>
