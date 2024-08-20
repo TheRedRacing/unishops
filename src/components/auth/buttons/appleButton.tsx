@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button";
 
 export function AppleButton() {
     return (
-        <Button onClick={() => signIn("apple", { callbackUrl: "/shops" })} type="submit" variant={"outlined"} size={"lg"} className="flex w-full items-center gap-2" disabled>
+        <Button onClick={() => signIn("apple", { callbackUrl: "/shops" })} type="submit" variant={"outlined"} size={"xl"} className="flex w-full items-center gap-2" disabled>
             <Apple />
-            <span>Sign up with Apple (Soon)</span>
+            <span>Sign up with Apple</span>
         </Button>
     );
 }

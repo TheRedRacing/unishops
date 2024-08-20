@@ -7,6 +7,8 @@ import { toast } from "sonner";
 
 import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { api } from "@/trpc/react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
     email: z.string().email(),
@@ -44,14 +46,11 @@ export default function WaitListForm() {
                     name="email"
                     render={({ field }) => (
                         <FormItem>
-                            <div className="flex items-center gap-4">
-                                <label htmlFor="email-address" className="sr-only">
-                                    Email address
-                                </label>
-                                <input type="email" autoComplete="email" placeholder="Enter your email" required {...field} className="w-full min-w-0 flex-auto rounded-md border-0 bg-black/5 px-3.5 py-2 text-black shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:bg-white dark:bg-white/5 dark:text-white dark:ring-white/10 dark:focus-visible:outline-white sm:text-sm sm:leading-6" />
-                                <button type="submit" className="flex-none rounded-md bg-zinc-950 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-zinc-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:bg-white dark:text-black dark:hover:bg-zinc-100 dark:focus-visible:outline-white">
-                                    Notify me
-                                </button>
+                            <div className="flex gap-2">                                
+                                <Input type="email" autoComplete="email" placeholder="Enter your email" required {...field} />
+                                <Button type="submit" size={"lg"} className="w-2/3">
+                                    Send me a notification
+                                </Button>
                             </div>
                             <FormMessage {...field} className="mt-2" />
                         </FormItem>

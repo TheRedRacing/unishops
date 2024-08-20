@@ -12,7 +12,7 @@ function ArrowIcon(props: React.ComponentPropsWithoutRef<"svg">) {
     );
 }
 
-const buttonVariants = cva("inline-flex gap-1.5 justify-center items-center overflow-hidden text-sm font-medium transition", {
+const buttonVariants = cva("inline-flex gap-1.5 justify-center items-center whitespace-nowrap overflow-hidden text-sm font-medium transition", {
     variants: {
         variant: {
             primary: "rounded-md bg-zinc-900 text-white hover:bg-zinc-700 dark:bg-emerald-400/10 dark:text-emerald-400 dark:ring-1 dark:ring-inset dark:ring-emerald-400/20 dark:hover:bg-emerald-400/10 dark:hover:text-emerald-300 dark:hover:ring-emerald-300",
@@ -24,9 +24,10 @@ const buttonVariants = cva("inline-flex gap-1.5 justify-center items-center over
             destructive: "rounded-md bg-red-900 text-white hover:bg-red-700 dark:bg-red-400/10 dark:text-red-400 dark:ring-1 dark:ring-inset dark:ring-red-400/20 dark:hover:bg-red-400/10 dark:hover:text-red-300 dark:hover:ring-red-300",
         },
         size: {
-            default: "py-1 px-3 h-8",
+            default: "px-3 py-1 h-8",
             sm: "px-2 py-1",
             lg: "px-3 py-2",
+            xl: "px-4 py-3",
             icon: "w-8 h-8",
         },
     },
