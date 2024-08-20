@@ -3,8 +3,13 @@ import { Logo } from "@/components/icons";
 import { LoginForm } from "@/components/auth/loginForm";
 import { AppleButton, GithubButton, GoogleButton, LinkedInButton } from "@/components/auth/buttons";
 import { CustomLink } from "@/components/ui/link";
+import { redirect } from "next/navigation";
 
 export default function Login() {
+    if (true) {
+        redirect("/");
+    }
+
     return (
         <>
             <Link href="/" className="absolute left-0 top-6 flex h-10 items-center justify-center rounded-full pl-2 pr-4 text-sm font-semibold text-zinc-800 transition duration-200 ease-in-out hover:bg-zinc-200 dark:text-zinc-400 dark:hover:bg-zinc-800 md:left-6">

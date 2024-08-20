@@ -18,7 +18,6 @@ import { HeroPattern } from "@/components/HeroPattern";
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
     const session = await getServerAuthSession();
     if (!session) {
-        console.log("You need to be logged in to access this page.");
         redirect("/login");
     }
 
