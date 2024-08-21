@@ -4,6 +4,7 @@ import Link from "next/link";
 import { BugAntIcon } from "@heroicons/react/24/solid";
 import { db } from "@/server/db";
 import { getServerAuthSession } from "@/server/auth";
+import { ScrollArea } from "../ui/scroll-area";
 
 export default async function Debug() {
     const session = await getServerAuthSession();
@@ -36,7 +37,7 @@ export default async function Debug() {
                     </Link>
                 </Button>
             </SheetTrigger>
-            <SheetContent className="w-[600px]">
+            <SheetContent className="w-[600px] max-h-screen overflow-y-scroll">
                 <SheetDescription>
                     <div className="flex flex-col">
                         <div className="rounded-t-lg bg-zinc-900/40 p-4 font-bold">Current Session</div>
@@ -44,6 +45,6 @@ export default async function Debug() {
                     </div>
                 </SheetDescription>
             </SheetContent>
-        </Sheet>
+        </Sheet >
     );
 }

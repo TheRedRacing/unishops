@@ -2,12 +2,13 @@ import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 import { TRPCError } from "@trpc/server";
-import { EnumShopStatus } from "@prisma/client";
+import { EnumLogStatus, EnumShopStatus } from "@prisma/client";
 import Stripe from "stripe";
+import { addLog } from "@/lib/apiCall";
 
 export const shopsRouter = createTRPCRouter({
     // shops gestion section
-    create: protectedProcedure.input(z.object({ stripeSecret: z.string(), name: z.string().optional() })).mutation(async ({ ctx, input }) => {
+    create: protectedProcedure.input(z.object({ stripeSecret: z.string() })).mutation(async ({ ctx, input }) => {
         // check if the stripe secret is not used
         const shopExists = await ctx.db.shop.findFirst({
             where: {
@@ -22,7 +23,7 @@ export const shopsRouter = createTRPCRouter({
         if (!organisation) throw new TRPCError({ code: "NOT_FOUND", message: "Stripe organisation not found" });
 
         // create the shop
-        const name = input.name?.trim() ? input.name : organisation.settings?.dashboard.display_name?.trim() ? organisation.settings.dashboard.display_name : "New shop";
+        const name = organisation.settings?.dashboard.display_name?.trim() ? organisation.settings.dashboard.display_name : "New shop";
         const country = organisation.country ?? undefined;
         const currency = organisation.default_currency ?? undefined;
         const timezone = organisation.settings?.dashboard.timezone ?? undefined;
@@ -45,8 +46,13 @@ export const shopsRouter = createTRPCRouter({
                     },
                 },
             });
+
+            // create the log for the shop creation
+            //await addLog(ctx, `shops/create`, EnumLogStatus.Success);
+
             return shop;
         } catch (error) {
+            //await addLog(ctx, `shops/create`, EnumLogStatus.Error);
             if (error instanceof TRPCError) {
                 throw error;
             }

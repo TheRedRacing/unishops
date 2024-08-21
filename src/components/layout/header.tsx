@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Logo } from "@/components/icons";
 import { AuthMenu } from "@/components/auth/authMenu";
 import ThemeToogle from "@/components/header/themeToogle";
+import Debug from "../header/debug";
 
 function TopLevelNavItem({ href, children }: { href: string; children: React.ReactNode }) {
     return (
@@ -37,6 +38,7 @@ export function LayoutHeader({ pro }: layoutHeaderProps) {
                 <div className="flex gap-4">
                     <AuthMenu />
                     <ThemeToogle />
+                    <Debug />
                 </div>
             </div>
         </div>

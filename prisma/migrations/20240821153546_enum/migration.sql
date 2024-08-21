@@ -1,4 +1,7 @@
 -- CreateEnum
+CREATE TYPE "EnumLogStatus" AS ENUM ('Info', 'Success', 'Warning', 'Error');
+
+-- CreateEnum
 CREATE TYPE "EnumShopStatus" AS ENUM ('Draft', 'Published', 'Maintenance', 'Archived');
 
 -- CreateTable
@@ -37,8 +40,23 @@ CREATE TABLE "User" (
     "email" TEXT,
     "emailVerified" TIMESTAMP(3),
     "image" TEXT,
+    "proAccount" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Log" (
+    "id" TEXT NOT NULL,
+    "endpoint" TEXT NOT NULL,
+    "message" TEXT NOT NULL,
+    "status" "EnumLogStatus" NOT NULL DEFAULT 'Info',
+    "statusId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Log_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -51,28 +69,18 @@ CREATE TABLE "VerificationToken" (
 -- CreateTable
 CREATE TABLE "Shop" (
     "id" TEXT NOT NULL,
+    "stripeSecret" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
-    "status" "EnumShopStatus" NOT NULL,
+    "status" "EnumShopStatus" NOT NULL DEFAULT 'Draft',
+    "country" TEXT,
+    "currency" TEXT,
+    "timezone" TEXT,
     "userId" TEXT NOT NULL,
-    "stripePublic" TEXT,
-    "stripeSecret" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Shop_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "ShopFAQ" (
-    "id" TEXT NOT NULL,
-    "question" TEXT NOT NULL,
-    "answer" TEXT NOT NULL,
-    "shopId" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "ShopFAQ_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -90,6 +98,9 @@ CREATE UNIQUE INDEX "VerificationToken_token_key" ON "VerificationToken"("token"
 -- CreateIndex
 CREATE UNIQUE INDEX "VerificationToken_identifier_token_key" ON "VerificationToken"("identifier", "token");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "Shop_stripeSecret_key" ON "Shop"("stripeSecret");
+
 -- AddForeignKey
 ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -97,7 +108,7 @@ ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId"
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Shop" ADD CONSTRAINT "Shop_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Log" ADD CONSTRAINT "Log_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ShopFAQ" ADD CONSTRAINT "ShopFAQ_shopId_fkey" FOREIGN KEY ("shopId") REFERENCES "Shop"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Shop" ADD CONSTRAINT "Shop_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

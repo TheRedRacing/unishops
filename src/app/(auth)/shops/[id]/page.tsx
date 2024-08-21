@@ -10,7 +10,7 @@ import { ChangeStatusForm } from "@/components/forms/changeStatusForm";
 import { PageLayout } from "@/components/layout/page";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import { status } from "@/lib/statusBadge";
+import { Shopsstatus } from "@/lib/statusBadge";
 import { timeDifference } from "@/lib/timeDifference";
 import { type Metadata } from "next";
 import { Card, CardContent, CardHeader, EmptyCard } from "@/components/ui/card";
@@ -85,7 +85,7 @@ export default async function ShopDetail({ params }: { params: { id: string } })
                     <div className="grid grid-cols-4 gap-8">
                         <div className="flex flex-col items-start gap-2">
                             <Label>Status</Label>
-                            {status(shop.status)}
+                            {Shopsstatus(shop.status)}
                         </div>
                         <div className="flex flex-col items-start gap-2">
                             <Label>ID</Label>

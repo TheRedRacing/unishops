@@ -1,42 +1,22 @@
+import { type Metadata } from "next";
 import Link from "next/link";
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { timeDifference } from "@/lib/timeDifference";
-import { db } from "@/server/db";
-import { getServerAuthSession } from "@/server/auth";
 import { DropdownTablesMenu } from "@/components/dropdown/tables";
 import NewShops from "@/components/forms/newForm";
-import { status } from "@/lib/statusBadge";
 import { PageLayout } from "@/components/layout/page";
-import { type Metadata } from "next";
 import { EmptyCard } from "@/components/ui/card";
+
+import { Shopsstatus } from "@/lib/statusBadge";
+import { timeDifference } from "@/lib/timeDifference";
+import { getShops } from "@/lib/apiCall";
 
 export const metadata: Metadata = {
     title: "Shops",
 };
 
 // server side
-export default async function Shops() {
-    const session = await getServerAuthSession();
-    const getShops = async () => {
-        const user = await db.user.findFirst({
-            where: {
-                email: session?.user.email,
-            },
-            include: {
-                shops: true,
-            },
-        });
-
-        if (!user) {
-            throw new Error("User not found");
-        }
-
-        const shops = user.shops;
-        shops.sort((a, b) => Date.parse(b.createdAt.toISOString()) - Date.parse(a.createdAt.toISOString()));
-        return shops;
-    };
-
+export default async function Shops() {   
     const shops = await getShops();
 
     return (
@@ -72,7 +52,7 @@ export default async function Shops() {
                                             <TableCell className="font-medium">
                                                 <Link href={`/shops/${shop.id}`}>{shop.name}</Link>
                                             </TableCell>
-                                            <TableCell>{status(shop.status)}</TableCell>
+                                            <TableCell>{Shopsstatus(shop.status)}</TableCell>
                                             <TableCell className="text-right">
                                                 <time dateTime={shop.createdAt.toISOString()}>{timeDifference(Date.now(), Date.parse(shop.createdAt.toISOString()))}</time>
                                             </TableCell>
