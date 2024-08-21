@@ -32,7 +32,7 @@ function DiscordIcon(props: React.ComponentPropsWithoutRef<"svg">) {
 
 function SocialLink({ href, icon: Icon, children }: { href: string; icon: React.ComponentType<{ className?: string }>; children: React.ReactNode }) {
     return (
-        <Link href={href} className="group">
+        <Link href={href} className="group cursor-not-allowed">
             <span className="sr-only">{children}</span>
             <Icon className="h-5 w-5 fill-zinc-600 transition hover:fill-zinc-900 dark:fill-zinc-400 dark:hover:fill-white" />
         </Link>

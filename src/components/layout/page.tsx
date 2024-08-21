@@ -6,7 +6,7 @@ interface PageLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const PageLayout = React.forwardRef<HTMLDivElement, PageLayoutProps>(({ children, className, ...props }, ref) => (
-    <section ref={ref} className={cn("mx-auto w-full max-w-2xl py-12 lg:max-w-5xl", className)} {...props}>
+    <section ref={ref} className={cn("mx-auto w-full max-w-2xl py-12 px-6 lg:max-w-5xl", className)} {...props}>
         {children}
     </section>
 ));

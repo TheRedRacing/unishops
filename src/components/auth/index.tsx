@@ -7,7 +7,7 @@ export default async function Auth() {
             <Button variant={"primary"} asChild>
                 <Link href="/login">Sign In</Link>
             </Button>
-            <Button variant={"secondary"} asChild>
+            <Button variant={"outlined"} asChild>
                 <Link href="/signup">Get Started</Link>
             </Button>
         </>

@@ -40,15 +40,15 @@ export default function WaitListForm() {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="mx-auto mt-10 max-w-md">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full mt-5 md:mt-10 md:max-w-lg">
                 <FormField
                     control={form.control}
                     name="email"
                     render={({ field }) => (
                         <FormItem>
-                            <div className="flex gap-2">                                
+                            <div className="flex flex-col gap-2 md:flex-row">                                
                                 <Input type="email" autoComplete="email" placeholder="Enter your email" required {...field} />
-                                <Button type="submit" size={"lg"} className="w-2/3">
+                                <Button type="submit" size={"lg"} className="md:w-2/3">
                                     Send me a notification
                                 </Button>
                             </div>
