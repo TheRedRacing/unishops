@@ -43,15 +43,15 @@ export default function SignUp() {
                     </div>
                     <p className="text-xs font-normal text-zinc-900 dark:text-zinc-200">
                         By signing up, you agree to our{" "}
-                        <CustomLink variant="primarysm" href="/legal/terms-of-service">
+                        <CustomLink variant="primaryxs" href="/legal/terms-of-service">
                             Terms
                         </CustomLink>
                         ,{" "}
-                        <CustomLink variant="primarysm" href="/legal/terms-of-service">
+                        <CustomLink variant="primaryxs" href="/legal/terms-of-service">
                             acceptable use
                         </CustomLink>{" "}
                         and{" "}
-                        <CustomLink variant="primarysm" href="/legal/privacy-policy">
+                        <CustomLink variant="primaryxs" href="/legal/privacy-policy">
                             Privacy Policy
                         </CustomLink>
                         .
