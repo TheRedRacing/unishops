@@ -8,8 +8,9 @@ import { PageLayout } from "@/components/layout/page";
 import { EmptyCard } from "@/components/ui/card";
 
 import { Shopsstatus } from "@/lib/statusBadge";
-import { timeDifference } from "@/lib/timeDifference";
 import { getShops } from "@/lib/apiCall";
+import { CustomLink } from "@/components/ui/link";
+import TimeTable from "@/components/timeTable";
 
 export const metadata: Metadata = {
     title: "Shops",
@@ -50,11 +51,11 @@ export default async function Shops() {
                                     <>
                                         <TableRow key={shop.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-900/40">
                                             <TableCell className="font-medium">
-                                                <Link href={`/shops/${shop.id}`}>{shop.name}</Link>
+                                                <CustomLink href={`/shops/${shop.id}`}>{shop.name}</CustomLink>
                                             </TableCell>
                                             <TableCell>{Shopsstatus(shop.status)}</TableCell>
                                             <TableCell className="text-right">
-                                                <time dateTime={shop.createdAt.toISOString()}>{timeDifference(Date.now(), Date.parse(shop.createdAt.toISOString()))}</time>
+                                                <TimeTable time={shop.createdAt} />
                                             </TableCell>
                                             <TableCell className="text-center">
                                                 <DropdownTablesMenu shopId={shop.id} shopName={shop.name} />

@@ -70,6 +70,7 @@ export const shopsRouter = createTRPCRouter({
                 },
             });
             if (!shop) {
+                await ctx.addLog(`Shop was not found`, "Error");
                 throw new TRPCError({ code: "NOT_FOUND", message: "Shop not found" });
             }
             await ctx.db.shop.update({
@@ -80,8 +81,12 @@ export const shopsRouter = createTRPCRouter({
                     name: input.name,
                 },
             });
+
+            await ctx.addLog(`${shop.name} was successfully changed to "${input.name}"`, "Success");
+
             return shop;
         } catch (error) {
+            await ctx.addLog(`Failed to change shop name`, "Error");
             if (error instanceof TRPCError) {
                 throw error;
             }
@@ -98,6 +103,7 @@ export const shopsRouter = createTRPCRouter({
                 },
             });
             if (!shop) {
+                await ctx.addLog(`Shop was not found`, "Error");
                 throw new TRPCError({ code: "NOT_FOUND", message: "Shop not found" });
             }
             await ctx.db.shop.update({
@@ -108,6 +114,8 @@ export const shopsRouter = createTRPCRouter({
                     status: EnumShopStatus[input.status as keyof typeof EnumShopStatus],
                 },
             });
+
+            await ctx.addLog(`${shop.name} status was successfully changed to "${input.status}"`, "Success");
             return shop;
         } catch (error) {
             if (error instanceof TRPCError) {
@@ -127,6 +135,7 @@ export const shopsRouter = createTRPCRouter({
                 },
             });
             if (!shop) {
+                await ctx.addLog(`Shop was not found`, "Error");
                 throw new TRPCError({ code: "NOT_FOUND", message: "Shop not found" });
             }
             await ctx.db.shop.delete({
@@ -134,52 +143,16 @@ export const shopsRouter = createTRPCRouter({
                     id: shop.id,
                 },
             });
+
+            await ctx.addLog(`${shop.name} was successfully deleted`, "Success");
+
             return shop;
         } catch (error) {
+            await ctx.addLog(`Failed to delete shop`, "Error");
             if (error instanceof TRPCError) {
                 throw error;
             }
             throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to delete shop" });
         }
-    }),
-    // find shops section
-    findMany: protectedProcedure.query(async ({ ctx }) => {
-        try {
-            const userID = ctx.session.user.id;
-            const shops = await ctx.db.shop.findMany({
-                where: {
-                    userId: userID,
-                },
-                orderBy: {
-                    createdAt: "desc",
-                },
-            });
-            return shops;
-        } catch (error) {
-            if (error instanceof TRPCError) {
-                throw error;
-            }
-            throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to fetch shops" });
-        }
-    }),
-    findOne: protectedProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
-        try {
-            const userID = ctx.session.user.id;
-            const shop = await ctx.db.shop.findFirst({
-                where: {
-                    userId: userID,
-                    id: input.id,
-                },
-            });
-            if (!shop) {
-                throw new TRPCError({ code: "NOT_FOUND", message: "Shop not found" });
-            }
-            return shop;
-        } catch (error) {
-            if (error instanceof TRPCError) {
-                throw error;
-            }
-            throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to fetch shop" });
-        }
-    }),
+    }),    
 });

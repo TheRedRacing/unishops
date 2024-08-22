@@ -6,11 +6,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 import { Logsstatus } from "@/lib/statusBadge";
-import Link from "next/link";
-import { timeDifference } from "@/lib/timeDifference";
 import { CustomLink } from "@/components/ui/link";
 import { db } from "@/server/db";
 import { getServerAuthSession } from "@/server/auth";
+import TimeTable from "@/components/timeTable";
 
 export const metadata: Metadata = {
     title: "Logs",
@@ -18,7 +17,15 @@ export const metadata: Metadata = {
 
 // server side
 export default async function Logs() {
-    const logs = await db.log.findMany();
+    const session = await getServerAuthSession();
+    const logs = await db.log.findMany({
+        where: {
+            userId: session?.user.id,
+        },
+        orderBy: {
+            createdAt: "desc",
+        },
+    });
 
     const statuses = ["All Statuses", "Info", "Success", "Warning", "Error"];
     const lastDays = ["Last 3 days", "Last 7 days", "Last 15 days", "Last 30 days"];
@@ -70,16 +77,16 @@ export default async function Logs() {
                             <TableBody>
                                 {logs.map((log) => (
                                     <>
-                                        <TableRow key={log.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-900/40">
+                                        <TableRow key={log.id} className="hover:bg-black/ dark:hover:bg-white/1 text-xs">
                                             <TableCell className="font-medium">
-                                                <CustomLink href={`/logs/${log.id}`} variant="primaryxs">{log.id}</CustomLink>
+                                                <CustomLink href={`/logs/${log.id}`} variant="primaryxs">{log.endpoint}</CustomLink>
                                             </TableCell>
                                             <TableCell>{Logsstatus(log.status)}</TableCell>
                                             <TableCell>
                                                 <span>{log.message}</span>
                                             </TableCell>
                                             <TableCell className="text-right">
-                                                <time dateTime={log.createdAt.toISOString()}>{timeDifference(Date.now(), Date.parse(log.createdAt.toISOString()))}</time>
+                                                <TimeTable time={log.createdAt} />
                                             </TableCell>
                                         </TableRow>
                                     </>

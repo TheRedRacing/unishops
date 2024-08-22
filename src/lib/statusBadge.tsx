@@ -19,11 +19,11 @@ const Logsstatus = (status: string) => {
     switch (status) {
         case "Info":
             return <Badge>{status}</Badge>;
-        case "Update":
+        case "Warning":
             return <Badge variant={"warning"}>{status}</Badge>;
-        case "Create":
+        case "Success":
             return <Badge variant={"success"}>{status}</Badge>;
-        case "Delete":
+        case "Error":
             return <Badge variant={"destructive"}>{status}</Badge>;
         default:
             return <Badge>{status}</Badge>;

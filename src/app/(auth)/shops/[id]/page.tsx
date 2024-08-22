@@ -11,9 +11,9 @@ import { PageLayout } from "@/components/layout/page";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { Shopsstatus } from "@/lib/statusBadge";
-import { timeDifference } from "@/lib/timeDifference";
 import { type Metadata } from "next";
 import { Card, CardContent, CardHeader, EmptyCard } from "@/components/ui/card";
+import TimeTable from "@/components/timeTable";
 
 type Props = {
     params: {
@@ -97,7 +97,9 @@ export default async function ShopDetail({ params }: { params: { id: string } })
                         </div>
                         <div className="flex flex-col items-start gap-2">
                             <Label>Created</Label>
-                            <p className="inline-flex items-center rounded-md text-sm font-medium text-gray-600 dark:text-zinc-400">{timeDifference(Date.now(), Date.parse(shop.createdAt.toISOString()))}</p>
+                            <div className="inline-flex items-center rounded-md text-sm font-medium text-gray-600 dark:text-zinc-400">
+                                <TimeTable time={shop.createdAt} />
+                            </div>
                         </div>                        
                     </div>
                     <div className="flex flex-col items-start gap-2">
