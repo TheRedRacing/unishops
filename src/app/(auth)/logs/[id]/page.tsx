@@ -1,18 +1,14 @@
 import React from "react";
-import Stripe from "stripe";
 import { redirect } from "next/navigation";
 import { db } from "@/server/db";
 
-import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { ChangeStatusForm } from "@/components/forms/changeStatusForm";
 import { PageLayout } from "@/components/layout/page";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import { Logsstatus, Shopsstatus } from "@/lib/statusBadge";
+import { Logsstatus } from "@/lib/statusBadge";
 import { type Metadata } from "next";
-import { Card, CardContent, CardHeader, EmptyCard } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import TimeTable from "@/components/timeTable";
 
 export const metadata: Metadata = {
