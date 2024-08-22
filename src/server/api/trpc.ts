@@ -13,6 +13,7 @@ import { ZodError } from "zod";
 
 import { getServerAuthSession } from "@/server/auth";
 import { db } from "@/server/db";
+import { type EnumLogStatus } from "@prisma/client";
 
 /**
  * 1. CONTEXT
@@ -100,9 +101,24 @@ export const protectedProcedure = publicProcedure.use(({ ctx, next }) => {
     if (!ctx.session || !ctx.session.user) {
         throw new TRPCError({ code: "UNAUTHORIZED" });
     }
+
+    const addLog = async (
+        message: string,
+        status: EnumLogStatus = "Info") => {
+        if (!ctx.session) throw new TRPCError({ code: "UNAUTHORIZED" });
+        return await ctx.db.log.create({
+            data: {
+                endpoint: ctx.path,
+                message,
+                status,
+                userId: ctx.session.user.id,
+            },
+        });
+    };
     return next({
         ctx: {
             // infers the `session` as non-nullable
+            addLog,
             session: { ...ctx.session, user: ctx.session.user },
         },
     });

@@ -2,9 +2,8 @@ import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 import { TRPCError } from "@trpc/server";
-import { EnumLogStatus, EnumShopStatus } from "@prisma/client";
+import { EnumShopStatus } from "@prisma/client";
 import Stripe from "stripe";
-import { addLog } from "@/lib/apiCall";
 
 export const shopsRouter = createTRPCRouter({
     // shops gestion section
@@ -47,12 +46,12 @@ export const shopsRouter = createTRPCRouter({
                 },
             });
 
-            // create the log for the shop creation success            
+            await ctx.addLog(`${name} was successfully created`, "Success")
 
             return shop;
         } catch (error) {
-            // create the log for the shop creation error
-            
+            await ctx.addLog(`${name} creation failed`, "Error")
+
             if (error instanceof TRPCError) {
                 throw error;
             }
