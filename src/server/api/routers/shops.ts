@@ -47,12 +47,12 @@ export const shopsRouter = createTRPCRouter({
                 },
             });
 
-            // create the log for the shop creation
-            //await addLog(ctx, `shops/create`, EnumLogStatus.Success);
+            // create the log for the shop creation success            
 
             return shop;
         } catch (error) {
-            //await addLog(ctx, `shops/create`, EnumLogStatus.Error);
+            // create the log for the shop creation error
+            
             if (error instanceof TRPCError) {
                 throw error;
             }
