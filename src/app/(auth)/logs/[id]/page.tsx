@@ -1,6 +1,5 @@
 import React from "react";
 import { redirect } from "next/navigation";
-import { db } from "@/server/db";
 
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
@@ -10,13 +9,14 @@ import { Logsstatus } from "@/lib/statusBadge";
 import { type Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import TimeTable from "@/components/timeTable";
+import { getOneLog } from "@/lib/apiCall";
 
 export const metadata: Metadata = {
     title: "Logs",
 };
 
 export default async function ShopDetail({ params }: { params: { id: string } }) {
-    const log = await db.log.findUnique({ where: { id: params.id } });
+    const log = await getOneLog(params.id);
 
     if (!params.id || !log) {
         redirect("/logs");

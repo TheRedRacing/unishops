@@ -7,9 +7,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 
 import { Logsstatus } from "@/lib/statusBadge";
 import { CustomLink } from "@/components/ui/link";
-import { db } from "@/server/db";
-import { getServerAuthSession } from "@/server/auth";
 import TimeTable from "@/components/timeTable";
+import { getLogs } from "@/lib/apiCall";
 
 export const metadata: Metadata = {
     title: "Logs",
@@ -17,15 +16,7 @@ export const metadata: Metadata = {
 
 // server side
 export default async function Logs() {
-    const session = await getServerAuthSession();
-    const logs = await db.log.findMany({
-        where: {
-            userId: session?.user.id,
-        },
-        orderBy: {
-            createdAt: "desc",
-        },
-    });
+    const logs = await getLogs();
 
     const statuses = ["All Statuses", "Info", "Success", "Warning", "Error"];
     const lastDays = ["Last 3 days", "Last 7 days", "Last 15 days", "Last 30 days"];

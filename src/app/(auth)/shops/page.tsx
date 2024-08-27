@@ -8,9 +8,10 @@ import { PageLayout } from "@/components/layout/page";
 import { EmptyCard } from "@/components/ui/card";
 
 import { Shopsstatus } from "@/lib/statusBadge";
-import { getShops } from "@/lib/apiCall";
+
 import { CustomLink } from "@/components/ui/link";
 import TimeTable from "@/components/timeTable";
+import { getShops } from "@/lib/apiCall";
 
 export const metadata: Metadata = {
     title: "Shops",
@@ -18,12 +19,13 @@ export const metadata: Metadata = {
 
 // server side
 export default async function Shops() {   
+    
     const shops = await getShops();
 
     return (
         <PageLayout className="space-y-4">
             <div className="flex items-center justify-between">
-                <h1 className="text-3xl font-bold leading-8 text-black dark:text-white">Shop</h1>
+                <h1 className="text-3xl font-bold leading-8 text-black dark:text-white">Shops</h1>
                 {shops.length > 0 && <NewShops />}
             </div>
             <div>
