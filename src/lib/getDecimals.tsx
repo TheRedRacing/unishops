@@ -1,6 +1,6 @@
-const getDecimals = (amount: number | null) => {
-    if (!amount) return 0.0;
-    if (amount === 0) return 0.0;
+const getDecimals = (amount: number | undefined | null): string => {
+    if (!amount) return "0.00";
+    if (amount === 0) return "0.00";
     return (amount / 100).toFixed(2);
 };
 
