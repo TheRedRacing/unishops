@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { db } from "@/server/db";
 import { type Metadata } from "next";
 import { PageLayout } from "@/components/layout/page";
+import { getServerAuthSession } from "@/server/auth";
 
 export const metadata: Metadata = {
     title: "Settings",
@@ -13,7 +14,11 @@ export const metadata: Metadata = {
 // server side
 export default async function Settings() {
     const getUserWithRelations = async () => {
+        const session = await getServerAuthSession();
         const user = await db.user.findFirst({
+            where: {
+                id: session?.user.id,
+            },
             include: {
                 shops: true,
             },
@@ -32,7 +37,7 @@ export default async function Settings() {
         <PageLayout className="space-y-4">
             <div className="flex items-center justify-between">
                 <h1 className="text-3xl font-bold leading-8 text-black dark:text-white">Settings</h1>
-            </div>
+            </div>            
             <Tabs defaultValue="usage">
                 <TabsList>
                     <TabsTrigger value="usage">Usage</TabsTrigger>
@@ -79,7 +84,7 @@ export default async function Settings() {
                     <Card>
                         <CardHeader>
                             <div className="font-semibold">Products</div>
-                            <div className="text-sm text-zinc-600 dark:text-zinc-400">Limit products per store using Stripe API..</div>
+                            <div className="text-sm text-zinc-600 dark:text-zinc-400">Limit products per store using Stripe API.</div>
                         </CardHeader>
                         <CardContent>
                             <div className="flex flex-col gap-4">

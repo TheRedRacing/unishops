@@ -5,8 +5,8 @@ import { type UrlObject } from "url";
 import { type AnchorHTMLAttributes } from "react";
 
 const variantStyles = {
-    primary: "px-1.5 text-sm font-medium text-emerald-500 hover:text-emerald-600 dark:text-emerald-400 dark:hover:text-emerald-500 font-medium transition-colors duration-150 ease-in-out underline underline-offset-2 decoration-transparent hover:decoration-emerald-800",
-    primarysm: "text-xs text-emerald-500 hover:text-emerald-600 dark:text-emerald-400 dark:hover:text-emerald-500 font-medium text-sm transition-colors duration-150 ease-in-out underline underline-offset-2 decoration-transparent hover:decoration-emerald-800",
+    primary: "text-sm font-medium text-emerald-500 hover:text-emerald-600 dark:text-emerald-400 dark:hover:text-emerald-500 font-medium transition-colors duration-150 ease-in-out underline underline-offset-2 decoration-transparent hover:decoration-emerald-800",
+    primaryxs: "text-xs text-emerald-500 hover:text-emerald-600 dark:text-emerald-400 dark:hover:text-emerald-500 font-medium text-sm transition-colors duration-150 ease-in-out underline underline-offset-2 decoration-transparent hover:decoration-emerald-800",
 };
 
 type CustomLinkProps = {

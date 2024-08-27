@@ -43,7 +43,7 @@ export default function NewShops() {
         if (createShopIsPending) return;
         createShop({
             stripeSecret: values.stripeSecret,
-        });
+        });        
     }
 
     const [isNewShopOpen, setIsNewShopOpen] = useState(false);

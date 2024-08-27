@@ -1,4 +1,30 @@
-export const timeDifference = (current: number, previous: number) => {
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
+
+interface TimeTableProps {
+    time: Date;
+}
+export default function TimeTable({ time }: TimeTableProps) {
+    return (
+        <TooltipProvider>
+            <Tooltip>
+                <TooltipTrigger>
+                    <p>{timeDifference(Date.now(), time.getTime())}</p>
+                </TooltipTrigger>
+                <TooltipContent>
+                    <p>{displayTime(time.getTime())}</p>
+                </TooltipContent>
+            </Tooltip>
+        </TooltipProvider>
+
+    )
+}
+
+const timeDifference = (current: number, previous: number) => {
     const milliSecondsPerMinute = 60 * 1000;
     const milliSecondsPerHour = milliSecondsPerMinute * 60;
     const milliSecondsPerDay = milliSecondsPerHour * 24;
@@ -22,3 +48,9 @@ export const timeDifference = (current: number, previous: number) => {
         return Math.round(elapsed / milliSecondsPerYear) + (Math.round(elapsed / milliSecondsPerYear) > 1 ? " years ago" : " year ago");
     }
 };
+
+const displayTime = (time: number) => {
+    const date = new Date(time);
+    // i want to display the time in this format : 25 August 2024 - 13:33:00
+    return `${date.getDate()} ${date.toLocaleString('default', { month: 'long' })} ${date.getFullYear()} - ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+}

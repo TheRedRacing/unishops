@@ -13,6 +13,7 @@ import { ZodError } from "zod";
 
 import { getServerAuthSession } from "@/server/auth";
 import { db } from "@/server/db";
+import { type EnumLogStatus } from "@prisma/client";
 
 /**
  * 1. CONTEXT
@@ -84,7 +85,9 @@ export const createTRPCRouter = t.router;
  * guarantee that a user querying is authorized, but you can still access user session data if they
  * are logged in.
  */
-export const publicProcedure = t.procedure;
+export const publicProcedure = t.procedure.use(({ ctx, path, next }) => {
+    return next({ ctx: { ...ctx, path } });
+});
 
 /**
  * Protected (authenticated) procedure
@@ -94,13 +97,28 @@ export const publicProcedure = t.procedure;
  *
  * @see https://trpc.io/docs/procedures
  */
-export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
+export const protectedProcedure = publicProcedure.use(({ ctx, next }) => {
     if (!ctx.session || !ctx.session.user) {
         throw new TRPCError({ code: "UNAUTHORIZED" });
     }
+
+    const addLog = async (
+        message: string,
+        status: EnumLogStatus = "Info") => {
+        if (!ctx.session) throw new TRPCError({ code: "UNAUTHORIZED" });
+        return await ctx.db.log.create({
+            data: {
+                endpoint: ctx.path,
+                message,
+                status,
+                userId: ctx.session.user.id,
+            },
+        });
+    };
     return next({
         ctx: {
             // infers the `session` as non-nullable
+            addLog,
             session: { ...ctx.session, user: ctx.session.user },
         },
     });

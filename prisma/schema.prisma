@@ -46,8 +46,27 @@ model User {
     image         String?
     proAccount    Boolean   @default(false)
     shops         Shop[]
+    logs          Log[]
     accounts      Account[]
     sessions      Session[]
+}
+
+model Log {
+    id        String   @id @default(cuid())
+    endpoint  String
+    message   String    
+    status    EnumLogStatus @default(Info)
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+enum EnumLogStatus {
+    Info
+    Success
+    Warning
+    Error
 }
 
 model VerificationToken {

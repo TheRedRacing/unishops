@@ -1,48 +1,31 @@
+import { type Metadata } from "next";
 import Link from "next/link";
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { timeDifference } from "@/lib/timeDifference";
-import { db } from "@/server/db";
-import { getServerAuthSession } from "@/server/auth";
 import { DropdownTablesMenu } from "@/components/dropdown/tables";
 import NewShops from "@/components/forms/newForm";
-import { status } from "@/lib/statusBadge";
 import { PageLayout } from "@/components/layout/page";
-import { type Metadata } from "next";
 import { EmptyCard } from "@/components/ui/card";
+
+import { Shopsstatus } from "@/lib/statusBadge";
+
+import { CustomLink } from "@/components/ui/link";
+import TimeTable from "@/components/timeTable";
+import { getShops } from "@/lib/apiCall";
 
 export const metadata: Metadata = {
     title: "Shops",
 };
 
 // server side
-export default async function Shops() {
-    const session = await getServerAuthSession();
-    const getShops = async () => {
-        const user = await db.user.findFirst({
-            where: {
-                email: session?.user.email,
-            },
-            include: {
-                shops: true,
-            },
-        });
-
-        if (!user) {
-            throw new Error("User not found");
-        }
-
-        const shops = user.shops;
-        shops.sort((a, b) => Date.parse(b.createdAt.toISOString()) - Date.parse(a.createdAt.toISOString()));
-        return shops;
-    };
-
+export default async function Shops() {   
+    
     const shops = await getShops();
 
     return (
         <PageLayout className="space-y-4">
             <div className="flex items-center justify-between">
-                <h1 className="text-3xl font-bold leading-8 text-black dark:text-white">Shop</h1>
+                <h1 className="text-3xl font-bold leading-8 text-black dark:text-white">Shops</h1>
                 {shops.length > 0 && <NewShops />}
             </div>
             <div>
@@ -70,11 +53,11 @@ export default async function Shops() {
                                     <>
                                         <TableRow key={shop.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-900/40">
                                             <TableCell className="font-medium">
-                                                <Link href={`/shops/${shop.id}`}>{shop.name}</Link>
+                                                <CustomLink href={`/shops/${shop.id}`}>{shop.name}</CustomLink>
                                             </TableCell>
-                                            <TableCell>{status(shop.status)}</TableCell>
+                                            <TableCell>{Shopsstatus(shop.status)}</TableCell>
                                             <TableCell className="text-right">
-                                                <time dateTime={shop.createdAt.toISOString()}>{timeDifference(Date.now(), Date.parse(shop.createdAt.toISOString()))}</time>
+                                                <TimeTable time={shop.createdAt} />
                                             </TableCell>
                                             <TableCell className="text-center">
                                                 <DropdownTablesMenu shopId={shop.id} shopName={shop.name} />
