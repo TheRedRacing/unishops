@@ -30,4 +30,17 @@ const Logsstatus = (status: string) => {
     }
 };
 
-export { Logsstatus, Shopsstatus };
+const OrdersStatus = (status: string) => {
+    switch (status) {
+        case "pending":
+            return <Badge variant={"warning"}>{status}</Badge>;
+        case "succeeded":
+            return <Badge variant={"success"}>{status}</Badge>;
+        case "failed":
+            return <Badge variant={"destructive"}>{status}</Badge>;
+        default:
+            return <Badge>{status}</Badge>;
+    }
+};
+
+export { Logsstatus, Shopsstatus, OrdersStatus };

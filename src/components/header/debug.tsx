@@ -36,13 +36,18 @@ export default async function Debug() {
         const shop = await getUniShops();
         if (shop) {
             const stripe = new Stripe(shop.stripeSecret);
-            const orders = await stripe.balanceTransactions.list();
+            const orders = await stripe.charges.list();
+            const balanceTransactions = await stripe.balanceTransactions.list();
             const balance = await stripe.balance.retrieve();
             return (
                 <>
                     <div className="flex flex-col">
-                        <div className="rounded-t-lg bg-zinc-900/40 p-4 font-bold">Stripe</div>
+                        <div className="rounded-t-lg bg-zinc-900/40 p-4 font-bold">Stripe orders</div>
                         <pre className="whitespace-pre-wrap break-all rounded-b-lg bg-zinc-900/20 px-4 py-6">{JSON.stringify(orders, null, 2)}</pre>
+                    </div>
+                    <div className="flex flex-col">
+                        <div className="rounded-t-lg bg-zinc-900/40 p-4 font-bold">Stripe balanceTransactions</div>
+                        <pre className="whitespace-pre-wrap break-all rounded-b-lg bg-zinc-900/20 px-4 py-6">{JSON.stringify(balanceTransactions, null, 2)}</pre>
                     </div>
                     <div className="flex flex-col">
                         <div className="rounded-t-lg bg-zinc-900/40 p-4 font-bold">UniShops</div>

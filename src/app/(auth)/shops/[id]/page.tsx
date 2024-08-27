@@ -12,6 +12,9 @@ import { Button } from "@/components/ui/button";
 
 import { getOneShop } from "@/lib/apiCall";
 import getDecimals from "@/lib/getDecimals";
+import TimeTable from "@/components/timeTable";
+import { CustomLink } from "@/components/ui/link";
+import { OrdersStatus } from "@/lib/statusBadge";
 
 type Props = {
     params: {
@@ -39,8 +42,12 @@ export default async function ShopDetail({ params }: { params: { id: string } })
     }
 
     const stripe = new Stripe(shop.stripeSecret);
-    const orders = await stripe.balanceTransactions.list();
+    // to overview section
+    const orders = await stripe.charges.list();
     const balance = await stripe.balance.retrieve();
+
+    // to balance section
+    const balanceTransactions = await stripe.balanceTransactions.list();
 
     return (
         <PageLayout className="space-y-4">
@@ -100,24 +107,79 @@ export default async function ShopDetail({ params }: { params: { id: string } })
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>Product</TableHead>
-                                <TableHead>Status</TableHead>
-                                <TableHead>Description</TableHead>
+                                <TableHead>ID</TableHead>
+                                <TableHead>Status</TableHead> {/* succeeded, pending, failed */}
                                 <TableHead>Amount</TableHead>
-                                <TableHead className="text-right">Created</TableHead>
+                                <TableHead className="text-right">Date</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {orders.data.map((order) => (
+                            {orders.data.slice(0,5).map((order) => (
                                 <TableRow key={order.id} className="hover:bg-black/ dark:hover:bg-white/1 text-xs">
-
+                                    <TableCell>
+                                        <CustomLink href={`/shops/${shop.id}/orders/${order.id}`}>{order.id}</CustomLink>
+                                    </TableCell>
+                                    <TableCell>{OrdersStatus(order.status)}</TableCell>
+                                    <TableCell>{`${getDecimals(order.amount)} ${order.currency.toUpperCase()}`}</TableCell>
+                                    <TableCell className="text-right">
+                                        <TimeTable time={new Date(order.created * 1000)} />
+                                    </TableCell>
+                                </TableRow>
+                            ))}                            
+                        </TableBody>
+                    </Table>
+                    <div className="text-xs text-zinc-600 dark:text-zinc-400">Orders {orders.data.slice(0, 5).length} of {orders.data.length}</div>                    
+                </TabsContent>
+                <TabsContent value="balance">
+                    <div className="grid grid-cols-2 w-full gap-4">
+                        <Card>
+                            <CardContent className="space-y-1">
+                                <CardDescription>Balance available</CardDescription>
+                                <CardTitle>
+                                    {getDecimals(balance.available[0]?.amount)}{" "}
+                                    <span className="text-sm font-normal tracking-normal uppercase text-zinc-600 dark:text-zinc-400">
+                                        {shop.currency}
+                                    </span>
+                                </CardTitle>
+                            </CardContent>
+                        </Card>
+                        <Card>
+                            <CardContent className="space-y-1">
+                                <CardDescription>Balance pending</CardDescription>
+                                <CardTitle>
+                                    {getDecimals(balance.pending[0]?.amount)}{" "}
+                                    <span className="text-sm font-normal tracking-normal uppercase text-zinc-600 dark:text-zinc-400">
+                                        {shop.currency}
+                                    </span>
+                                </CardTitle>
+                            </CardContent>
+                        </Card>
+                    </div>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>ID</TableHead>
+                                <TableHead>Status</TableHead> {/* succeeded, pending, failed */}
+                                <TableHead>Amount</TableHead>
+                                <TableHead className="text-right">Date</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {balanceTransactions.data.slice(0, 5).map((order) => (
+                                <TableRow key={order.id} className="hover:bg-black/ dark:hover:bg-white/1 text-xs">
+                                    <TableCell>
+                                        <CustomLink href={`/shops/${shop.id}/orders/${order.id}`}>{order.id}</CustomLink>
+                                    </TableCell>
+                                    <TableCell>{OrdersStatus(order.status)}</TableCell>
+                                    <TableCell>{`${getDecimals(order.net)} ${order.currency.toUpperCase()}`}</TableCell>
+                                    <TableCell className="text-right">
+                                        <TimeTable time={new Date(order.created * 1000)} />
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
                     </Table>
-                </TabsContent>
-                <TabsContent value="balance">
-                    <EmptyCard />
+                    <div className="text-xs text-zinc-600 dark:text-zinc-400">Orders {balanceTransactions.data.slice(0, 5).length} of {balanceTransactions.data.length}</div>
                 </TabsContent>
                 <TabsContent value="products">
                     <EmptyCard />
