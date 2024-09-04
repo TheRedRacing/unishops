@@ -51,6 +51,13 @@ const timeDifference = (current: number, previous: number) => {
 
 const displayTime = (time: number) => {
     const date = new Date(time);
-    // i want to display the time in this format : 25 August 2024 - 13:33:00
-    return `${date.getDate()} ${date.toLocaleString('default', { month: 'long' })} ${date.getFullYear()} - ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+    const year = date.getFullYear();
+    const month = date.getMonth() < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
+    const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+
+    const hours = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
+    const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
+    const seconds = date.getSeconds() < 10 ? `0${date.getSeconds()}` : date.getSeconds();
+    
+    return `${day}.${month}.${year} ${hours}:${minutes}:${seconds}`;
 }
