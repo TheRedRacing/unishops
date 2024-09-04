@@ -17,6 +17,12 @@ CardDescription.displayName = "CardDescription";
 const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => <div ref={ref} className={cn("p-4 space-y-4", className)} {...props} />);
 CardContent.displayName = "CardContent";
 
+const CardContentSep = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => <div ref={ref} className={cn("divide-y divide-zinc-900/20 dark:divide-white/20", className)} {...props} />);
+CardContentSep.displayName = "CardContentSep";
+
+const CardContentSepItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => <div ref={ref} className={cn("p-4 flex justify-between items-center", className)} {...props} />);
+CardContentSepItem.displayName = "CardContentSepItem";
+
 const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => <div ref={ref} className={cn("border-t border-zinc-900/20 p-4 dark:border-white/20", className)} {...props} />);
 CardFooter.displayName = "CardFooter";
 
@@ -30,4 +36,4 @@ const EmptyCard = React.forwardRef<HTMLDivElement, EmptyCardProps>(({ children, 
 ));
 EmptyCard.displayName = "EmptyCard";
 
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent, EmptyCard };
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent, CardContentSep, CardContentSepItem, EmptyCard };
