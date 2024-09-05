@@ -6,17 +6,19 @@ import {
 } from "@/components/ui/tooltip"
 
 interface TimeTableProps {
-    time: Date;
+    time: number | Date;
 }
 export default function TimeTable({ time }: TimeTableProps) {
+    const newTime = typeof time === "number" ? new Date(time * 1000) : time;
+
     return (
         <TooltipProvider>
             <Tooltip>
                 <TooltipTrigger>
-                    <p>{timeDifference(Date.now(), time.getTime())}</p>
+                    <p>{timeDifference(Date.now(), newTime.getTime())}</p>
                 </TooltipTrigger>
                 <TooltipContent>
-                    <p>{displayTime(time.getTime())}</p>
+                    <p>{displayTime(newTime.getTime())}</p>
                 </TooltipContent>
             </Tooltip>
         </TooltipProvider>

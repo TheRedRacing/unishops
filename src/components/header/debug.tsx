@@ -36,33 +36,35 @@ export default async function Debug() {
         const shop = await getUniShops();
         if (shop) {
             const stripe = new Stripe(shop.stripeSecret);
-            const orders = await stripe.charges.list();
-            const balanceTransactions = await stripe.balanceTransactions.list();
-            const balance = await stripe.balance.retrieve();
+            const paymentIntents = await stripe.paymentIntents.list({
+                limit: 100,
+            });
+
+            const display = [
+                {
+                    name: "Orders",
+                    data: paymentIntents.data
+                }
+            ]
+
             return (
                 <>
-                    <div className="flex flex-col">
-                        <div className="rounded-t-lg bg-zinc-900/40 p-4 font-bold">Stripe orders</div>
-                        <pre className="whitespace-pre-wrap break-all rounded-b-lg bg-zinc-900/20 px-4 py-6">{JSON.stringify(orders, null, 2)}</pre>
-                    </div>
-                    <div className="flex flex-col">
-                        <div className="rounded-t-lg bg-zinc-900/40 p-4 font-bold">Stripe balanceTransactions</div>
-                        <pre className="whitespace-pre-wrap break-all rounded-b-lg bg-zinc-900/20 px-4 py-6">{JSON.stringify(balanceTransactions, null, 2)}</pre>
-                    </div>
-                    <div className="flex flex-col">
-                        <div className="rounded-t-lg bg-zinc-900/40 p-4 font-bold">UniShops</div>
-                        <pre className="whitespace-pre-wrap break-all rounded-b-lg bg-zinc-900/20 px-4 py-6">{JSON.stringify(shop, null, 2)}</pre>
-                    </div>
+                    {display.map((item, index) => (
+                        <div key={index} className="flex flex-col">
+                            <div className="rounded-t-lg bg-zinc-900/40 p-4 font-bold">Stripe {item.name}</div>
+                            <pre className="whitespace-pre-wrap break-all rounded-b-lg bg-zinc-900/20 px-4 py-6">{JSON.stringify(item.data, null, 2)}</pre>
+                        </div>
+                    ))}
                 </>
             )
         } else {
             return (
                 <div className="flex flex-col">
-                    <div className="rounded-t-lg bg-zinc-900/40 p-4 font-bold">debugUniShops() not found</div>                    
+                    <div className="rounded-t-lg bg-zinc-900/40 p-4 font-bold">debugUniShops() not found</div>
                 </div>
             );
-        }        
-        
+        }
+
     }
 
     return (
@@ -76,7 +78,7 @@ export default async function Debug() {
             </SheetTrigger>
             <SheetContent className="w-[600px] max-h-screen overflow-y-scroll">
                 <SheetDescription className="space-y-4">
-                    {debugUniShops()}                    
+                    {debugUniShops()}
                     <div className="flex flex-col">
                         <div className="rounded-t-lg bg-zinc-900/40 p-4 font-bold">Current Session</div>
                         <pre className="whitespace-pre-wrap break-all rounded-b-lg bg-zinc-900/20 px-4 py-6">{JSON.stringify(user, null, 2)}</pre>

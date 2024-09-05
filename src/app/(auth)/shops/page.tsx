@@ -1,16 +1,14 @@
 import { type Metadata } from "next";
-import Link from "next/link";
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { DropdownTablesMenu } from "@/components/dropdown/tables";
 import NewShops from "@/components/forms/newForm";
 import { PageLayout } from "@/components/layout/page";
 import { EmptyCard } from "@/components/ui/card";
-
-import { Shopsstatus } from "@/lib/statusBadge";
-
 import { CustomLink } from "@/components/ui/link";
 import TimeTable from "@/components/timeTable";
+
+import { Shopsstatus } from "@/lib/statusBadge";
 import { getShops } from "@/lib/apiCall";
 
 export const metadata: Metadata = {
@@ -51,9 +49,9 @@ export default async function Shops() {
                             <TableBody>
                                 {shops.map((shop) => (
                                     <>
-                                        <TableRow key={shop.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-900/40">
+                                        <TableRow key={shop.id} className="hover:bg-zinc-50/50 dark:hover:bg-zinc-900/50">
                                             <TableCell className="font-medium">
-                                                <CustomLink href={`/shops/${shop.id}`}>{shop.name}</CustomLink>
+                                                <CustomLink href={`/shops/${shop.slug}`}>{shop.name}</CustomLink>
                                             </TableCell>
                                             <TableCell>{Shopsstatus(shop.status)}</TableCell>
                                             <TableCell className="text-right">

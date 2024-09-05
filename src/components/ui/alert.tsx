@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const alertVariants = cva(
-  "relative w-full rounded-lg ring-1 ring-inset p-4",
+  "relative w-full rounded-lg ring-1 ring-inset",
   {
     variants: {
       variant: {
@@ -14,9 +14,15 @@ const alertVariants = cva(
         warning: "bg-yellow-100 text-yellow-700 ring-yellow-500/10 dark:bg-yellow-500/10 dark:text-yellow-400 dark:ring-yellow-400/20",
         destructive: "bg-red-100 text-red-700 ring-red-500/10 dark:bg-red-500/10 dark:text-red-400 dark:ring-red-400/20",
       },
+      size: {
+        default: "py-3 px-4 text-sm",
+        md: "py-4 px-5 text-base",
+        lg: "py-5 px-6 text-lg",
+      },
     },
     defaultVariants: {
       variant: "default",
+      size: "default",
     },
   }
 )

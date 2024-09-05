@@ -32,15 +32,49 @@ const Logsstatus = (status: string) => {
 
 const OrdersStatus = (status: string) => {
     switch (status) {
+        // Success: ce qui a fonctionné
+        case "charge":
+        case "payment":
+        case "payout":
+        case "transfer":
+        case "topup":
+            return <Badge className="capitalize" variant={"success"}>{status}</Badge>;
+
+        // Warning: ce qui requiert l'attention
         case "pending":
-            return <Badge variant={"warning"}>{status}</Badge>;
-        case "succeeded":
-            return <Badge variant={"success"}>{status}</Badge>;
+        case "advance":
+        case "connect_collection_transfer":
+        case "obligation_outbound":
+        case "payment_network_reserve_hold":
+        case "reserved_funds":
+            return <Badge className="capitalize" variant={"warning"}>{status}</Badge>;
+
+        // Destructive: ce qui a été remboursé, annulé, ou en erreur
         case "failed":
-            return <Badge variant={"destructive"}>{status}</Badge>;
+        case "refund":
+        case "refund_failure":
+        case "payment_refund":
+        case "payment_failure_refund":
+        case "payout_cancel":
+        case "payout_failure":
+        case "transfer_cancel":
+        case "transfer_failure":
+        case "transfer_refund":
+        case "topup_reversal":
+        case "advance_funding":
+        case "anticipation_repayment":
+        case "application_fee_refund":
+        case "climate_order_refund":
+        case "issuing_dispute":
+        case "payment_reversal":
+        case "obligation_reversal_inbound":
+            return <Badge className="capitalize" variant={"destructive"}>{status}</Badge>;
+
+        // Default: pour les autres transactions
         default:
-            return <Badge>{status}</Badge>;
+            return <Badge className="capitalize">{status}</Badge>;
     }
 };
+
 
 export { Logsstatus, Shopsstatus, OrdersStatus };

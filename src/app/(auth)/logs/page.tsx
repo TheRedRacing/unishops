@@ -83,8 +83,7 @@ export default async function Logs() {
                                     </>
                                 ))}
                             </TableBody>
-                        </Table>
-                        <div className="text-xs text-zinc-600 dark:text-zinc-400">Page 1 of 1</div>
+                        </Table>                        
                     </>
                 )}
             </div>
