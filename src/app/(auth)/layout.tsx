@@ -87,9 +87,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
                     <LayoutHeader pro={user.proAccount} />
                     <nav className="hidden justify-between lg:mt-10 lg:flex lg:flex-1 lg:flex-col">
                         <ul className="flex flex-col gap-2">
-                            {nav.map((item) => (
+                            {nav.map((item, itemIDX) => (
                                 <li key={item.title}>
-                                    <NavItem href={item.href}>
+                                    <NavItem href={item.href} exact={itemIDX === 0}>
                                         <item.icon className="h-5 w-5" />
                                         {item.title}
                                         {typeof item.count !== "undefined" && item.count !== null && item.count !== 0 && (
@@ -115,7 +115,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
                                 <>
                                     {shops.slice(0, 5).map((shop, shopIDX) => (
                                         <li key={shopIDX}>
-                                            <NavItem href={`/shops/${shop.id}`}>
+                                            <NavItem href={`/shops/${shop.slug}`}>
                                                 <div className="flex flex-1 items-center justify-between gap-2">
                                                     {shop.name}
                                                     <div>
@@ -140,7 +140,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
                     </nav>
                 </div>
             </div>
-            <div className="relative flex h-full flex-1 flex-col px-4 pt-14 sm:px-6 lg:ml-72 lg:px-8 xl:ml-80">
+            <div className="relative flex h-full flex-1 flex-col pt-14 lg:ml-72 xl:ml-80">
                 <HeroPattern />
                 <ScrollArea className="flex-1">
                     <div className="flex-auto">{children}</div>
