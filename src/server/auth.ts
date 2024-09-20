@@ -21,16 +21,16 @@ declare module "next-auth" {
             name: string;
             email: string;
             image: string;
-            proAccount: boolean;
+            pro: boolean;
             // ...other properties
             // role: UserRole;
         } & DefaultSession["user"];
     }
 
-    // interface User {
-    //   // ...other properties
-    //   // role: UserRole;
-    // }
+    interface User {
+        id: string;
+        pro: boolean;        
+    }
 }
 
 /**
@@ -45,6 +45,7 @@ export const authOptions: NextAuthOptions = {
             user: {
                 ...session.user,
                 id: user.id,
+                pro: user.pro,     
             },
         }),
         async redirect({ url, baseUrl }) {

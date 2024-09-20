@@ -41,10 +41,10 @@ export default async function Orders() {
                                 <TableRow>
                                     <TableHead>ID</TableHead>
                                     <TableHead>Shops</TableHead>
-                                    <TableHead>Product</TableHead>
-                                    <TableHead>Price</TableHead>
+                                    <TableHead>Items</TableHead>
                                     <TableHead>Status</TableHead>
-                                    <TableHead className="text-right">Date</TableHead>
+                                    <TableHead>Price</TableHead>
+                                    <TableHead className="text-right">Date</TableHead>                                    
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -57,9 +57,9 @@ export default async function Orders() {
                                             <TableCell>
                                                 <CustomLink href={`/shops/unishops`}>UniShops</CustomLink>
                                             </TableCell>
-                                            <TableCell>{order.product.name}</TableCell>
+                                            <TableCell>{order.products.length}</TableCell>
                                             <TableCell>{OrdersStatus(order.status)}</TableCell>
-                                            <TableCell>{`${getDecimals(order.price)} ${"chf".toUpperCase()}`}</TableCell>
+                                            <TableCell>{getDecimals(order.price)} {"chf".toUpperCase()}</TableCell>
                                             <TableCell className="text-right">
                                                 <TimeTable time={order.date} />
                                             </TableCell>

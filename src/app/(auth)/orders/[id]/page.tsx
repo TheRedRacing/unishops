@@ -1,16 +1,17 @@
 import React from "react";
 import { redirect } from "next/navigation";
 
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { PageLayout } from "@/components/layout/page";
+import TimeTable from "@/components/timeTable";
 
 import { OrdersStatus } from "@/lib/statusBadge";
 import { type Metadata } from "next";
-import { Card, CardContent } from "@/components/ui/card";
-import TimeTable from "@/components/timeTable";
 import { generateOneFakeOrder } from "@/lib/apiCall";
 import getDecimals from "@/lib/getDecimals";
+import { CustomLink } from "@/components/ui/link";
 
 export const metadata: Metadata = {
     title: "Orders",
@@ -48,14 +49,43 @@ export default async function OrderDetail({ params }: { params: { id: string } }
                     {OrdersStatus(order.status)}
                 </div>
                 <div className="flex flex-col gap-2 col-span-2">
-                    <Label>Product</Label>
-                    <Card>
-                        <CardContent className="bg-black/50">                            
-                            <p className="text-sm text-gray-600 dark:text-zinc-400">{order.product.name}</p>
-                            <p className="text-sm text-gray-600 dark:text-zinc-400">{order.product.description}</p>
-                            <p className="text-sm text-gray-600 dark:text-zinc-400">{getDecimals(order.product.price)} {"chf".toUpperCase()}</p>
-                        </CardContent>
-                    </Card>
+                    <Label>Products</Label>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>ID</TableHead>                                
+                                <TableHead>Name</TableHead> 
+                                <TableHead>Description</TableHead>
+                                <TableHead>Quantity</TableHead>
+                                <TableHead>Price</TableHead>
+                                <TableHead>Total</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {order.products.map((product) => (
+                                <>
+                                    <TableRow key={product.id} className="hover:bg-zinc-50/50 dark:hover:bg-zinc-900/50">
+                                        <TableCell className="font-medium">
+                                            <CustomLink href={`/orders/${order.id}`}>{product.id}</CustomLink>
+                                        </TableCell>                                        
+                                        <TableCell>{product.name}</TableCell>                                        
+                                        <TableCell>{product.description}</TableCell>
+                                        <TableCell>{product.quantity}</TableCell>                                      
+                                        <TableCell>{getDecimals(product.price)} {"chf".toUpperCase()}</TableCell>
+                                        <TableCell>{getDecimals(product.price * product.quantity)} {"chf".toUpperCase()}</TableCell>                                     
+                                    </TableRow>
+                                </>
+                            ))}
+                            <TableRow className="hover:bg-zinc-50/50 dark:hover:bg-zinc-900/50">
+                                <TableCell>Total</TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell>{getDecimals(order.price)} {"chf".toUpperCase()}</TableCell>                                
+                            </TableRow>
+                        </TableBody>
+                    </Table>
                 </div>
             </div>
             

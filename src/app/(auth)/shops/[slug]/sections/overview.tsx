@@ -66,9 +66,9 @@ async function OverviewTabsSection({ shop }: { shop: Shop }) {
                 <TableHeader>
                     <TableRow>
                         <TableHead>ID</TableHead>
-                        <TableHead>Product</TableHead>
+                        <TableHead>Items</TableHead>
+                        <TableHead>Status</TableHead>
                         <TableHead>Price</TableHead>
-                        <TableHead>Status</TableHead> {/* charge, pending, failed */}
                         <TableHead className="text-right">Date</TableHead>
                     </TableRow>
                 </TableHeader>
@@ -78,9 +78,9 @@ async function OverviewTabsSection({ shop }: { shop: Shop }) {
                             <TableCell>
                                 <CustomLink href={`/orders/${order.id}`}>{order.id}</CustomLink>
                             </TableCell>
-                            <TableCell>{order.product.name}</TableCell>
-                            <TableCell>{`${getDecimals(order.price)} ${"chf".toUpperCase()}`}</TableCell>
+                            <TableCell>{order.products.length}</TableCell>
                             <TableCell>{OrdersStatus(order.status)}</TableCell>
+                            <TableCell>{getDecimals(order.price)} {"chf".toUpperCase()}</TableCell>
                             <TableCell className="text-right">
                                 <TimeTable time={order.date} />
                             </TableCell>

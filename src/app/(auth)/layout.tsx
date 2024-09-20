@@ -10,35 +10,18 @@ import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/c
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { db } from "@/server/db";
 import { LayoutHeader } from "@/components/layout/header";
 import { AppFooter } from "@/components/footer/appFooter";
 import { HeroPattern } from "@/components/HeroPattern";
+import { getShops } from "@/lib/apiCall";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
     const session = await getServerAuthSession();
     if (!session) {
         redirect("/login");
-    }
+    }    
 
-    const getShops = async () => {
-        const user = await db.user.findFirst({
-            where: {
-                email: session?.user.email,
-            },
-            include: {
-                shops: true,
-            },
-        });
-
-        if (!user) {
-            throw new Error("User not found");
-        }
-
-        return user;
-    };
-    const user = await getShops();
-    const shops = user.shops;
+    const shops = await getShops();
     shops.sort((a, b) => Date.parse(b.createdAt.toISOString()) - Date.parse(a.createdAt.toISOString()));
 
     const nav = [
@@ -82,9 +65,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
             <div className="contents lg:pointer-events-none lg:fixed lg:inset-0 lg:z-40 lg:flex">
                 <div className="contents lg:pointer-events-auto lg:flex lg:w-72 lg:flex-col lg:overflow-y-auto lg:border-r lg:border-zinc-900/10 lg:px-6 lg:pb-8 lg:pt-4 lg:dark:border-white/10 xl:w-80">
                     <div className="hidden lg:flex">
-                        <Logo pro={user.proAccount} />
+                        <Logo pro={session.user.pro} />
                     </div>
-                    <LayoutHeader pro={user.proAccount} />
+                    <LayoutHeader pro={session.user.pro} />
                     <nav className="hidden justify-between lg:mt-10 lg:flex lg:flex-1 lg:flex-col">
                         <ul className="flex flex-col gap-2">
                             {nav.map((item, itemIDX) => (
@@ -128,7 +111,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
                                 </>
                             )}
                         </ul>
-                        {!user.proAccount && (
+                        {!session.user.pro && (
                             <Card>
                                 <CardContent>
                                     <CardTitle>Upgrade to Pro</CardTitle>

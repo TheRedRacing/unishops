@@ -31,7 +31,7 @@ export default function NewShops() {
     const { mutate: createShop, isPending: createShopIsPending } = api.shops.create.useMutation({
         onSuccess: (data) => {
             toast.success(`Shop ${data.name} created successfully`);
-            router.push(`/shops/${data.id}`);
+            router.push(`/shops/${data.slug}`);
             router.refresh();
         },
         onError: (error) => {

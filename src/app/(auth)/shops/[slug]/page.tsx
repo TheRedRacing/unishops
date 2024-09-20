@@ -53,7 +53,7 @@ export default async function ShopDetail({ params }: { params: { slug: string } 
                     <ChangeStatusForm shopId={shop.id} shopStatus={shop.status} />
                 </div>
             </div>
-            <Tabs defaultValue="overview">
+            <Tabs defaultValue="products">
                 <TabsList>
                     <TabsTrigger value="overview">Overview</TabsTrigger>
                     <TabsTrigger value="products">Products</TabsTrigger>
